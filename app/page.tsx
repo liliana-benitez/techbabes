@@ -13,7 +13,7 @@ export default function Home() {
     if (typeof window !== "undefined") {
       return window.location.hostname === "localhost"
         ? "http://localhost:3000"
-        : "https://www.tech-babes.vercel.app"
+        : "https://tech-babes.vercel.app"
     }
   }
 
