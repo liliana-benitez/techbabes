@@ -45,15 +45,14 @@ export default function Navigation() {
   }, [pathname])
 
   const items: NavItem[] = [
-    { id: 1, content: "Home", url: "/" },
-    { id: 2, content: "Shop", url: "/about" },
+    { id: 1, content: "Shop", url: "/shop" },
     {
-      id: 3,
+      id: 2,
       content: "About",
       url: "/about"
     },
 
-    { id: 4, content: "Blog", url: "/blog" },
+    { id: 3, content: "Blog", url: "/blog" },
     {
       id: 5,
       content: "Contact",
@@ -62,7 +61,7 @@ export default function Navigation() {
   ]
 
   return (
-    <div>
+    <div className="border-b-1">
       <div className="flex justify-between items-center px-10 py-3">
         <Link href={"/"}>
           <Image src={logo} alt="itsYamiG logo" height={50} width={50} />

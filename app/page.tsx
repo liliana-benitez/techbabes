@@ -1,8 +1,33 @@
+"use client"
+
 import Link from "next/link"
 import hero from "../public/hero.jpg"
 import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react"
+import ProductCard from "@/components/productCard"
 
 export default function Home() {
+  const [products, setProducts] = useState([])
+
+  interface ProductType {
+    id: number
+    title: string
+    description: string
+    price: number
+    imageUrl: string
+    link: string
+  }
+
+  useEffect(() => {
+    async function getProducts() {
+      const response = await fetch("http://localhost:3000/api/products")
+      const data = await response.json()
+      setProducts(data)
+    }
+
+    getProducts()
+  }, [])
+
   return (
     <div>
       {/* HERO */}
@@ -24,6 +49,22 @@ export default function Home() {
             SHOP NOW
           </Button>
         </Link>
+      </div>
+
+      {/* PRODUCTS */}
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 place-items-center">
+        {products.map((product: ProductType) => (
+          <div key={product.id}>
+            <ProductCard
+              name={product.title}
+              link={product.imageUrl}
+              image={product.imageUrl}
+              price={product.price}
+              category="something"
+            />
+          </div>
+        ))}
       </div>
     </div>
   )
