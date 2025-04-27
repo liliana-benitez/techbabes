@@ -9,6 +9,14 @@ import ProductCard from "@/components/productCard"
 export default function Home() {
   const [products, setProducts] = useState([])
 
+  const getBaseUrl = () => {
+    if (typeof window !== "undefined") {
+      return window.location.hostname === "localhost"
+        ? "http://localhost:3000"
+        : "https://www.tech-babes.vercel.app"
+    }
+  }
+
   interface ProductType {
     id: number
     title: string
@@ -20,7 +28,7 @@ export default function Home() {
 
   useEffect(() => {
     async function getProducts() {
-      const response = await fetch("http://localhost:3000/api/products")
+      const response = await fetch(`${getBaseUrl()}/api/products`)
       const data = await response.json()
       setProducts(data)
     }
