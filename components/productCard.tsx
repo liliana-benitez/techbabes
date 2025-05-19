@@ -6,8 +6,8 @@ import Image from "next/image"
 type productCardProps = {
   name: string
   link: string
-  image: string
-  price: number
+  image: string | undefined
+  price: string
   category: string
 }
 
@@ -19,7 +19,7 @@ export default function ProductCard({
   category
 }: productCardProps) {
   return (
-    <div className="w-[300px] group relative space-y-4">
+    <div className="w-[200px] group relative space-y-4">
       <figure className="group-hover:opacity-90">
         <Image
           className="w-full rounded-lg aspect-square"

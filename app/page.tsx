@@ -40,7 +40,7 @@ export default function Home() {
     <div>
       {/* HERO */}
       <div
-        className="bg-cover bg-bottom h-[90vh] flex flex-col items-center justify-center gap-20"
+        className="bg-cover bg-bottom h-[85vh] flex flex-col items-center justify-center gap-20"
         style={{
           backgroundImage: `url(${hero.src})`,
           backgroundPosition: "50% 15%"
@@ -68,7 +68,7 @@ export default function Home() {
               name={product.title}
               link={product.imageUrl}
               image={product.imageUrl}
-              price={product.price}
+              price={product.price.toString()}
               category="something"
             />
           </div>

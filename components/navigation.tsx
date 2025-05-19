@@ -64,7 +64,7 @@ export default function Navigation() {
     <div className="border-b-1">
       <div className="flex justify-between items-center px-10 py-3">
         <Link href={"/"}>
-          <Image src={logo} alt="itsYamiG logo" height={50} width={50} />
+          <Image src={logo} alt="itsYamiG logo" height={70} width={70} />
         </Link>
 
         {/* DESKTOP NAV */}

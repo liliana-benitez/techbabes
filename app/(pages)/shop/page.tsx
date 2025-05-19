@@ -1,6 +1,6 @@
-// app/page.tsx
+import ProductCard from "@/components/productCard"
 import { fetchProductsREST } from "@/lib/shopify"
-import Image from "next/image"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 type ShopifyProduct = {
   id: number
@@ -82,25 +82,23 @@ export default async function Page() {
   const products: ShopifyProduct[] = await fetchProductsREST()
 
   return (
-    <main className="h-screen flex flex-col items-center justify-center bg-white text-black">
+    <main className="h-screen flex flex-col items-center justify-center bg-white text-black mt-10">
       {/* <h1>Products</h1> */}
-      <ul className="grid grid-cols-3 gap-4">
-        {products.map((p: ShopifyProduct) => (
-          <li key={p.id}>
-            <div className="flex flex-col items-center justify-center">
-              {p.image && (
-                <Image
-                  src={p.image.src}
-                  alt={p.title}
-                  width={300}
-                  height={300}
-                />
-              )}
-              <h2 className="text-center">{p.title}</h2>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <ScrollArea className="h-[85vh]">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+          {products.map((p: ShopifyProduct) => (
+            <li key={p.id}>
+              <ProductCard
+                name={p.title}
+                link=""
+                image={p.image?.src}
+                price={p.variants[0].price}
+                category="Category"
+              />
+            </li>
+          ))}
+        </ul>
+      </ScrollArea>
     </main>
   )
 }
