@@ -8,22 +8,20 @@ type productCardProps = {
   link: string
   image: string | undefined
   price: string
-  category: string
 }
 
 export default function ProductCard({
   name,
   link,
   image,
-  price,
-  category
+  price
 }: productCardProps) {
   return (
     <div className="w-[200px] group relative space-y-4">
       <figure className="group-hover:opacity-90">
         <Image
           className="w-full rounded-lg aspect-square"
-          src={image}
+          src={image!}
           width={300}
           height={500}
           alt={name}
@@ -37,7 +35,6 @@ export default function ProductCard({
               {name}
             </Link>
           </h3>
-          <p className="text-sm text-muted-foreground">{category}</p>
         </div>
         <p className="text-lg font-semibold">{price}</p>
       </div>

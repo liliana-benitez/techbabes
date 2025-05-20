@@ -52,7 +52,7 @@ export default function Home() {
         {/* <h2 className="text-white px-10 font-semibold text-xl text-shadow-md text-center">
           Empowering Women in Tech, One Product at a Time
         </h2> */}
-        <Link href="/what-we-do">
+        <Link href="/shop">
           <Button className="bg-[#F1D3DA] text-[#BD5F77] text-3xl font-light px-4 py-2 h-16 w-52">
             SHOP NOW
           </Button>
@@ -69,7 +69,6 @@ export default function Home() {
               link={product.imageUrl}
               image={product.imageUrl}
               price={product.price.toString()}
-              category="something"
             />
           </div>
         ))}
