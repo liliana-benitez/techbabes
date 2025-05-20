@@ -1,7 +1,7 @@
 import ProductCard from "@/components/productCard"
 import { fetchProductsREST } from "@/lib/shopify"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import Link from "next/link"
+// import Link from "next/link"
 
 type ShopifyProduct = {
   id: number
@@ -89,14 +89,14 @@ export default async function Page() {
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
           {products.map((p: ShopifyProduct) => (
             <li key={p.id}>
-              <Link href={`/shop/${p.id}`}>
-                <ProductCard
-                  name={p.title}
-                  link=""
-                  image={p.image?.src}
-                  price={p.variants[0].price}
-                />
-              </Link>
+              {/* <Link href={`/shop/${p.id}`}> */}
+              <ProductCard
+                name={p.title}
+                link=""
+                image={p.image?.src}
+                price={p.variants[0].price}
+              />
+              {/* </Link> */}
             </li>
           ))}
         </ul>
