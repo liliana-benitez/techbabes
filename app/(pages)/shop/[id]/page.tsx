@@ -1,14 +1,15 @@
 import { fetchProductByIdREST } from "@/lib/shopify"
 import Image from "next/image"
 
-type Props = {
-  params: {
-    id: string
-  }
-}
+type PageProps = Promise<{
+  // params: {
+  id: string
+  // }
+}>
 
-export default async function ProductPage({ params }: Props) {
-  const product = await fetchProductByIdREST(params.id)
+export default async function ProductPage(props: { params: PageProps }) {
+  const { id } = await props.params
+  const product = await fetchProductByIdREST(id)
 
   if (!product) {
     return <p>Product not found</p>
