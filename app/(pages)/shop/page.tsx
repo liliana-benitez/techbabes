@@ -92,7 +92,7 @@ export default async function Page() {
               {/* <Link href={`/shop/${p.id}`}> */}
               <ProductCard
                 name={p.title}
-                link=""
+                link={`/shop/${p.id}`}
                 image={p.image?.src}
                 price={p.variants[0].price}
               />
