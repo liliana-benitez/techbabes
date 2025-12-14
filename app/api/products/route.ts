@@ -30,6 +30,16 @@ const posts = [
     imageUrl:
       "https://i.etsystatic.com/50720250/r/il/9e8458/5913162160/il_1588xN.5913162160_3cg5.jpg",
     link: "#"
+  },
+  {
+    id: 4,
+    title: "Tech Babes Sticker Sheet",
+    description:
+      "Empower your tech journey with our exclusive collection of Tech Babes stickers! Celebrate the brilliance, creativity, and innovation of women in the tech industry with our vibrant designs. From coding superheroes to circuit board queens, our stickers showcase the diverse talents and achievements of women in tech. Whether you're decking out your laptop, notebook, or water bottle, these stickers serve as a daily reminder of the strength and resilience of women in the tech world. Elevate your tech gear and join the movement with our Tech Babes sticker collection!",
+    price: 10.0,
+    imageUrl:
+      "https://i.etsystatic.com/50720250/r/il/9e8458/5913162160/il_1588xN.5913162160_3cg5.jpg",
+    link: "#"
   }
 ]
 

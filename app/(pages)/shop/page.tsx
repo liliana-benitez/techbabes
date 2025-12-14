@@ -1,7 +1,9 @@
 import ProductCard from "@/components/productCard"
-import { fetchProductsREST } from "@/lib/shopify"
+// import { fetchProductsREST } from "@/lib/shopify"
 import { ScrollArea } from "@/components/ui/scroll-area"
 // import Link from "next/link"
+import productList from "../../../lib/shopify.json"
+import { Badge } from "@/components/ui/badge"
 
 type ShopifyProduct = {
   id: number
@@ -80,12 +82,29 @@ type ShopifyProduct = {
 }
 
 export default async function Page() {
-  const products: ShopifyProduct[] = await fetchProductsREST()
+  // const products: ShopifyProduct[] = await fetchProductsREST()
+  const products: ShopifyProduct[] = productList.products
 
   return (
-    <main className="h-screen w-screen flex flex-col items-center justify-center bg-white text-black mt-10">
-      {/* <h1>Products</h1> */}
-      <ScrollArea className="h-[85vh] ">
+    <div className="h-screen w-screen flex flex-col items-center bg-white text-black">
+      <h1 className="self-start px-10 text-3xl pt-10 text-gray-600">
+        Products
+      </h1>
+
+      {/* FILTERS */}
+      <div className="flex gap-2 py-4 self-start px-10">
+        <Badge className="bg-[#F1D3DA] text-[#BD5F77] text-xl font-semibold">
+          All Items
+        </Badge>
+        <Badge className="bg-white border-3 text-[#BD5F77] text-xl">
+          Tech Accessories
+        </Badge>
+        <Badge className="bg-white border-3 text-[#BD5F77] text-xl">Hats</Badge>
+        <Badge className="bg-white border-3 text-[#BD5F77] text-xl">Mugs</Badge>
+      </div>
+
+      {/* PRODUCT LIST */}
+      <ScrollArea className="h-[85vh]">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
           {products.map((p: ShopifyProduct) => (
             <li key={p.id}>
@@ -101,6 +120,6 @@ export default async function Page() {
           ))}
         </ul>
       </ScrollArea>
-    </main>
+    </div>
   )
 }

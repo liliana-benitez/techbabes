@@ -16,8 +16,7 @@ export default async function ProductPage(props: { params: PageProps }) {
   }
 
   return (
-    <div className="p-10">
-      <h1 className="text-3xl font-bold">{product.title}</h1>
+    <div className="p-10 flex ">
       <Image
         src={product.image?.src}
         alt={product.title}
@@ -25,10 +24,18 @@ export default async function ProductPage(props: { params: PageProps }) {
         height={500}
         className="my-6"
       />
-      <p
-        className="text-gray-700"
-        dangerouslySetInnerHTML={{ __html: product.body_html }}
-      />
+      <div>
+        {/* <p>{"const product = {"}</p> */}
+        {/* <p className="">name: {product.title} ,</p> */}
+        {/* <span>{'description = "'}</span> */}
+        <p dangerouslySetInnerHTML={{ __html: product.body_html }} />
+        {/* <span>{'"'}</span> */}
+      </div>
     </div>
   )
 }
+
+// const object = {
+//   name: 'name',
+//   description: 'description'
+// }

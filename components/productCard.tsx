@@ -36,7 +36,8 @@ export default function ProductCard({
             </Link>
           </h3>
         </div>
-        <p className="text-lg font-semibold">{price}</p>
+        {/* ⚠️ the price is invisible */}
+        <p className="opacity-0 text-lg font-semibold">{price}</p>
       </div>
       {/* <div className="flex gap-4"> */}
       {/* <Button variant="outline" size="icon" className="flex-shrink-0">

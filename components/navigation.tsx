@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { Menu, X } from "lucide-react"
+import { LucideShoppingCart, Menu, Search, X } from "lucide-react"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
 import logo from "../public/logo.png"
@@ -82,13 +82,23 @@ export default function Navigation() {
                 </li>
               )
             })}
+            <ul>
+              <Search />
+            </ul>
+            <ul>
+              <LucideShoppingCart />
+            </ul>
           </ul>
         )}
 
         {/* MOBILE BURGER ICON */}
         {!isDesktop && (
-          <div onClick={handleNav} className="block">
-            {nav ? <X /> : <Menu />}
+          <div className="flex gap-4">
+            <Search />
+            <LucideShoppingCart />
+            <div onClick={handleNav} className="block">
+              {nav ? <X /> : <Menu />}
+            </div>
           </div>
         )}
       </div>
