@@ -41,24 +41,24 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-background/90 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/60 to-background/80 z-10" />
           <Image
             src={hero}
             alt="Tech Workspace"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover [object-position:center_10%]"
           />
         </div>
 
         <div className="container relative z-20 px-4 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-mono mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            {/* <Terminal className="h-4 w-4" /> */}
-            <span>v2.0.25 Release</span>
-          </div>
+          {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e19fae]/10 text-[#e19fae] text-sm font-mono mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <Terminal className="h-4 w-4" />
+            <span className="font-semibold">v2.0.25 Release</span>
+          </div> */}
 
           <h1 className="font-display font-bold text-5xl md:text-7xl lg:text-8xl tracking-tight mb-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
             Empowering Women in Tech,
             <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary text-glow">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e19fae] to-[#ffccd5] text-glow">
               One Product at a Time
             </span>
           </h1>
