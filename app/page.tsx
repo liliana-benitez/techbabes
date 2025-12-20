@@ -6,19 +6,15 @@ import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { blogPosts } from "@/lib/data"
+import ProductCard from "@/components/productCard"
+import { ArrowRight, Code, Cpu, Terminal } from "lucide-react"
 
 export default function Home() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<Product[]>([])
 
-  const getBaseUrl = () => {
-    if (typeof window !== "undefined") {
-      return window.location.hostname === "localhost"
-        ? "http://localhost:3000"
-        : "https://tech-babes.vercel.app"
-    }
-  }
+  const BASE_URL = process.env.NEXT_PUBLIC_APP_BASE_URL
 
-  interface ProductType {
+  interface Product {
     id: number
     title: string
     description: string
@@ -29,13 +25,16 @@ export default function Home() {
 
   useEffect(() => {
     async function getProducts() {
-      const response = await fetch(`${getBaseUrl()}/api/products`)
+      console.log(BASE_URL)
+      const response = await fetch(`${BASE_URL}/api/products`)
       const data = await response.json()
       setProducts(data)
     }
 
     getProducts()
   }, [])
+
+  console.log(products)
 
   return (
     <div className="flex flex-col gap-16 pb-16">
@@ -92,31 +91,36 @@ export default function Home() {
       </section>
 
       {/* Featured Products */}
-      <section className="container px-4 flex flex-col">
+      <section className="px-4 flex flex-col w-full">
         <div className="flex items-center justify-between mb-8">
           <h2 className="font-display font-bold text-3xl">New Drops</h2>
           <Link href="/shop">
             <Button variant="ghost" className="group">
               View All{" "}
-              {/* <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" /> */}
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-center content-center justify-items-center">
           {products.map((product) => (
-            // <ProductCard key={product.id} product={product} />
-            <p key={product}>card</p>
+            <ProductCard
+              key={product.id}
+              name={product.title}
+              link={product.link}
+              price={product.price.toLocaleString()}
+              image={product.imageUrl}
+            />
           ))}
         </div>
       </section>
 
       {/* Features Grid */}
-      <section className="container px-4 py-12">
+      <section className="px-4 py-12 w-full">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-primary/50 transition-colors">
-            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
-              {/* <Code className="h-6 w-6" /> */}
+          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-[#e19fae]/50 transition-colors">
+            <div className="h-12 w-12 rounded-xl bg-[#e19fae]/10 flex items-center justify-center text-[#e19fae] mb-6">
+              <Code className="h-6 w-6" />
             </div>
             <h3 className="font-bold text-xl mb-2">Dev-First Design</h3>
             <p className="text-muted-foreground">
@@ -124,9 +128,9 @@ export default function Home() {
               breathe while you debug.
             </p>
           </div>
-          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-secondary/50 transition-colors">
-            <div className="h-12 w-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary mb-6">
-              {/* <Cpu className="h-6 w-6" /> */}
+          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-[#e19fae]/50 transition-colors">
+            <div className="h-12 w-12 rounded-xl bg-[#e19fae]/10 flex items-center justify-center text-[#e19fae] mb-6">
+              <Cpu className="h-6 w-6" />
             </div>
             <h3 className="font-bold text-xl mb-2">Quality Specs</h3>
             <p className="text-muted-foreground">
@@ -134,9 +138,9 @@ export default function Home() {
               built to last.
             </p>
           </div>
-          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-primary/50 transition-colors">
-            <div className="h-12 w-12 rounded-xl bg-accent flex items-center justify-center text-foreground mb-6">
-              {/* <Terminal className="h-6 w-6" /> */}
+          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-[#e19fae]/50 transition-colors">
+            <div className="h-12 w-12 rounded-xl bg-accent flex items-center justify-center text-[#e19fae] mb-6">
+              <Terminal className="h-6 w-6" />
             </div>
             <h3 className="font-bold text-xl mb-2">Community Driven</h3>
             <p className="text-muted-foreground">
@@ -148,9 +152,9 @@ export default function Home() {
       </section>
 
       {/* Blog Teaser */}
-      <section className="container px-4">
+      <section className="px-4">
         <h2 className="font-display font-bold text-3xl mb-8">
-          Latest from the Console
+          Latest from the Blog
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {blogPosts.map((post) => (
@@ -165,10 +169,10 @@ export default function Home() {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
-                <div className="text-sm font-mono text-primary mb-2">
-                  {post.date} // {post.category}
+                <div className="text-sm font-mono text-[#e19fae] mb-2">
+                  {`${post.date} // ${post.category}`}
                 </div>
-                <h3 className="font-bold text-xl group-hover:text-primary transition-colors">
+                <h3 className="font-bold text-xl group-hover:text-[#e19fae] transition-colors">
                   {post.title}
                 </h3>
                 <p className="text-muted-foreground mt-2 line-clamp-2">
