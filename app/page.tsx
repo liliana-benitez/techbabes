@@ -4,7 +4,8 @@ import Link from "next/link"
 import hero from "../public/hero.jpg"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
-import ProductCard from "@/components/productCard"
+import Image from "next/image"
+import { blogPosts } from "@/lib/data"
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -37,58 +38,147 @@ export default function Home() {
   }, [])
 
   return (
-    <div>
-      {/* HERO */}
-      <div
-        className="bg-cover bg-bottom h-[85vh] flex flex-col items-center justify-center gap-20"
-        style={{
-          backgroundImage: `url(${hero.src})`,
-          backgroundPosition: "50% 15%"
-        }}
-      >
-        <h1 className="text-white text-5xl px-2 font-semibold text-center text-shadow-lg max-w-[70%] lg:text-6xl">
-          Empowering Women in Tech, <br /> One Product at a Time
-        </h1>
-        <Link href="/shop">
-          <Button className="bg-[#F1D3DA] text-[#BD5F77] text-3xl font-light px-4 py-2 h-16 w-52">
-            SHOP NOW
-          </Button>
-        </Link>
-      </div>
+    <div className="flex flex-col gap-16 pb-16">
+      {/* Hero Section */}
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-background/90 z-10" />
+          <Image
+            src={hero}
+            alt="Tech Workspace"
+            className="w-full h-full object-cover"
+          />
+        </div>
 
-      {/* PRODUCTS */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-8 place-items-center">
-        {products.map((product: ProductType) => (
-          <div key={product.id}>
-            <ProductCard
-              name={product.title}
-              link={product.imageUrl}
-              image={product.imageUrl}
-              price={product.price.toString()}
-            />
+        <div className="container relative z-20 px-4 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-mono mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {/* <Terminal className="h-4 w-4" /> */}
+            <span>v2.0.25 Release</span>
           </div>
-        ))}
-      </div>
 
-      {/* ABOUT SNEAK PEAK */}
-      <div
-        className="bg-[#F1D3DA] text-white bg-bottom flex flex-col items-center justify-center gap-10 h-100"
-        // style={{
-        //   backgroundImage: `url(${hero.src})`,
-        //   backgroundPosition: "50% 15%"
-        // }}
-      >
-        <h3 className=" text-md px-2 text-center  max-w-[70%] lg:text-2xl">
-          My name is Lili, and I&apos;m a software engineer with just as much
-          love for Javascript as I have for fashion. As I&apos;ve immersed
-          myself in the tech world, I&apos;ve seen...
-        </h3>
-        <Link href="/about">
-          <Button className="bg-[#F1D3DA] border-2 border-white text-white text-xl font-light px-4 py-2 h-10 w-40">
-            READ MORE
-          </Button>
-        </Link>
-      </div>
+          <h1 className="font-display font-bold text-5xl md:text-7xl lg:text-8xl tracking-tight mb-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
+            Empowering Women in Tech,
+            <br className="hidden md:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary text-glow">
+              One Product at a Time
+            </span>
+          </h1>
+
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+            Premium merch for women in tech. Minimalist aesthetics meets maximum
+            comfort for your coding sessions.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
+            <Link href="/shop">
+              <Button
+                size="lg"
+                className="rounded-full px-8 text-lg h-12 bg-foreground text-background hover:bg-foreground/90"
+              >
+                Shop Collection
+              </Button>
+            </Link>
+            <Link href="/about">
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full px-8 text-lg h-12 backdrop-blur-sm"
+              >
+                Our Mission
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Products */}
+      <section className="container px-4 flex flex-col">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="font-display font-bold text-3xl">New Drops</h2>
+          <Link href="/shop">
+            <Button variant="ghost" className="group">
+              View All{" "}
+              {/* <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" /> */}
+            </Button>
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            // <ProductCard key={product.id} product={product} />
+            <p key={product}>card</p>
+          ))}
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="container px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-primary/50 transition-colors">
+            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
+              {/* <Code className="h-6 w-6" /> */}
+            </div>
+            <h3 className="font-bold text-xl mb-2">Dev-First Design</h3>
+            <p className="text-muted-foreground">
+              Apparel designed with developer comfort in mind. Fabrics that
+              breathe while you debug.
+            </p>
+          </div>
+          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-secondary/50 transition-colors">
+            <div className="h-12 w-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary mb-6">
+              {/* <Cpu className="h-6 w-6" /> */}
+            </div>
+            <h3 className="font-bold text-xl mb-2">Quality Specs</h3>
+            <p className="text-muted-foreground">
+              We treat our merch like our code: clean, high-performance, and
+              built to last.
+            </p>
+          </div>
+          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-primary/50 transition-colors">
+            <div className="h-12 w-12 rounded-xl bg-accent flex items-center justify-center text-foreground mb-6">
+              {/* <Terminal className="h-6 w-6" /> */}
+            </div>
+            <h3 className="font-bold text-xl mb-2">Community Driven</h3>
+            <p className="text-muted-foreground">
+              Supporting women in tech with every purchase. Join the Tech Babes
+              community.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Teaser */}
+      <section className="container px-4">
+        <h2 className="font-display font-bold text-3xl mb-8">
+          Latest from the Console
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {blogPosts.map((post) => (
+            <Link key={post.id} href="/blog">
+              <div className="group cursor-pointer">
+                <div className="aspect-video rounded-xl overflow-hidden mb-4">
+                  <Image
+                    width={500}
+                    height={500}
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="text-sm font-mono text-primary mb-2">
+                  {post.date} // {post.category}
+                </div>
+                <h3 className="font-bold text-xl group-hover:text-primary transition-colors">
+                  {post.title}
+                </h3>
+                <p className="text-muted-foreground mt-2 line-clamp-2">
+                  {post.excerpt}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }

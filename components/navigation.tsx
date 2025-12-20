@@ -1,126 +1,122 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useState } from "react"
-import { LucideShoppingCart, Menu, Search, X } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { LucideShoppingCart, Menu } from "lucide-react"
 import Image from "next/image"
 import logo from "../public/logo.png"
-
-// Hook to detect screen size
-function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false)
-
-  useEffect(() => {
-    const media = window.matchMedia(query)
-    if (media.matches !== matches) {
-      setMatches(media.matches)
-    }
-    const listener = () => setMatches(media.matches)
-    media.addEventListener("change", listener)
-    return () => media.removeEventListener("change", listener)
-  }, [matches, query])
-
-  return matches
-}
+import { Button } from "./ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 
 interface NavItem {
   id: number
-  content: string
-  url: string
+  label: string
+  href: string
   dropdownItems?: { id: number; content: string; url: string }[]
 }
 
 export default function Navigation() {
-  const [nav, setNav] = useState(false)
-  const pathname = usePathname()
-  const isDesktop = useMediaQuery("(min-width: 768px)")
-
-  function handleNav() {
-    setNav(!nav)
-  }
-
-  useEffect(() => {
-    setNav(false)
-  }, [pathname])
-
-  const items: NavItem[] = [
-    { id: 1, content: "Shop", url: "/shop" },
+  const navLinks: NavItem[] = [
+    { id: 1, label: "Shop", href: "/shop" },
     {
       id: 2,
-      content: "About",
-      url: "/about"
+      label: "About",
+      href: "/about"
     },
 
-    { id: 3, content: "Blog", url: "/blog" },
+    { id: 3, label: "Blog", href: "/blog" },
     {
       id: 5,
-      content: "Contact",
-      url: "/contact"
+      label: "Contact",
+      href: "/contact"
     }
   ]
 
+  const pathname = usePathname()
+  const isActive = (href: string) => pathname === href
+
   return (
-    <div className="border-b-1">
-      <div className="flex justify-between items-center px-10 py-3">
-        <Link href={"/"}>
-          <Image src={logo} alt="itsYamiG logo" height={70} width={70} />
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
+      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+        {/* Mobile Menu */}
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="md:hidden">
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left">
+            <nav className="flex flex-col gap-4 mt-8">
+              {navLinks.map((link) => (
+                <Link key={link.href} href={link.href}>
+                  <span
+                    className={`text-lg font-medium hover:text-primary transition-colors cursor-pointer ${
+                      isActive(link.href) ? "text-[#e19fae]" : ""
+                    }`}
+                  >
+                    {link.label}
+                  </span>
+                </Link>
+              ))}
+            </nav>
+          </SheetContent>
+        </Sheet>
+
+        {/* Logo */}
+        <Link href="/">
+          <div className="flex items-center gap-2 cursor-pointer group">
+            <Image src={logo} height={80} width={80} alt="Tech Babes Logo" />
+          </div>
         </Link>
 
-        {/* DESKTOP NAV */}
-        {isDesktop && (
-          <ul className="flex gap-6">
-            {items.map((item) => {
-              return (
-                <li key={item.id}>
-                  <Link
-                    className="text-gray-500 font-semibold outline-none border-none"
-                    href={item.url}
-                  >
-                    {item.content}
-                  </Link>
-                </li>
-              )
-            })}
-            <ul>
-              <Search />
-            </ul>
-            <ul>
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href}>
+              <span
+                className={`text-sm font-medium hover:text-[#e19fae] transition-colors cursor-pointer relative group ${
+                  isActive(link.href) ? "text-[#e19fae]" : ""
+                }`}
+              >
+                {link.label}
+                <span
+                  className={`absolute -bottom-1 left-0 w-full h-0.5 bg-[#e19fae] transform scale-x-0 transition-transform origin-left group-hover:scale-x-100 ${
+                    isActive(link.href) ? "scale-x-100" : ""
+                  }`}
+                />
+              </span>
+            </Link>
+          ))}
+        </nav>
+
+        {/* Actions */}
+        <div className="flex items-center gap-2">
+          {/* <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            className="hidden sm:flex"
+          >
+            {isDark ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+          </Button> */}
+
+          <Link href="/cart">
+            <Button variant="ghost" size="icon" className="relative">
               <LucideShoppingCart />
-            </ul>
-          </ul>
-        )}
-
-        {/* MOBILE BURGER ICON */}
-        {!isDesktop && (
-          <div className="flex gap-4">
-            <Search />
-            <LucideShoppingCart />
-            <div onClick={handleNav} className="block">
-              {nav ? <X /> : <Menu />}
-            </div>
-          </div>
-        )}
+              {/* {count > 0 && (
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-primary text-primary-foreground hover:bg-primary rounded-full text-xs">
+                  {count}
+                </Badge> */}
+              {/* )} */}
+            </Button>
+          </Link>
+        </div>
       </div>
-
-      {/* MOBILE NAV */}
-      {!isDesktop && nav && (
-        <ul className="flex flex-col justify-center items-center gap-2 pb-6">
-          {items.map((item) => {
-            return (
-              <li key={item.id}>
-                <Link
-                  className="text-gray-500 font-semibold"
-                  href={item.url}
-                  onClick={() => setNav(false)}
-                >
-                  {item.content}
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
-      )}
-    </div>
+    </header>
   )
 }
