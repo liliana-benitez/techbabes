@@ -1,9 +1,10 @@
-// import ProductCard from "@/components/productCard"
-// import { fetchProductsREST } from "@/lib/shopify"
-// import { ScrollArea } from "@/components/ui/scroll-area"
-// import Link from "next/link"
-// import productList from "../../../lib/shopify.json"
-// import { Badge } from "@/components/ui/badge"
+"use client"
+
+import ProductCard from "@/components/productCard"
+import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
+import { Search } from "lucide-react"
+import { useEffect, useState } from "react"
 
 // type ShopifyProduct = {
 //   id: number
@@ -81,47 +82,112 @@
 //   } | null
 // }
 
-export default async function Page() {
-  // const products: ShopifyProduct[] = await fetchProductsREST()
-  // const products: ShopifyProduct[] = productList.products
+interface Product {
+  id: number
+  title: string
+  description: string
+  price: number
+  imageUrl: string
+  link: string
+  category: string
+}
 
-  return <div>this is the shop page</div>
+export default function Page() {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [category, setCategory] = useState<string>("All")
+  const [search, setSearch] = useState<string>("")
+  const [products, setProducts] = useState<Product[]>([])
 
-  // return (
-  //   <div className="h-screen w-screen flex flex-col items-center bg-white text-black">
-  //     <h1 className="self-start px-10 text-3xl pt-10 text-gray-600">
-  //       Products
-  //     </h1>
+  const categories = ["All", "Apparel", "Hats", "Accessories", "Mugs"]
 
-  //     {/* FILTERS */}
-  //     <div className="flex gap-2 py-4 self-start px-10">
-  //       <Badge className="bg-[#F1D3DA] text-[#BD5F77] text-xl font-semibold">
-  //         All Items
-  //       </Badge>
-  //       <Badge className="bg-white border-3 text-[#BD5F77] text-xl">
-  //         Tech Accessories
-  //       </Badge>
-  //       <Badge className="bg-white border-3 text-[#BD5F77] text-xl">Hats</Badge>
-  //       <Badge className="bg-white border-3 text-[#BD5F77] text-xl">Mugs</Badge>
-  //     </div>
+  const BASE_URL = process.env.NEXT_PUBLIC_APP_BASE_URL
 
-  //     {/* PRODUCT LIST */}
-  //     <ScrollArea className="h-[85vh]">
-  //       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
-  //         {products.map((p: ShopifyProduct) => (
-  //           <li key={p.id}>
-  //             {/* <Link href={`/shop/${p.id}`}> */}
-  //             <ProductCard
-  //               name={p.title}
-  //               link={`/shop/${p.id}`}
-  //               image={p.image?.src}
-  //               price={p.variants[0].price}
-  //             />
-  //             {/* </Link> */}
-  //           </li>
-  //         ))}
-  //       </ul>
-  //     </ScrollArea>
-  //   </div>
-  // )
+  const filteredProducts = products.filter((product) => {
+    const matchesCategory = category === "All" || product.category === category
+    const matchesSearch = product.title
+      .toLocaleLowerCase()
+      .includes(search.toLocaleLowerCase())
+    return matchesCategory && matchesSearch
+  })
+
+  useEffect(() => {
+    async function getProducts() {
+      console.log(BASE_URL)
+      const response = await fetch(`${BASE_URL}/api/products`)
+      const data = await response.json()
+      setProducts(data)
+      setIsLoading(false)
+    }
+
+    getProducts()
+  }, [])
+
+  return (
+    <div className="flex flex-col gap-4 px-20 py-12">
+      <div className="flex flex-col justify-between mb-12 gap-4">
+        <div>
+          <h1 className="font-display font-bold text-4xl mb-4">
+            Shop Collection
+          </h1>
+          <p className="text-muted-foreground text-lg">
+            Browse our curated selection of developer essentials. From dad hats
+            to desk mats, we&apos;ve got your setup covered.
+          </p>
+        </div>
+
+        <div className="w-full md:w-64 ">
+          <div className="relative w-full">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search products..."
+              className="pl-9"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap gap-2 mb-8">
+        {categories.map((cat) => (
+          <Badge
+            key={cat}
+            variant={category === cat ? "default" : "outline"}
+            className="px-4 py-2 text-sm cursor-pointer transition-all hover:scale-105"
+            onClick={() => setCategory(cat)}
+          >
+            {cat}
+          </Badge>
+        ))}
+      </div>
+
+      {isLoading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div
+              key={i}
+              className="h-96 bg-muted/30 rounded-xl animate-pulse"
+            />
+          ))}
+        </div>
+      ) : filteredProducts.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ">
+          {filteredProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              name={product.title}
+              link={product.link}
+              image={product.imageUrl}
+              price={product.price.toString()}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-24 text-muted-foreground">
+          <div className="font-mono text-xl mb-2">404: Products Not Found</div>
+          <p>Try adjusting your search filters.</p>
+        </div>
+      )}
+    </div>
+  )
 }
