@@ -27,7 +27,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="flex flex-col gap-16 pb-16">
+    <div className="flex flex-col gap-16">
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -81,7 +81,7 @@ export default function Home() {
       </section>
 
       {/* Featured Products */}
-      <section className="px-4 flex flex-col w-full">
+      <section className="flex flex-col w-full px-20">
         <div className="flex items-center justify-between mb-8">
           <h2 className="font-display font-bold text-3xl">New Drops</h2>
           <Link href="/shop">
@@ -100,7 +100,7 @@ export default function Home() {
       </section>
 
       {/* Features Grid */}
-      <section className="px-4 py-12 w-full">
+      <section className="w-full px-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-[#e19fae]/50 transition-colors">
             <div className="h-12 w-12 rounded-xl bg-[#e19fae]/10 flex items-center justify-center text-[#e19fae] mb-6">
@@ -136,7 +136,7 @@ export default function Home() {
       </section>
 
       {/* Blog Teaser */}
-      <section className="px-4">
+      <section className="w-full px-20 pb-12">
         <h2 className="font-display font-bold text-3xl mb-8">
           Latest from the Blog
         </h2>
