@@ -36,7 +36,7 @@ export default function Home() {
           <Image
             src={hero}
             alt="Tech Workspace"
-            className="w-full h-full object-cover [object-position:center_10%]"
+            className="w-full h-full object-cover [object-position:center_15%]"
           />
         </div>
 
