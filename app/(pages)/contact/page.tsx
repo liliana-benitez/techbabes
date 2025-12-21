@@ -153,7 +153,11 @@ export default function ContactPage() {
               </Alert>
             )}
 
-            <Button type="submit" className="w-full" disabled={submitting}>
+            <Button
+              type="submit"
+              className="btn-primary w-full"
+              disabled={submitting}
+            >
               {submitting ? "Sending..." : "Send Message"}
             </Button>
           </form>
