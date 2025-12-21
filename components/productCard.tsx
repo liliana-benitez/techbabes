@@ -41,7 +41,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
-        <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium">
+        <Button className="w-full btn-primary hover:bg-primary/90 text-primary-foreground font-medium">
           <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
         </Button>
       </CardFooter>
