@@ -7,8 +7,9 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import { blogPosts } from "@/lib/data"
 import ProductCard from "@/components/productCard"
-import { ArrowRight, Code, Cpu, Terminal } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { Product } from "@/lib/types"
+import Values from "@/components/values"
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([])
@@ -83,7 +84,7 @@ export default function Home() {
       {/* Featured Products */}
       <section className="flex flex-col w-full px-20">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="font-display font-bold text-3xl">New Drops</h2>
+          <h2 className="font-display font-bold text-3xl">New in</h2>
           <Link href="/shop">
             <Button variant="ghost" className="group">
               View All{" "}
@@ -101,44 +102,14 @@ export default function Home() {
 
       {/* Features Grid */}
       <section className="w-full px-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-[#e19fae]/50 transition-colors">
-            <div className="h-12 w-12 rounded-xl bg-[#e19fae]/10 flex items-center justify-center text-[#e19fae] mb-6">
-              <Code className="h-6 w-6" />
-            </div>
-            <h3 className="font-bold text-xl mb-2">Dev-First Design</h3>
-            <p className="text-muted-foreground">
-              Apparel designed with developer comfort in mind. Fabrics that
-              breathe while you debug.
-            </p>
-          </div>
-          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-[#e19fae]/50 transition-colors">
-            <div className="h-12 w-12 rounded-xl bg-[#e19fae]/10 flex items-center justify-center text-[#e19fae] mb-6">
-              <Cpu className="h-6 w-6" />
-            </div>
-            <h3 className="font-bold text-xl mb-2">Quality Specs</h3>
-            <p className="text-muted-foreground">
-              We treat our merch like our code: clean, high-performance, and
-              built to last.
-            </p>
-          </div>
-          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-[#e19fae]/50 transition-colors">
-            <div className="h-12 w-12 rounded-xl bg-accent flex items-center justify-center text-[#e19fae] mb-6">
-              <Terminal className="h-6 w-6" />
-            </div>
-            <h3 className="font-bold text-xl mb-2">Community Driven</h3>
-            <p className="text-muted-foreground">
-              Supporting women in tech with every purchase. Join the Tech Babes
-              community.
-            </p>
-          </div>
-        </div>
+        <h2 className="font-display font-bold text-3xl mb-8">Our values</h2>
+        <Values />
       </section>
 
       {/* Blog Teaser */}
       <section className="w-full px-20 pb-12">
         <h2 className="font-display font-bold text-3xl mb-8">
-          Latest from the Blog
+          Latest from our blog
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {blogPosts.map((post) => (

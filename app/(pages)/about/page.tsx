@@ -1,9 +1,10 @@
-import { Heart, TrendingUp, Users, Zap } from "lucide-react"
+import { TrendingUp } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import founder from "../../../public/founder.png"
 import hero from "../../../public/hero.jpg"
+import Values from "@/components/values"
 
 export default function Page() {
   const stats = [
@@ -105,40 +106,7 @@ export default function Page() {
       <section className="px-4 text-center">
         <h2 className="font-display font-bold text-4xl mb-6">Our Values</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-primary/50 transition-colors flex flex-col items-center">
-            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
-              <Heart className="h-6 w-6" />
-            </div>
-            <h3 className="font-bold text-xl mb-3">Community First</h3>
-            <p className="text-muted-foreground">
-              We&apos;re building a community of women who lift each other up.
-              Every purchase supports the next generation of tech babes.
-            </p>
-          </div>
-
-          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-secondary/50 transition-colors flex flex-col items-center">
-            <div className="h-12 w-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary mb-6">
-              <Zap className="h-6 w-6" />
-            </div>
-            <h3 className="font-bold text-xl mb-3">Quality Over Hype</h3>
-            <p className="text-muted-foreground">
-              We treat our merch like our code: clean, well-tested, and built to
-              last. No compromise on quality.
-            </p>
-          </div>
-
-          <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-primary/50 transition-colors flex flex-col items-center">
-            <div className="h-12 w-12 rounded-xl bg-accent flex items-center justify-center text-foreground mb-6">
-              <Users className="h-6 w-6" />
-            </div>
-            <h3 className="font-bold text-xl mb-3">Inclusive Design</h3>
-            <p className="text-muted-foreground">
-              Every piece is designed for diverse bodies and styles. Tech
-              isn&apos;t monolithic, and neither are we.
-            </p>
-          </div>
-        </div>
+        <Values />
       </section>
 
       {/* CTA Section */}
