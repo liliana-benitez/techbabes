@@ -8,27 +8,19 @@ import Image from "next/image"
 import { blogPosts } from "@/lib/data"
 import ProductCard from "@/components/productCard"
 import { ArrowRight, Code, Cpu, Terminal } from "lucide-react"
+import { Product } from "@/lib/types"
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([])
 
   const BASE_URL = process.env.NEXT_PUBLIC_APP_BASE_URL
 
-  interface Product {
-    id: number
-    title: string
-    description: string
-    price: number
-    imageUrl: string
-    link: string
-  }
-
   useEffect(() => {
     async function getProducts() {
       console.log(BASE_URL)
       const response = await fetch(`${BASE_URL}/api/products`)
       const data = await response.json()
-      setProducts(data)
+      setProducts(data.slice(1, 5))
     }
 
     getProducts()
@@ -102,13 +94,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-center content-center justify-items-center">
           {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              name={product.title}
-              link={product.link}
-              price={product.price.toLocaleString()}
-              image={product.imageUrl}
-            />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </section>

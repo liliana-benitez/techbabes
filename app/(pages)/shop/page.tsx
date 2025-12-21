@@ -3,94 +3,9 @@
 import ProductCard from "@/components/productCard"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
+import { Product } from "@/lib/types"
 import { Search } from "lucide-react"
 import { useEffect, useState } from "react"
-
-// type ShopifyProduct = {
-//   id: number
-//   title: string
-//   body_html: string
-//   vendor: string
-//   product_type: string
-//   created_at: string
-//   handle: string
-//   updated_at: string
-//   published_at: string
-//   template_suffix: string | null
-//   status: "active" | "draft" | "archived"
-//   published_scope: "web" | "global"
-//   tags: string
-//   admin_graphql_api_id: string
-//   variants: Array<{
-//     id: number
-//     title: string
-//     price: string
-//     sku: string
-//     position: number
-//     inventory_policy: string
-//     compare_at_price: string | null
-//     fulfillment_service: string
-//     inventory_management: string | null
-//     option1: string
-//     option2: string | null
-//     option3: string | null
-//     created_at: string
-//     updated_at: string
-//     taxable: boolean
-//     barcode: string | null
-//     grams: number
-//     image_id: number | null
-//     weight: number
-//     weight_unit: string
-//     inventory_item_id: number
-//     inventory_quantity: number
-//     old_inventory_quantity: number
-//     requires_shipping: boolean
-//     admin_graphql_api_id: string
-//   }>
-//   options: Array<{
-//     id: number
-//     name: string
-//     position: number
-//     values: string[]
-//   }>
-//   images: Array<{
-//     id: number
-//     product_id: number
-//     position: number
-//     created_at: string
-//     updated_at: string
-//     alt: string | null
-//     width: number
-//     height: number
-//     src: string
-//     variant_ids: number[]
-//     admin_graphql_api_id: string
-//   }>
-//   image: {
-//     id: number
-//     product_id: number
-//     position: number
-//     created_at: string
-//     updated_at: string
-//     alt: string | null
-//     width: number
-//     height: number
-//     src: string
-//     variant_ids: number[]
-//     admin_graphql_api_id: string
-//   } | null
-// }
-
-interface Product {
-  id: number
-  title: string
-  description: string
-  price: number
-  imageUrl: string
-  link: string
-  category: string
-}
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -104,15 +19,14 @@ export default function Page() {
 
   const filteredProducts = products.filter((product) => {
     const matchesCategory = category === "All" || product.category === category
-    const matchesSearch = product.title
-      .toLocaleLowerCase()
+    const matchesSearch = product.name
+      .toLowerCase()
       .includes(search.toLocaleLowerCase())
     return matchesCategory && matchesSearch
   })
 
   useEffect(() => {
     async function getProducts() {
-      console.log(BASE_URL)
       const response = await fetch(`${BASE_URL}/api/products`)
       const data = await response.json()
       setProducts(data)
@@ -121,6 +35,8 @@ export default function Page() {
 
     getProducts()
   }, [])
+
+  console.log(products)
 
   return (
     <div className="flex flex-col gap-4 px-20 py-12">
@@ -173,13 +89,7 @@ export default function Page() {
       ) : filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ">
           {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              name={product.title}
-              link={product.link}
-              image={product.imageUrl}
-              price={product.price.toString()}
-            />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       ) : (
