@@ -7,6 +7,70 @@ export interface Product {
   category: string
 }
 
+export type PrintfulProduct = {
+  id: number
+  external_id: string
+  name: string
+  variants: number
+  synced: number
+  thumbnail_url: string
+  is_ignored: boolean
+}
+
+interface PrintfulCatalogProduct {
+  variant_id: number
+  product_id: number
+  image: string
+  name: string
+}
+
+interface PrintfulFile {
+  id: number
+  type: "default" | "preview" | string
+  hash: string
+  url: string | null
+  filename: string
+  mime_type: string
+  size: number
+  width: number
+  height: number
+  dpi: number | null
+  status: "ok" | string
+  created: number
+  thumbnail_url: string
+  preview_url: string
+  visible: boolean
+  is_temporary: boolean
+  message: string
+  stitch_count_tier: string | null
+}
+
+export type PrintfulProductDetails = {
+  id: number
+  external_id: string
+  sync_product_id: number
+  name: string
+  synced: boolean
+  variant_id: number
+  main_category_id: number
+  warehouse_product_id: number | null
+  warehouse_product_variant_id: number | null
+  retail_price: string
+  sku: string
+  currency: string
+  product: PrintfulCatalogProduct
+  files: PrintfulFile[]
+  options: unknown[] // Add specific type if you use options
+  is_ignored: boolean
+  size: string
+  color: string
+  availability_status:
+    | "active"
+    | "discontinued"
+    | "out_of_stock"
+    | "temporary_out_of_stock"
+}
+
 export type ShopifyProduct = {
   id: number
   title: string
