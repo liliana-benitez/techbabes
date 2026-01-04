@@ -1,5 +1,5 @@
 import { Product } from "@/generated/prisma/client"
-import React, { createContext, useContext, useState } from "react"
+import React, { createContext, useContext, useState, useEffect } from "react"
 import { toast } from "sonner"
 
 interface CartItem extends Product {
@@ -18,8 +18,29 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
+const CART_STORAGE_KEY = "shopping_cart"
+
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
+  const [isHydrated, setIsHydrated] = useState(false)
+
+  useEffect(() => {
+    const savedCart = localStorage.getItem(CART_STORAGE_KEY)
+    if (savedCart) {
+      try {
+        setItems(JSON.parse(savedCart))
+      } catch (error) {
+        console.error("Failed to load cart from localStorage:", error)
+      }
+    }
+    setIsHydrated(true)
+  }, [])
+
+  useEffect(() => {
+    if (isHydrated) {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items))
+    }
+  }, [items, isHydrated])
 
   const addToCart = (product: Product) => {
     setItems((current) => {
