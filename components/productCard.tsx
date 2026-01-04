@@ -4,9 +4,10 @@ import { Card, CardContent, CardFooter } from "./ui/card"
 import { ShoppingCart } from "lucide-react"
 import { Button } from "./ui/button"
 import { Product } from "@/generated/prisma/client"
+import { useCart } from "@/lib/cart-context"
 
 export default function ProductCard({ product }: { product: Product }) {
-  // const { addToCart } = useCart()
+  const { addToCart } = useCart()
   return (
     <Card className="group overflow-hidden border-border/50 hover:border-primary/50 transition-colors duration-300 p-0 flex flex-col">
       <Link href={`/product/${product.id}`}>
@@ -21,9 +22,6 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
       </Link>
       <CardContent className="p-4 grow flex flex-col">
-        {/* <div className="text-xs text-muted-foreground mb-1 font-mono uppercase tracking-wider">
-          {product.category}
-        </div> */}
         <Link href={`/product/${product.id}`}>
           <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors cursor-pointer">
             {product.name}
@@ -40,12 +38,16 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
-        <Button className="w-full btn-primary hover:bg-primary/90 text-primary-foreground font-medium">
-          <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
+        <Button
+          onClick={() => {
+            addToCart(product)
+          }}
+          className="w-full btn-primary hover:bg-primary/90 text-primary-foreground font-medium"
+        >
+          <ShoppingCart className="mr-2 h-4 w-4" />
+          Add to Cart
         </Button>
       </CardFooter>
     </Card>
   )
 }
-
-// add onclick to cart button

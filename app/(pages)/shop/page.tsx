@@ -29,12 +29,13 @@ export default function Page() {
   }, [])
 
   const filteredProducts = products.filter((product) => {
-    // const matchesCategory = category === "All" || product.category === category
+    const matchesCategory =
+      category === "All" ||
+      product.category.toLocaleUpperCase() === category.toLocaleUpperCase()
     const matchesSearch = product.name
       .toLowerCase()
       .includes(search.toLocaleLowerCase())
-    // return matchesCategory && matchesSearch
-    return matchesSearch
+    return matchesCategory && matchesSearch
   })
 
   return (

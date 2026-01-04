@@ -20,7 +20,7 @@ export default function Home() {
     async function getProducts() {
       const response = await fetch(`${BASE_URL}/api/products`)
       const data = await response.json()
-      setProducts(data.slice(0, 1))
+      setProducts(data.slice(0, 4))
     }
 
     getProducts()
@@ -92,7 +92,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-center content-center justify-items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
