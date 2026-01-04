@@ -8,8 +8,8 @@ import Image from "next/image"
 import { blogPosts } from "@/lib/data"
 import ProductCard from "@/components/productCard"
 import { ArrowRight } from "lucide-react"
-import { Product } from "@/lib/types"
 import Values from "@/components/values"
+import { Product } from "@/generated/prisma/client"
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([])
@@ -18,10 +18,9 @@ export default function Home() {
 
   useEffect(() => {
     async function getProducts() {
-      console.log(BASE_URL)
       const response = await fetch(`${BASE_URL}/api/products`)
       const data = await response.json()
-      setProducts(data.slice(1, 5))
+      setProducts(data.slice(0, 1))
     }
 
     getProducts()
