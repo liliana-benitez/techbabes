@@ -111,7 +111,7 @@ export default function Navigation() {
             <Button variant="ghost" size="icon" className="relative">
               <LucideShoppingCart />
               {count > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-primary text-primary-foreground hover:bg-primary rounded-full text-xs">
+                <Badge className="btn-primary absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-primary text-primary-foreground hover:bg-primary rounded-full text-xs">
                   {count}
                 </Badge>
               )}

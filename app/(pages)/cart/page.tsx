@@ -11,7 +11,7 @@ export default function Cart() {
 
   if (items.length === 0) {
     return (
-      <div className="container px-4 py-24 text-center">
+      <div className=" px-4 py-24 text-center">
         <h1 className="font-display font-bold text-3xl mb-4">
           Your cart is empty
         </h1>
@@ -19,14 +19,16 @@ export default function Cart() {
           Looks like you haven&apos;t added any tech goodies yet.
         </p>
         <Link href="/shop">
-          <Button size="lg">Start Shopping</Button>
+          <Button className="btn-primary" size="lg">
+            Start Shopping
+          </Button>
         </Link>
       </div>
     )
   }
 
   return (
-    <div className="container px-4 py-12 text-center">
+    <div className=" px-4 py-12 text-center">
       <h1 className="font-display font-bold text-4xl mb-8">Shopping Cart</h1>
 
       <div className="grid lg:grid-cols-3 gap-12">
@@ -50,9 +52,9 @@ export default function Cart() {
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="font-bold text-lg">{item.name}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {item.category}
-                    </p>
+                    {/* <p className="text-sm text-muted-foreground">
+                      {item.}
+                    </p> */}
                   </div>
                   <Button
                     variant="ghost"
@@ -117,7 +119,7 @@ export default function Cart() {
             </div>
 
             <Link href="/checkout">
-              <Button className="w-full h-12 text-lg">
+              <Button className="btn-primary w-full h-12 text-lg">
                 Proceed to Checkout <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>

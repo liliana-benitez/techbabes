@@ -3,10 +3,14 @@ import Image from "next/image"
 import { Card, CardContent, CardFooter } from "./ui/card"
 import { ShoppingCart } from "lucide-react"
 import { Button } from "./ui/button"
-import { Product } from "@/generated/prisma/client"
 import { useCart } from "@/lib/cart-context"
+import { ProductWithVariants } from "@/lib/types"
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product
+}: {
+  product: ProductWithVariants
+}) {
   const { addToCart } = useCart()
   return (
     <Card className="group overflow-hidden border-border/50 hover:border-primary/50 transition-colors duration-300 p-0 flex flex-col">
@@ -27,7 +31,7 @@ export default function ProductCard({ product }: { product: Product }) {
             {product.name}
           </h3>
         </Link>
-        <p className="text-muted-foreground text-sm line-clamp-2 mb-3 flex-grow">
+        <p className="text-muted-foreground text-sm line-clamp-2 mb-3 grow">
           {product.description}
         </p>
         <div className="font-mono font-bold text-lg">

@@ -3,7 +3,7 @@
 import ProductCard from "@/components/productCard"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { Product } from "@/generated/prisma/client"
+import { ProductWithVariants } from "@/lib/types"
 import { Search } from "lucide-react"
 import { useEffect, useState } from "react"
 
@@ -11,10 +11,8 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [category, setCategory] = useState<string>("All")
   const [search, setSearch] = useState<string>("")
-  const [products, setProducts] = useState<Product[]>([])
-
+  const [products, setProducts] = useState<ProductWithVariants[]>([])
   const categories = ["All", "Apparel", "Hats", "Accessories", "Mugs"]
-
   const BASE_URL = process.env.NEXT_PUBLIC_APP_BASE_URL
 
   useEffect(() => {
