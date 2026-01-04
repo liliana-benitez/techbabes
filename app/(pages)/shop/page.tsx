@@ -3,7 +3,6 @@
 import ProductCard from "@/components/productCard"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { Product } from "@/lib/types"
 import { Search } from "lucide-react"
 import { useEffect, useState } from "react"
 
@@ -11,23 +10,15 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [category, setCategory] = useState<string>("All")
   const [search, setSearch] = useState<string>("")
-  const [products, setProducts] = useState<Product[]>([])
+  const [products, setProducts] = useState<[]>([])
 
   const categories = ["All", "Apparel", "Hats", "Accessories", "Mugs"]
 
   const BASE_URL = process.env.NEXT_PUBLIC_APP_BASE_URL
 
-  const filteredProducts = products.filter((product) => {
-    const matchesCategory = category === "All" || product.category === category
-    const matchesSearch = product.name
-      .toLowerCase()
-      .includes(search.toLocaleLowerCase())
-    return matchesCategory && matchesSearch
-  })
-
   useEffect(() => {
     async function getProducts() {
-      const response = await fetch(`${BASE_URL}/api/products`)
+      const response = await fetch(`${BASE_URL}/api/printful/products`)
       const data = await response.json()
       setProducts(data)
       setIsLoading(false)
@@ -37,6 +28,15 @@ export default function Page() {
   }, [])
 
   console.log(products)
+
+  const filteredProducts = products.filter((product) => {
+    // const matchesCategory = category === "All" || product.category === category
+    const matchesSearch = product.sync_product.name
+      .toLowerCase()
+      .includes(search.toLocaleLowerCase())
+    // return matchesCategory && matchesSearch
+    return matchesSearch
+  })
 
   return (
     <div className="flex flex-col gap-4 px-20 py-12">
@@ -89,7 +89,10 @@ export default function Page() {
       ) : filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ">
           {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard
+              key={product.sync_product.id}
+              product={product.sync_product}
+            />
           ))}
         </div>
       ) : (

@@ -3,18 +3,22 @@ import Image from "next/image"
 import { Card, CardContent, CardFooter } from "./ui/card"
 import { ShoppingCart } from "lucide-react"
 import { Button } from "./ui/button"
-import { Product } from "@/lib/types"
+import { PrintfulProductResponse } from "@/lib/types"
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product
+}: {
+  product: PrintfulProductResponse
+}) {
   // const { addToCart } = useCart()
 
   return (
     <Card className="group overflow-hidden border-border/50 hover:border-primary/50 transition-colors duration-300 p-0 flex flex-col">
-      <Link href={`/product/${product.id}`}>
+      <Link href={`/product/${product.sync_product.id}`}>
         <div className="aspect-square overflow-hidden bg-muted/20 relative cursor-pointer">
           <Image
             src={product.image}
-            alt={product.name}
+            alt={product.sync_product.name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             fill={true}
           />
@@ -22,12 +26,12 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
       </Link>
       <CardContent className="p-4 flex-grow flex flex-col">
-        <div className="text-xs text-muted-foreground mb-1 font-mono uppercase tracking-wider">
+        {/* <div className="text-xs text-muted-foreground mb-1 font-mono uppercase tracking-wider">
           {product.category}
-        </div>
+        </div> */}
         <Link href={`/product/${product.id}`}>
           <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors cursor-pointer">
-            {product.name}
+            {product.sync_product.name}
           </h3>
         </Link>
         <p className="text-muted-foreground text-sm line-clamp-2 mb-3 flex-grow">
@@ -35,9 +39,9 @@ export default function ProductCard({ product }: { product: Product }) {
         </p>
         <div className="font-mono font-bold text-lg">
           $
-          {typeof product.price === "string"
-            ? parseFloat(product.price).toFixed(2)
-            : product.price.toFixed(2)}
+          {product && typeof product.price === "string"
+            ? parseFloat(product.sync_variants[0].retail_price).toFixed(2)
+            : product.sync_variants[0].retail_price.toFixed(2)}
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">

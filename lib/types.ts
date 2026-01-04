@@ -146,3 +146,10 @@ export type ShopifyProduct = {
     admin_graphql_api_id: string
   } | null
 }
+
+export interface PrintfulProductResponse {
+  sync_product: PrintfulProduct
+  sync_variants: PrintfulProductDetails[]
+}
+
+export type PrintfulProductsArray = PrintfulProductResponse[]

@@ -38,7 +38,7 @@ export async function GET() {
       return item.result
     })
 
-    return NextResponse.json({ productsWithDetails })
+    return NextResponse.json(productsWithDetails)
   } catch (error) {
     return NextResponse.json({ error })
   }
