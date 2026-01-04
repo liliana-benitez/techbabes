@@ -7,6 +7,8 @@ import Image from "next/image"
 import logo from "../public/logo.png"
 import { Button } from "./ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
+import { useCart } from "@/lib/cart-context"
+import { Badge } from "./ui/badge"
 
 interface NavItem {
   id: number
@@ -31,7 +33,7 @@ export default function Navigation() {
       href: "/contact"
     }
   ]
-
+  const { count } = useCart()
   const pathname = usePathname()
   const isActive = (href: string) => pathname === href
 
@@ -108,11 +110,11 @@ export default function Navigation() {
           <Link href="/cart">
             <Button variant="ghost" size="icon" className="relative">
               <LucideShoppingCart />
-              {/* {count > 0 && (
+              {count > 0 && (
                 <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-primary text-primary-foreground hover:bg-primary rounded-full text-xs">
                   {count}
-                </Badge> */}
-              {/* )} */}
+                </Badge>
+              )}
             </Button>
           </Link>
         </div>
