@@ -4,13 +4,18 @@ import { toast } from "sonner"
 
 interface CartItem extends Product {
   quantity: number
+  variantId: string
 }
 
 interface CartContextType {
   items: CartItem[]
-  addToCart: (product: Product) => void
-  removeFromCart: (productId: number) => void
-  updateQuantity: (productId: number, quantity: number) => void
+  addToCart: (product: Product, variantId: string) => void
+  removeFromCart: (productId: number, variantId: string) => void
+  updateQuantity: (
+    productId: number,
+    variantId: string,
+    quantity: number
+  ) => void
   clearCart: () => void
   total: number
   count: number
@@ -42,33 +47,46 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [items, isHydrated])
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: Product, variantId: string) => {
     setItems((current) => {
-      const existing = current.find((item) => item.id === product.id)
+      // Find existing item with same product ID AND variant ID
+      const existing = current.find(
+        (item) => item.id === product.id && item.variantId === variantId
+      )
       if (existing) {
         return current.map((item) =>
-          item.id === product.id
+          item.id === product.id && item.variantId === variantId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
       }
-      return [...current, { ...product, quantity: 1 }]
+      return [...current, { ...product, quantity: 1, variantId }]
     })
     toast(`${product.name} is now in your cart.`)
   }
 
-  const removeFromCart = (productId: number) => {
-    setItems((current) => current.filter((item) => item.id !== productId))
+  const removeFromCart = (productId: number, variantId: string) => {
+    setItems((current) =>
+      current.filter(
+        (item) => !(item.id === productId && item.variantId === variantId)
+      )
+    )
   }
 
-  const updateQuantity = (productId: number, quantity: number) => {
+  const updateQuantity = (
+    productId: number,
+    variantId: string,
+    quantity: number
+  ) => {
     if (quantity < 1) {
-      removeFromCart(productId)
+      removeFromCart(productId, variantId)
       return
     }
     setItems((current) =>
       current.map((item) =>
-        item.id === productId ? { ...item, quantity } : item
+        item.id === productId && item.variantId === variantId
+          ? { ...item, quantity }
+          : item
       )
     )
   }
