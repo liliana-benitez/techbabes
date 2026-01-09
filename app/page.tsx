@@ -5,9 +5,8 @@ import hero from "../public/hero.jpg"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { blogPosts } from "@/lib/data"
 import ProductCard from "@/components/productCard"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, PenLine } from "lucide-react"
 import Values from "@/components/values"
 import { ProductWithVariants } from "@/lib/types"
 
@@ -27,7 +26,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="flex flex-col gap-16">
+    <div className="flex flex-col gap-16 pb-12">
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -94,14 +93,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Grid */}
+      {/* Values */}
       <section className="w-full px-20">
         <h2 className="font-display font-bold text-3xl mb-8">Our values</h2>
         <Values />
       </section>
 
-      {/* Blog Teaser */}
-      <section className="w-full px-20 pb-12">
+      {/* Blog Preview */}
+      <section className="px-20 text-center">
+        <div className="w-full mx-auto space-y-8 py-16 px-8 rounded-2xl border border-border/50 bg-muted/20">
+          <div className="mx-auto h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+            <PenLine className="h-6 w-6" />
+          </div>
+
+          <div>
+            <h2 className="font-display font-bold text-4xl mb-4">
+              Blog Coming soon!
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              We’re working on thoughtful articles about women in tech,
+              confidence, creativity, and building a career that feels like{" "}
+              <em>you</em>.
+            </p>
+          </div>
+        </div>
+      </section>
+      {/* <section className="w-full px-20 pb-12">
         <h2 className="font-display font-bold text-3xl mb-8">
           Latest from our blog
         </h2>
@@ -131,7 +148,7 @@ export default function Home() {
             </Link>
           ))}
         </div>
-      </section>
+      </section> */}
     </div>
   )
 }
