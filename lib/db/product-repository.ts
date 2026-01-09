@@ -8,3 +8,16 @@ export async function getAllProducts() {
   })
   return products
 }
+
+export async function getProductById(id: number) {
+  const product = await prisma.product.findUnique({
+    where: {
+      id
+    },
+    include: {
+      variants: true
+    }
+  })
+
+  return product
+}

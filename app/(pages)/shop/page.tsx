@@ -44,8 +44,8 @@ export default function Page() {
             Shop Collection
           </h1>
           <p className="text-muted-foreground text-lg">
-            Browse our curated selection of developer essentials. From dad hats
-            to desk mats, we&apos;ve got your setup covered.
+            Browse our curated selection of developer essentials. From baseball
+            hats to desk mats, we&apos;ve got your setup covered.
           </p>
         </div>
 

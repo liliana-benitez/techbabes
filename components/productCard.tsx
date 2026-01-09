@@ -6,15 +6,17 @@ import { Button } from "./ui/button"
 import { useCart } from "@/lib/cart-context"
 import { ProductWithVariants } from "@/lib/types"
 
-export default function ProductCard({
-  product
-}: {
+interface ProductCardProps {
   product: ProductWithVariants
-}) {
+}
+
+export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart()
+  const hasVariants = product.variants && product.variants.length > 0
+
   return (
     <Card className="group overflow-hidden border-border/50 hover:border-primary/50 transition-colors duration-300 p-0 flex flex-col">
-      <Link href={`/product/${product.id}`}>
+      <Link href={`/shop/${product.id}`}>
         <div className="aspect-square overflow-hidden bg-muted/20 relative cursor-pointer">
           <Image
             src={product.images[0]}
@@ -26,7 +28,7 @@ export default function ProductCard({
         </div>
       </Link>
       <CardContent className="p-4 grow flex flex-col">
-        <Link href={`/product/${product.id}`}>
+        <Link href={`/shop/${product.id}`}>
           <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors cursor-pointer">
             {product.name}
           </h3>
