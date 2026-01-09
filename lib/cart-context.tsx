@@ -5,11 +5,16 @@ import { toast } from "sonner"
 interface CartItem extends Product {
   quantity: number
   printfulVariantId: string
+  variantLabel?: string | undefined
 }
 
 interface CartContextType {
   items: CartItem[]
-  addToCart: (product: Product, variantId: string) => void
+  addToCart: (
+    product: Product,
+    variantId: string,
+    variantLabel: string | undefined
+  ) => void
   removeFromCart: (productId: number, variantId: string) => void
   updateQuantity: (
     productId: number,
@@ -47,11 +52,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [items, isHydrated])
 
-  const addToCart = (product: Product, variantId: string) => {
+  const addToCart = (
+    product: Product,
+    variantId: string,
+    variantLabel?: string
+  ) => {
     setItems((current) => {
       const existing = current.find(
         (item) => item.id === product.id && item.printfulVariantId === variantId
       )
+
       if (existing) {
         return current.map((item) =>
           item.id === product.id && item.printfulVariantId === variantId
@@ -59,12 +69,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             : item
         )
       }
+
       return [
         ...current,
-        { ...product, quantity: 1, printfulVariantId: variantId }
+        {
+          ...product,
+          quantity: 1,
+          printfulVariantId: variantId,
+          variantLabel
+        }
       ]
     })
-    toast(`${product.name} is now in your cart.`)
+
+    toast(`${product.name} added to cart`)
   }
 
   const removeFromCart = (productId: number, variantId: string) => {

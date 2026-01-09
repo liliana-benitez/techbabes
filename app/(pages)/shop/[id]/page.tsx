@@ -34,7 +34,8 @@ export default function ProductPage() {
         const data = await response.json()
         setProduct(data)
         setIsLoading(false)
-      } catch (e) {
+      } catch (error) {
+        console.log(error)
         setProduct(null)
         setIsLoading(false)
       }
@@ -98,17 +99,14 @@ export default function ProductPage() {
   const handleAddToCart = () => {
     if (hasVariants && selectedVariant) {
       const variant = product.variants.find((v) => v.id === selectedVariant)
-      if (variant) {
-        addToCart({
-          ...product,
-          price: variant.price,
-          variantId: variant.id,
-          selectedSize,
-          selectedColor
-        })
-      }
+
+      if (!variant) return
+
+      const label = [variant.color, variant.size].filter(Boolean).join(" / ")
+
+      addToCart(product, variant.id.toString(), label)
     } else {
-      addToCart(product)
+      addToCart(product, "", undefined)
     }
   }
 

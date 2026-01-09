@@ -52,15 +52,17 @@ export default function Cart() {
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="font-bold text-lg">{item.name}</h3>
-                    {/* <p className="text-sm text-muted-foreground">
-                      {item.}
-                    </p> */}
+                    <p className="text-sm text-start text-muted-foreground">
+                      {item.variantLabel && item.variantLabel}
+                    </p>
                   </div>
                   <Button
                     variant="ghost"
                     size="icon"
                     className="text-muted-foreground hover:text-destructive"
-                    onClick={() => removeFromCart(item.id)}
+                    onClick={() =>
+                      removeFromCart(item.id, item.printfulVariantId)
+                    }
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -72,7 +74,13 @@ export default function Cart() {
                       variant="ghost"
                       size="icon"
                       className="h-8 w-8 rounded-none"
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      onClick={() =>
+                        updateQuantity(
+                          item.id,
+                          item.printfulVariantId,
+                          item.quantity - 1
+                        )
+                      }
                     >
                       <Minus className="h-3 w-3" />
                     </Button>
@@ -83,7 +91,13 @@ export default function Cart() {
                       variant="ghost"
                       size="icon"
                       className="h-8 w-8 rounded-none"
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      onClick={() =>
+                        updateQuantity(
+                          item.id,
+                          item.printfulVariantId,
+                          item.quantity + 1
+                        )
+                      }
                     >
                       <Plus className="h-3 w-3" />
                     </Button>

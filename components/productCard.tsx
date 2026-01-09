@@ -1,9 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Card, CardContent, CardFooter } from "./ui/card"
-import { ShoppingCart } from "lucide-react"
-import { Button } from "./ui/button"
-import { useCart } from "@/lib/cart-context"
+import { Card, CardContent } from "./ui/card"
 import { ProductWithVariants } from "@/lib/types"
 
 interface ProductCardProps {
@@ -11,8 +8,8 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { addToCart } = useCart()
-  const hasVariants = product.variants && product.variants.length > 0
+  // const { addToCart } = useCart()
+  // const hasVariants = product.variants && product.variants.length > 0
 
   return (
     <Card className="group overflow-hidden border-border/50 hover:border-primary/50 transition-colors duration-300 p-0 flex flex-col">
@@ -43,17 +40,20 @@ export default function ProductCard({ product }: ProductCardProps) {
             : product.price.toFixed(2)}
         </div>
       </CardContent>
-      <CardFooter className="p-4 pt-0">
-        <Button
-          onClick={() => {
-            addToCart(product)
-          }}
-          className="w-full btn-primary hover:bg-primary/90 text-primary-foreground font-medium"
-        >
-          <ShoppingCart className="mr-2 h-4 w-4" />
-          Add to Cart
-        </Button>
-      </CardFooter>
+      {/* <CardFooter className="p-4 pt-0"> */}
+      {/* <Link href={`/shop/${product.id}`}>
+          <Button
+            // onClick={() => {
+            // addToCart(product)
+
+            // }}
+            className="w-full btn-primary hover:bg-primary/90 text-primary-foreground font-medium"
+          >
+            <ShoppingCart className="mr-2 h-4 w-4" />
+            Add to Cart
+          </Button>
+        </Link> */}
+      {/* </CardFooter> */}
     </Card>
   )
 }
