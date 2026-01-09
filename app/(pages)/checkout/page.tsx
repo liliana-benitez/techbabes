@@ -166,6 +166,7 @@ function CheckoutContent() {
 
     try {
       checkoutSchema.parse(formData)
+      console.log(formData)
 
       // Create payment intent
       const paymentIntentRes = await fetch("/api/payment-intent", {

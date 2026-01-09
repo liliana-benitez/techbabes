@@ -13,47 +13,57 @@ export async function POST(req: NextRequest) {
       customerEmail,
       customerName,
       customerPhone,
-      customerAddress,
-      customerCity,
-      customerState,
-      customerZip,
-      customerCountry
+      shippingAddress1,
+      shippingCity,
+      shippingState,
+      shippingZip,
+      shippingCountry
     } = body
 
-    // Validate required fields
-    if (!amount || !customerEmail) {
+    if (
+      !amount ||
+      !customerEmail ||
+      !shippingAddress1 ||
+      !shippingCity ||
+      !shippingState ||
+      !shippingZip ||
+      !shippingCountry
+    ) {
       return NextResponse.json(
-        { error: "Missing required fields" },
+        { error: "Missing required checkout fields" },
         { status: 400 }
       )
     }
 
-    // Create the payment intent
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount, // Amount in cents
+      amount,
       currency: "usd",
+
       automatic_payment_methods: {
         enabled: true
       },
+
       receipt_email: customerEmail,
-      metadata: {
-        customerName: customerName || "",
-        customerPhone: customerPhone || "",
-        customerEmail: customerEmail,
-        // Store cart items as JSON string
-        cartItems: JSON.stringify(cartItems || [])
-      },
+
       shipping: {
-        name: customerName,
+        name: customerName ?? customerEmail,
         phone: customerPhone,
         address: {
-          line1: customerAddress,
-          city: customerCity,
-          state: customerState,
-          postal_code: customerZip,
-          country: customerCountry
+          line1: shippingAddress1,
+          city: shippingCity,
+          state: shippingState,
+          postal_code: shippingZip,
+          country: shippingCountry
         }
       },
+
+      metadata: {
+        customerEmail,
+        customerName: customerName ?? "",
+        customerPhone: customerPhone ?? "",
+        cartItems: JSON.stringify(cartItems ?? [])
+      },
+
       description: `Order for ${customerEmail}`
     })
 
@@ -63,6 +73,7 @@ export async function POST(req: NextRequest) {
     })
   } catch (error) {
     console.error("Payment intent error:", error)
+
     return NextResponse.json(
       {
         error:
