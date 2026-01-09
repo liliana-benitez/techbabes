@@ -38,8 +38,6 @@ interface FormErrors {
 }
 
 function StripePaymentForm({
-  formData,
-  isProcessing,
   onPaymentSuccess
 }: {
   formData: CheckoutData
@@ -179,16 +177,16 @@ function CheckoutContent() {
             id: item.id.toString(),
             quantity: item.quantity,
             price: Math.round(parseFloat(item.price.toString()) * 100),
-            variantId: item.variantId
+            printfulVariantId: item.printfulVariantId
           })),
           customerEmail: formData.email,
           customerName: `${formData.firstName} ${formData.lastName}`,
           customerPhone: formData.phone,
-          customerAddress: formData.address,
-          customerCity: formData.city,
-          customerState: formData.state,
-          customerZip: formData.zip,
-          customerCountry: formData.country
+          shippingAddress1: formData.address,
+          shippingCity: formData.city,
+          shippingState: formData.state,
+          shippingZip: formData.zip,
+          shippingCountry: formData.country
         })
       })
 
@@ -344,7 +342,7 @@ function CheckoutContent() {
             <div className="bg-gray-50 p-4 rounded space-y-2">
               {items.map((item) => (
                 <div
-                  key={`${item.id}-${item.variantId}`}
+                  key={`${item.id}-${item.printfulVariantId}`}
                   className="flex justify-between text-sm"
                 >
                   <span>

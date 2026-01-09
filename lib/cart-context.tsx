@@ -4,7 +4,7 @@ import { toast } from "sonner"
 
 interface CartItem extends Product {
   quantity: number
-  variantId: string
+  printfulVariantId: string
 }
 
 interface CartContextType {
@@ -49,18 +49,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const addToCart = (product: Product, variantId: string) => {
     setItems((current) => {
-      // Find existing item with same product ID AND variant ID
       const existing = current.find(
-        (item) => item.id === product.id && item.variantId === variantId
+        (item) => item.id === product.id && item.printfulVariantId === variantId
       )
       if (existing) {
         return current.map((item) =>
-          item.id === product.id && item.variantId === variantId
+          item.id === product.id && item.printfulVariantId === variantId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
       }
-      return [...current, { ...product, quantity: 1, variantId }]
+      return [
+        ...current,
+        { ...product, quantity: 1, printfulVariantId: variantId }
+      ]
     })
     toast(`${product.name} is now in your cart.`)
   }
@@ -68,7 +70,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const removeFromCart = (productId: number, variantId: string) => {
     setItems((current) =>
       current.filter(
-        (item) => !(item.id === productId && item.variantId === variantId)
+        (item) =>
+          !(item.id === productId && item.printfulVariantId === variantId)
       )
     )
   }
@@ -84,7 +87,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
     setItems((current) =>
       current.map((item) =>
-        item.id === productId && item.variantId === variantId
+        item.id === productId && item.printfulVariantId === variantId
           ? { ...item, quantity }
           : item
       )
