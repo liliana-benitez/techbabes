@@ -104,7 +104,7 @@ export default function ProductPage() {
 
       const label = [variant.color, variant.size].filter(Boolean).join(" / ")
 
-      addToCart(product, variant.id.toString(), label)
+      addToCart(product, variant.printfulVariantId.toString(), label)
     } else {
       addToCart(product, "", undefined)
     }
