@@ -35,7 +35,7 @@ export default function ContactPage() {
     setErrors((prev) => ({ ...prev, [field]: undefined }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
 
     const result = formSchema.safeParse(values)
@@ -50,6 +50,15 @@ export default function ContactPage() {
       return
     }
 
+    const res = await fetch("/api/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+
+    const data = await res.json()
+    console.log(data)
     // Submit to Next.js API
     // toast alert
   }
