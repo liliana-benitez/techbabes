@@ -1,53 +1,125 @@
 import Image from "next/image"
 import Link from "next/link"
+import { Instagram, Facebook, Twitter } from "lucide-react"
 import logo from "../public/logo.png"
 
 export default function Footer() {
   return (
     <footer className="border-t border-border bg-muted/30">
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Logo & Tagline */}
           <div className="space-y-4">
-            <h3 className="font-display font-bold text-lg">Tech Babes</h3>
-            <p className="text-muted-foreground text-sm">
+            <Image src={logo} height={80} width={80} alt="Tech Babes Logo" />
+            {/* <p className="text-muted-foreground text-sm">
               Empowering women in tech with style and code.
-            </p>
+            </p> */}
           </div>
+
+          {/* Shop */}
           <div>
             <h4 className="font-bold mb-4">Shop</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link href="/shop">Apparel</Link>
-              </li>
-              <li>
-                <Link href="/shop">Accessories</Link>
-              </li>
-              <li>
-                <Link href="/shop">New Arrivals</Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold mb-4">Community</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/blog">Blog</Link>
-              </li>
-              <li>
-                <Link href="/about">About Us</Link>
+                <Link
+                  href="/shop"
+                  className="hover:text-primary transition-colors"
+                >
+                  All Products
+                </Link>
               </li>
               {/* <li>
-                <a href="#" className="hover:text-primary">
-                  Discord
-                </a>
+                <Link
+                  href="/shop/new"
+                  className="hover:text-primary transition-colors"
+                >
+                  New Arrivals
+                </Link>
               </li> */}
             </ul>
           </div>
 
+          {/* Customer Service */}
           <div>
-            <Image src={logo} height={100} width={100} alt="Tech Babes Logo" />
+            <h4 className="font-bold mb-4">Customer Service</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>
+                <Link
+                  href="/shipping"
+                  className="hover:text-primary transition-colors"
+                >
+                  Shipping & Returns
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/privacy"
+                  className="hover:text-primary transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="hover:text-primary transition-colors"
+                >
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/faq"
+                  className="hover:text-primary transition-colors"
+                >
+                  FAQ
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal & Socials */}
+          <div>
+            <h4 className="font-bold mb-4">Connect</h4>
+            <div className="flex gap-3 mb-6">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
+              >
+                <Twitter className="h-5 w-5" />
+              </a>
+            </div>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>
+                <Link
+                  href="/contact"
+                  className="hover:text-primary transition-colors"
+                >
+                  Contact Us
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
+
         <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
           © {new Date().getFullYear()} Tech Babes. All rights reserved.
         </div>

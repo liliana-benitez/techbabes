@@ -2,7 +2,13 @@
 
 import { useCart } from "@/lib/cart-context"
 import { Button } from "@/components/ui/button"
-import { Trash2, Plus, Minus, ArrowRight } from "lucide-react"
+import {
+  Trash2,
+  Plus,
+  Minus,
+  ArrowRight,
+  LucideShoppingCart
+} from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -11,7 +17,10 @@ export default function Cart() {
 
   if (items.length === 0) {
     return (
-      <div className=" px-4 py-24 text-center">
+      <div className=" px-4 py-24 text-center flex flex-col items-center">
+        <div className="mb-8">
+          <LucideShoppingCart height={50} width={50} className="text-primary" />
+        </div>
         <h1 className="font-display font-bold text-3xl mb-4">
           Your cart is empty
         </h1>

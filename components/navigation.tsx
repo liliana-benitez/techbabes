@@ -9,6 +9,7 @@ import { Button } from "./ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import { useCart } from "@/lib/cart-context"
 import { Badge } from "./ui/badge"
+import { useState } from "react"
 
 interface NavItem {
   id: number
@@ -36,12 +37,13 @@ export default function Navigation() {
   const { count } = useCart()
   const pathname = usePathname()
   const isActive = (href: string) => pathname === href
+  const [open, setOpen] = useState(false)
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
-      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+      <div className="container mx-auto h-20 flex items-center justify-between">
         {/* Mobile Menu */}
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="md:hidden">
               <Menu className="h-5 w-5" />
@@ -49,12 +51,16 @@ export default function Navigation() {
             </Button>
           </SheetTrigger>
           <SheetContent side="left">
-            <nav className="flex flex-col gap-4 mt-8">
+            <nav className="flex flex-col gap-2 mt-8">
               {navLinks.map((link) => (
-                <Link key={link.href} href={link.href}>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                >
                   <span
-                    className={`text-lg font-medium hover:text-primary transition-colors cursor-pointer ${
-                      isActive(link.href) ? "text-[#e19fae]" : ""
+                    className={`block text-lg font-medium hover:text-primary hover:bg-primary/5 transition-colors cursor-pointer px-4 py-3 rounded-lg ${
+                      isActive(link.href) ? "text-[#e19fae] bg-primary/5" : ""
                     }`}
                   >
                     {link.label}
@@ -94,19 +100,6 @@ export default function Navigation() {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
-          {/* <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleTheme}
-            className="hidden sm:flex"
-          >
-            {isDark ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
-          </Button> */}
-
           <Link href="/cart">
             <Button variant="ghost" size="icon" className="relative">
               <LucideShoppingCart />

@@ -1,29 +1,18 @@
-// "use client"
-
 import { Heart, Users, Zap } from "lucide-react"
-// import Link from "next/link"
-// import { usePathname } from "next/navigation"
 
 export default function Values() {
-  // const pathname = usePathname()
-  // console.log(pathname)
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {/* <Link href={pathname === "/about" ? "" : "/about"}> */}
       <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-primary/50 transition-colors flex flex-col items-center">
         <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
           <Heart className="h-6 w-6" />
         </div>
         <h3 className="font-bold text-xl mb-3">Community First</h3>
         <p className="text-muted-foreground">
-          We&apos;re building a community of women who lift each other up. Every
-          purchase supports the next generation of tech babes.
+          We&apos;re building a community of women who lift each other up.
         </p>
       </div>
-      {/* </Link> */}
 
-      {/* <Link href={pathname === "/about" ? "#" : "/about"}> */}
       <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-secondary/50 transition-colors flex flex-col items-center">
         <div className="h-12 w-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary mb-6">
           <Zap className="h-6 w-6" />
@@ -34,9 +23,6 @@ export default function Values() {
           last. No compromise on quality.
         </p>
       </div>
-      {/* </Link> */}
-
-      {/* <Link href={pathname === "/about" ? "#" : "/about"}> */}
       <div className="p-8 rounded-2xl bg-muted/30 border border-border/50 hover:border-primary/50 transition-colors flex flex-col items-center">
         <div className="h-12 w-12 rounded-xl bg-accent flex items-center justify-center text-foreground mb-6">
           <Users className="h-6 w-6" />
@@ -47,7 +33,6 @@ export default function Values() {
           monolithic, and neither are we.
         </p>
       </div>
-      {/* </Link> */}
     </div>
   )
 }

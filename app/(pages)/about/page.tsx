@@ -11,28 +11,32 @@ export default function Page() {
     {
       label: "Women in Tech",
       value: "26%",
-      description: "of the global tech workforce"
+      description: "of the global tech workforce",
+      url: "https://spacelift.io/blog/women-in-tech-statistics"
     },
     {
       label: "In AI/ML",
       value: "22%",
-      description: "women leading AI positions"
+      description: "women in AI roles",
+      url: "https://lemon.io/blog/women-in-tech-statistics/"
+    },
+    {
+      label: "Startup Founders",
+      value: "13%",
+      description: "women-led tech startups",
+      url: "https://technical.ly/diversity-equity-inclusion/female-founders-investment-trends-2024-ballard-spahr/"
     },
     {
       label: "Career Satisfaction",
       value: "78%",
-      description: "higher satisfaction with mentorship"
-    },
-    {
-      label: "Startup Founders",
-      value: "17%",
-      description: "women-led tech startups"
+      description: "of women with mentors stay in tech",
+      url: "https://www.womentech.net/women-in-tech-mentorship-statistics"
     }
   ]
 
   return (
     <div className="flex flex-col gap-12 px-20 py-12">
-      {/* Section 1: Founder Message with Story */}
+      {/* My Story */}
       <section className="px-4 pt-12">
         <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-6">
@@ -69,8 +73,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Industry Stats Section */}
-      {/* Section 2: Industry Stats */}
+      {/*Stats*/}
       <section className="container px-4">
         <div className="flex flex-col-reverse lg:flex-row gap-12">
           <div className="rounded-2xl overflow-hidden border border-border/50 shadow-lg md:w-1/2">
@@ -86,32 +89,38 @@ export default function Page() {
             {stats.map((stat, idx) => (
               <div
                 key={idx}
-                className="flex gap-2 items-center p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/5 border border-border/50 hover:border-primary/50 transition-colors"
+                className="flex gap-4 items-center p-6 rounded-2xl bg-linear-to-br from-primary/5 to-secondary/5 border border-border/50 hover:border-primary/50 transition-colors"
               >
-                <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
-                  <TrendingUp className="h-5 w-5" />
-                </div>
-                <div className="text-3xl font-bold mb-2">{stat.value}</div>
-                <h3 className="font-bold text-sm mb-1">{stat.label}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {stat.description}
-                </p>
+                <a target="_blank" href={stat.url}>
+                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                    <TrendingUp className="h-6 w-6" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span className="text-4xl font-bold">{stat.value}</span>
+                      <h3 className="font-bold text-lg">{stat.label}</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {stat.description}
+                    </p>
+                  </div>
+                </a>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Values Section */}
+      {/* Values */}
       <section className="px-4 text-center">
         <h2 className="font-display font-bold text-4xl mb-6">Our Values</h2>
 
         <Values />
       </section>
 
-      {/* CTA Section */}
+      {/* CTA */}
       <section className="px-4 text-center">
-        <div className="max-w-2xl mx-auto space-y-8 py-16 px-8 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20">
+        <div className="w-full mx-auto space-y-8 py-16 px-8 rounded-2xl bg-linear-to-r from-primary/10 to-secondary/10 border border-primary/20">
           <div>
             <h2 className="font-display font-bold text-3xl mb-4">
               Join the Community
@@ -146,7 +155,3 @@ export default function Page() {
     </div>
   )
 }
-
-// <p>
-
-// </p>
