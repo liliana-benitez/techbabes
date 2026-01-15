@@ -26,8 +26,6 @@ export default function Page() {
     getProducts()
   }, [])
 
-  console.log(products)
-
   const filteredProducts = products.filter((product) => {
     const matchesCategory =
       category === "All" ||
