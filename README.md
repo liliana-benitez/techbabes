@@ -1,9 +1,5 @@
 # Tech Babes 
-My personal brand and full-stack e-commerce platform celebrating women in tech with cute, empowering merchandise - designed and developed entirely by me.
-
-
-## What It Is
-Tech Babes is both a brand I created and the e-commerce platform I built to sell it. Every aspect is my own work:
+My personal brand and full-stack e-commerce platform celebrating women in tech with cute, empowering merchandise. Designed and developed entirely by me.
 
 🎨 Original designs - All merchandise graphics designed by me
 💻 Full-stack development - Built the entire platform from scratch
@@ -11,20 +7,18 @@ Tech Babes is both a brand I created and the e-commerce platform I built to sell
 
 The platform handles the complete purchase flow from browsing to automated order fulfillment via print-on-demand integration.
 Key workflow:
-
-Customer browses products and adds items to cart
-Secure checkout powered by Stripe
-Webhook listens for successful payment
-Automated order creation sent to Printful for fulfillment
-Customer receives order confirmation (coming soon: email notifications)
+- Customer browses products and adds items to cart
+- Secure checkout powered by Stripe
+- Webhook listens for successful payment
+- Automated order creation sent to Printful for fulfillment
+- Customer receives order confirmation (coming soon: email notifications)
 
 ## The Creative Process
 Beyond the code, I designed all the merchandise myself:
-
-Created original graphics and illustrations in Canva
-Developed brand identity (logo, color palette, voice)
-Designed product mockups and photography layouts
-Wrote all product descriptions and marketing
+- Created original graphics and illustrations in Canva
+- Developed brand identity (logo, color palette, voice)
+- Designed product mockups and photography layouts
+- Wrote all product descriptions and marketing
 
 This isn't just a coding project. It's a full product I brought to life, from concept to customer.
 
@@ -46,7 +40,6 @@ This isn't just a coding project. It's a full product I brought to life, from co
 
 Deployment:
 - Vercel - Hosting and CI/CD
-
 
 ## Features
 **Current Features** </br>
