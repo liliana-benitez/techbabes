@@ -1,9 +1,9 @@
 # Tech Babes 
-My personal brand and full-stack e-commerce platform celebrating women in tech with cute, empowering merchandise. Designed and developed entirely by me.
+My personal brand and full-stack e-commerce platform celebrating women in tech with cute, empowering merchandise. Designed and developed entirely by me. </br>
 
-🎨 Original designs - All merchandise graphics designed by me
-💻 Full-stack development - Built the entire platform from scratch
-🏢 Real business - Processing actual customer orders, not a demo project
+🎨 Original designs - All merchandise graphics designed by me </br>
+💻 Full-stack development - Built the entire platform from scratch </br>
+🏢 Real business - Processing actual customer orders, not a demo project </br>
 
 The platform handles the complete purchase flow from browsing to automated order fulfillment via print-on-demand integration.
 Key workflow:
