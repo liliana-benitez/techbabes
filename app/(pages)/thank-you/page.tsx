@@ -5,7 +5,7 @@ import Link from "next/link"
 export default function ThankYou() {
   return (
     <div className="min-h-[80vh] flex flex-col items-center justify-center p-4 text-center">
-      <div className="h-24 w-24 rounded-full bg-green-100 text-green-600 flex items-center justify-center mb-6 animate-in zoom-in duration-500">
+      <div className="h-24 w-24 rounded-full bg-accent text-secondary-foreground flex items-center justify-center mb-6 animate-in zoom-in duration-500">
         <CheckCircle2 className="h-12 w-12" />
       </div>
 

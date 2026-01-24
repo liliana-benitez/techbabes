@@ -5,14 +5,14 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST() {
   const { data, error } = await resend.emails.send({
-    from: "Acme <onboarding@resend.dev>",
+    from: "Tech Babes <onboarding@resend.dev>",
     to: ["lilyybenitezz@gmail.com"],
-    subject: "Hello world",
+    subject: "Order Confirmation",
     react: (
       <OrderConfirmationEmail
-        customerName={"Ada Lovelace"}
+        customerName={"Lili Benitez"}
         orderNumber={"#TT-2026-0001"}
-        orderDate={"January 13, 2026"}
+        orderDate={"January 24, 2026"}
         items={[
           {
             name: "Developer Hoodie",

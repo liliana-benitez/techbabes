@@ -15,7 +15,9 @@ import {
   useElements
 } from "@stripe/react-stripe-js"
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY!)
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+)
 
 const checkoutSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -220,7 +222,7 @@ function CheckoutContent() {
     }
   }
 
-  const handlePaymentSuccess = () => {
+  async function handlePaymentSuccess() {
     router.push("/thank-you")
   }
 

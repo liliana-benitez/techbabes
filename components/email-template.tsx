@@ -24,27 +24,14 @@ interface OrderConfirmationEmailProps {
 }
 
 export const OrderConfirmationEmail: React.FC<OrderConfirmationEmailProps> = ({
-  customerName = "Ada Lovelace",
-  orderNumber = "#TT-2026-0001",
-  orderDate = "January 13, 2026",
-  items = [
-    {
-      name: "Developer Hoodie",
-      variant: "Black / L",
-      quantity: 1,
-      price: 45.0
-    },
-    { name: "Code & Coffee Mug", variant: "White", quantity: 2, price: 15.0 }
-  ],
-  subtotal = 75.0,
-  shipping = 8.0,
-  total = 83.0,
-  shippingAddress = {
-    street: "123 Tech Street",
-    city: "San Francisco",
-    state: "CA",
-    zip: "94105"
-  }
+  customerName,
+  orderNumber,
+  orderDate,
+  items,
+  subtotal,
+  shipping,
+  total,
+  shippingAddress
 }) => {
   return (
     <div
@@ -68,31 +55,51 @@ export const OrderConfirmationEmail: React.FC<OrderConfirmationEmailProps> = ({
         {/* Header */}
         <div
           style={{
-            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            // background: "#f589bf",
+            position: "relative",
+            backgroundImage:
+              "url(https://agwjluscdhpcsuyraogh.supabase.co/storage/v1/object/public/Tech%20Babes/Hats/Tech-Babes-Logo-Embroidered-Baseball-Hat/pink-2.jpg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center 15%",
+            backgroundRepeat: "no-repeat",
             padding: "40px 32px",
             textAlign: "center"
           }}
         >
-          <h1
+          <div
             style={{
-              color: "#ffffff",
-              fontSize: "28px",
-              fontWeight: "700",
-              margin: "0 0 8px 0",
-              letterSpacing: "-0.5px"
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background:
+                "linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5))",
+              zIndex: 0
             }}
-          >
-            Order Confirmed! 🎉
-          </h1>
-          <p
-            style={{
-              color: "rgba(255, 255, 255, 0.9)",
-              fontSize: "16px",
-              margin: "0"
-            }}
-          >
-            Thanks for shopping with The Tech Babes
-          </p>
+          />
+          <div style={{ position: "relative", zIndex: 1 }}>
+            <h1
+              style={{
+                color: "#ffffff",
+                fontSize: "28px",
+                fontWeight: "700",
+                margin: "0 0 8px 0",
+                letterSpacing: "-0.5px"
+              }}
+            >
+              Order Confirmed!
+            </h1>
+            <p
+              style={{
+                color: "rgba(255, 255, 255, 0.9)",
+                fontSize: "16px",
+                margin: "0"
+              }}
+            >
+              Thanks for shopping with Tech Babes
+            </p>
+          </div>
         </div>
 
         {/* Content */}
@@ -106,7 +113,7 @@ export const OrderConfirmationEmail: React.FC<OrderConfirmationEmailProps> = ({
               margin: "0 0 24px 0"
             }}
           >
-            Hey {customerName}! 👋
+            Hey {customerName}!
           </p>
 
           <p
@@ -289,7 +296,7 @@ export const OrderConfirmationEmail: React.FC<OrderConfirmationEmailProps> = ({
               <span
                 style={{
                   fontSize: "16px",
-                  color: "#667eea",
+                  color: "#f589bf",
                   fontWeight: "700"
                 }}
               >
@@ -307,7 +314,7 @@ export const OrderConfirmationEmail: React.FC<OrderConfirmationEmailProps> = ({
               margin: "0 0 12px 0"
             }}
           >
-            Shipping Address
+            Shipping Information
           </h3>
           <div
             style={{
@@ -317,6 +324,8 @@ export const OrderConfirmationEmail: React.FC<OrderConfirmationEmailProps> = ({
               marginBottom: "32px"
             }}
           >
+            {customerName}
+            <br />
             {shippingAddress.street}
             <br />
             {shippingAddress.city}, {shippingAddress.state}{" "}
@@ -324,7 +333,7 @@ export const OrderConfirmationEmail: React.FC<OrderConfirmationEmailProps> = ({
           </div>
 
           {/* CTA Button */}
-          <div style={{ textAlign: "center", marginBottom: "24px" }}>
+          {/* <div style={{ textAlign: "center", marginBottom: "24px" }}>
             <a
               href="#"
               style={{
@@ -341,7 +350,7 @@ export const OrderConfirmationEmail: React.FC<OrderConfirmationEmailProps> = ({
             >
               Track Your Order
             </a>
-          </div>
+          </div> */}
 
           {/* Footer Message */}
           <p
