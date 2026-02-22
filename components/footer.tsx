@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Instagram } from "lucide-react"
+import { Instagram, Mail } from "lucide-react"
 import logo from "../public/logo.png"
 import etsy from "../public/etsy.svg"
 
@@ -75,6 +75,14 @@ export default function Footer() {
                 className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
               >
                 <Image src={etsy} alt="Etsy logo" height={15} />
+              </a>
+              <a
+                href="mailto:thetechbabes.inc@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary hover:bg-primary/20 transition-colors"
+              >
+                <Mail className="h-5 w-5" />
               </a>
             </div>
             <ul className="space-y-2 text-sm text-muted-foreground">

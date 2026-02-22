@@ -78,8 +78,9 @@ export default function ContactPage() {
             <div>
               <h3 className="font-bold text-lg">Email</h3>
               <p className="text-muted-foreground">
-                <a href="mailto:thetechbabes.inc@gmail.com"></a>
-                thetechbabes.inc@gmail.com
+                <a href="mailto:thetechbabes.inc@gmail.com">
+                  thetechbabes.inc@gmail.com
+                </a>
               </p>
             </div>
           </div>
