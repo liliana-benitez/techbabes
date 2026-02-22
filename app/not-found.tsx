@@ -1,42 +1,32 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { GOOSE_ASCII } from "../lib/goose"
 
 export default function Custom404() {
   return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center p-4 text-center">
-      <div className="relative mb-8">
-        <h1 className="font-mono text-9xl font-bold opacity-20 select-none">
+    <div className="min-h-[80vh] flex flex-col gap-4 items-center justify-center p-4 text-center">
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="font-mono text-8xl font-black text-primary opacity-30 select-none leading-none">
           404
         </h1>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="bg-background/80 backdrop-blur-sm p-8 rounded-xl border border-primary/20 shadow-2xl">
-            <h2 className="font-display text-4xl font-bold mb-2">
-              System Error
-            </h2>
-            <p className="font-mono text-primary">Page_Not_Found_Exception</p>
-          </div>
-        </div>
+        <h2 className="font-display text-4xl font-bold">Page Not Found</h2>
       </div>
 
       <div className="max-w-md space-y-6">
+        <pre className="text-primary font-semibold text-sm leading-tight text-left overflow-x-auto whitespace-pre">
+          {GOOSE_ASCII}
+        </pre>
+
         <p className="text-muted-foreground text-lg">
-          Looks like you&apos;ve ventured into the void. The page you are
-          looking for might have been moved, deleted, or never existed in this
-          branch.
+          We are unable to locate this page at this time.{" "}
+          <span className="text-foreground font-medium">
+            A silly goose is responsible.
+          </span>{" "}
+          She knows what she did.
         </p>
 
-        <div className="p-4 bg-muted/50 rounded-lg text-left font-mono text-sm overflow-x-auto">
-          <span className="text-red-400">Error:</span> Route mismatch
-          <br />
-          <span className="text-blue-400">at</span> Router.resolve
-          (client/router.ts:42)
-          <br />
-          <span className="text-blue-400">at</span> User.navigation
-          (client/user.ts:1337)
-        </div>
-
-        <Link href="/">
-          <Button className="btn-primary">Return Home</Button>
+        <Link href="/shop">
+          <Button className="btn-primary">Continue Shopping</Button>
         </Link>
       </div>
     </div>
