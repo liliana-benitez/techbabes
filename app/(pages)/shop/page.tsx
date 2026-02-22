@@ -13,11 +13,10 @@ export default function Page() {
   const [search, setSearch] = useState<string>("")
   const [products, setProducts] = useState<ProductWithVariants[]>([])
   const categories = ["All", "Apparel", "Hats", "Accessories", "Mugs"]
-  const BASE_URL = process.env.NEXT_PUBLIC_APP_BASE_URL
 
   useEffect(() => {
     async function getProducts() {
-      const response = await fetch(`${BASE_URL}/api/products`)
+      const response = await fetch(`/api/products`)
       const data = await response.json()
       setProducts(data)
       setIsLoading(false)

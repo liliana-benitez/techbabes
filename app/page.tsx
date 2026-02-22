@@ -13,11 +13,9 @@ import { ProductWithVariants } from "@/lib/types"
 export default function Home() {
   const [products, setProducts] = useState<ProductWithVariants[]>([])
 
-  const BASE_URL = process.env.NEXT_PUBLIC_APP_BASE_URL
-
   useEffect(() => {
     async function getProducts() {
-      const response = await fetch(`${BASE_URL}/api/products`)
+      const response = await fetch(`/api/products`)
       const data = await response.json()
       setProducts(data.slice(0, 4))
     }

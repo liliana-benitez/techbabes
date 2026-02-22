@@ -20,12 +20,11 @@ export default function ProductPage() {
   const [selectedVariant, setSelectedVariant] = useState<number | null>(null)
   const [selectedSize, setSelectedSize] = useState<string | null>(null)
   const [selectedColor, setSelectedColor] = useState<string | null>(null)
-  const BASE_URL = process.env.NEXT_PUBLIC_APP_BASE_URL
 
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const response = await fetch(`${BASE_URL}/api/products/${params.id}`)
+        const response = await fetch(`/api/products/${params.id}`)
         if (!response.ok) {
           setProduct(null)
           setIsLoading(false)
@@ -44,7 +43,7 @@ export default function ProductPage() {
     if (params.id) {
       fetchProduct()
     }
-  }, [params.id, BASE_URL])
+  }, [params.id])
 
   useEffect(() => {
     if (product && product.variants && product.variants.length > 0) {
