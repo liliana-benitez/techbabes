@@ -131,20 +131,22 @@ export default function Page() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
             <Link href="/shop">
               <Button
                 size="lg"
-                className="rounded-full px-8 text-lg h-12 bg-foreground text-background hover:bg-foreground/90"
+                className="btn-pink"
+                // className="rounded-full px-8 text-lg h-12 bg-foreground text-background hover:bg-foreground/90"
               >
                 Start Shopping
               </Button>
             </Link>
             <Link href="/contact">
               <Button
-                variant="outline"
+                // variant="outline"
                 size="lg"
-                className="rounded-full px-8 text-lg h-12"
+                className="btn-blue"
+                // className="rounded-full px-8 text-lg h-12"
               >
                 Get in Touch
               </Button>

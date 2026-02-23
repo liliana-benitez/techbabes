@@ -227,7 +227,7 @@
   }
 
   .btn-blue {
-    @apply h-12 rounded-md bg-secondary/10 flex items-center justify-center text-secondary transition-colors hover:bg-secondary/20 font-normal text-base;
+    @apply h-12 rounded-md bg-secondary/20 flex items-center justify-center text-blue-300 transition-colors hover:bg-secondary/40 font-normal text-base hover:cursor-pointer;
   }
 
   .btn-pink {
