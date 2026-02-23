@@ -9,15 +9,15 @@ export default function Footer() {
     <footer className="border-t border-border bg-muted/30">
       <div className="container mx-auto py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-4">
+          <div className="flex flex-col items-center md:items-start">
             <Link href="/">
               <Image src={logo} height={80} width={80} alt="Tech Babes Logo" />
             </Link>
           </div>
 
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h4 className="font-bold mb-4">Shop</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <ul className="space-y-2 text-sm text-muted-foreground text-center md:text-left">
               <li>
                 <Link
                   href="/shop"
@@ -29,9 +29,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h4 className="font-bold mb-4">Customer Service</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <ul className="space-y-2 text-sm text-muted-foreground text-center md:text-left">
               <li>
                 <Link
                   href="/shipping"
@@ -59,7 +59,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h4 className="font-bold mb-4">Connect</h4>
             <div className="flex gap-3 mb-6">
               <a
@@ -87,7 +87,7 @@ export default function Footer() {
                 <Mail className="h-5 w-5" />
               </a>
             </div>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <ul className="space-y-2 text-sm text-muted-foreground text-center md:text-left">
               <li>
                 <Link
                   href="/contact"
