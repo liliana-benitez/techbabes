@@ -225,4 +225,12 @@
   .glass-panel {
     @apply bg-background/80 backdrop-blur-md border border-white/20 shadow-lg;
   }
+
+  .btn-blue {
+    @apply h-12 rounded-md bg-secondary/10 flex items-center justify-center text-secondary transition-colors hover:bg-secondary/20 font-normal text-base;
+  }
+
+  .btn-pink {
+    @apply h-12 rounded-md bg-primary/10 flex items-center justify-center text-primary transition-colors hover:bg-primary/20 font-normal text-base;
+  }
 }
