@@ -152,7 +152,7 @@ export default function ContactPage() {
             <Label>Message</Label>
             <Textarea
               placeholder="Tell us what's on your mind..."
-              className="min-h-[150px]"
+              className="min-h-37.5"
               value={values.message}
               onChange={(e) => handleChange("message", e.target.value)}
             />
@@ -165,7 +165,7 @@ export default function ContactPage() {
 
             <Button
               type="submit"
-              className="btn-primary w-full"
+              className="btn-pink w-full"
               disabled={submitting}
             >
               {submitting ? "Sending..." : "Send Message"}

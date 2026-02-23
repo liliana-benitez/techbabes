@@ -29,14 +29,8 @@ export default function Page() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
           <Link href="/shop">
-            <Button size="lg" className="btn-primary px-8">
+            <Button size="lg" className="btn-pink">
               Shop the Collection
-            </Button>
-          </Link>
-
-          <Link href="/contact">
-            <Button variant="outline" size="lg" className="px-8">
-              Get Notified
             </Button>
           </Link>
         </div>

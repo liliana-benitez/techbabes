@@ -231,6 +231,18 @@
   }
 
   .btn-pink {
-    @apply h-12 rounded-md bg-primary/10 flex items-center justify-center text-primary transition-colors hover:bg-primary/20 font-normal text-base;
+    @apply h-12 rounded-md bg-primary/10 flex items-center justify-center text-primary transition-colors hover:bg-primary/20 font-normal text-base hover:cursor-pointer;
+  }
+
+  .btn-outline {
+    @apply h-12 rounded-md bg-muted text-foreground border-border hover:bg-muted flex items-center justify-center font-normal text-base;
+  }
+
+  .badge-pink {
+    @apply bg-primary/10 text-primary border-primary/20 hover:bg-primary/20;
+  }
+
+  .badge-outline-dark {
+    @apply bg-white text-foreground border-border hover:bg-muted;
   }
 }

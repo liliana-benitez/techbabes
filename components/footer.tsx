@@ -10,7 +10,9 @@ export default function Footer() {
       <div className="container mx-auto py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <Image src={logo} height={80} width={80} alt="Tech Babes Logo" />
+            <Link href="/">
+              <Image src={logo} height={80} width={80} alt="Tech Babes Logo" />
+            </Link>
           </div>
 
           <div>

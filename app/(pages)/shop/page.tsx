@@ -66,7 +66,9 @@ export default function Page() {
           <Badge
             key={cat}
             variant={category === cat ? "default" : "outline"}
-            className="px-4 py-2 text-sm cursor-pointer transition-all hover:scale-105"
+            className={`px-4 py-2 text-sm cursor-pointer transition-all hover:scale-105 ${
+              category === cat ? "badge-pink" : "badge-outline-dark"
+            }`}
             onClick={() => setCategory(cat)}
           >
             {cat}
