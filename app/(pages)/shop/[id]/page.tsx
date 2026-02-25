@@ -217,7 +217,7 @@ export default function ProductPage() {
                   </div>
                 )}
 
-                {colors.length > 0 && (
+                {colors.length > 1 && (
                   <div>
                     <label className="font-semibold text-sm mb-3 block">
                       Color

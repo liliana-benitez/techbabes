@@ -37,7 +37,10 @@ export async function POST(req: NextRequest) {
       const fullPaymentIntent = await stripe.paymentIntents.retrieve(
         paymentIntent.id
       )
-      console.log("Full Payment Intent metadata:", fullPaymentIntent.metadata)
+      console.log(
+        "🤑 Full Payment Intent metadata:",
+        fullPaymentIntent.metadata
+      )
 
       const cartItems = JSON.parse(fullPaymentIntent.metadata.cartItems || "[]")
 
@@ -46,14 +49,45 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ received: true })
       }
 
-      console.log("Cart items found:", cartItems)
+      console.log("🛒 Cart items found:", cartItems)
 
       const printfulOrder = await createPrintfulOrder(
         fullPaymentIntent,
         cartItems
       )
 
-      console.log("Printful order created:", printfulOrder)
+      console.log("📦 Printful order created:", printfulOrder)
+
+      await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customerName: fullPaymentIntent.metadata.customerName,
+          customerEmail: fullPaymentIntent.metadata.customerEmail,
+          orderNumber: `#TT-${printfulOrder.result?.id ?? Date.now()}`,
+          orderDate: new Date().toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          }),
+          items: cartItems.map((item) => ({
+            name: item.id, // replace with real product name if available
+            quantity: item.quantity,
+            price: item.price / 100
+          })),
+          subtotal: fullPaymentIntent.amount / 100,
+          shipping: 0,
+          total: fullPaymentIntent.amount / 100,
+          shippingAddress: {
+            street: fullPaymentIntent.shipping?.address?.line1 ?? "",
+            city: fullPaymentIntent.shipping?.address?.city ?? "",
+            state: fullPaymentIntent.shipping?.address?.state ?? "",
+            zip: fullPaymentIntent.shipping?.address?.postal_code ?? ""
+          }
+        })
+      })
+
+      console.log("💌 confirmation email sent")
     }
 
     return NextResponse.json({ received: true })
