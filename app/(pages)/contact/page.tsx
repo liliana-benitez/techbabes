@@ -28,7 +28,9 @@ export default function ContactPage() {
   })
 
   const [errors, setErrors] = useState<Partial<FormValues>>({})
-  const [submitting] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [serverError, setServerError] = useState(false)
 
   const handleChange = (field: keyof FormValues, value: string) => {
     setValues((prev) => ({ ...prev, [field]: value }))
@@ -39,7 +41,6 @@ export default function ContactPage() {
     e.preventDefault()
 
     const result = formSchema.safeParse(values)
-
     if (!result.success) {
       const fieldErrors: Partial<FormValues> = {}
       result.error.issues.forEach((issue) => {
@@ -50,17 +51,25 @@ export default function ContactPage() {
       return
     }
 
-    const res = await fetch("/api/send", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
+    setSubmitting(true)
+    setServerError(false)
 
-    const data = await res.json()
-    console.log(data)
-    // Submit to Next.js API
-    // toast alert
+    try {
+      const res = await fetch("/api/send/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values)
+      })
+
+      if (!res.ok) throw new Error("Failed")
+
+      setSubmitted(true)
+      setValues({ name: "", email: "", message: "" })
+    } catch {
+      setServerError(true)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -160,6 +169,21 @@ export default function ContactPage() {
               <Alert className="border-none" variant="destructive">
                 <AlertCircleIcon />
                 <AlertTitle>{errors.message}</AlertTitle>
+              </Alert>
+            )}
+
+            {submitted && (
+              <Alert className="border-none" variant="default">
+                <AlertTitle>
+                  Message sent! We&apos;ll be in touch soon.
+                </AlertTitle>
+              </Alert>
+            )}
+
+            {serverError && (
+              <Alert className="border-none" variant="destructive">
+                <AlertCircleIcon />
+                <AlertTitle>Something went wrong. Please try again.</AlertTitle>
               </Alert>
             )}
 
