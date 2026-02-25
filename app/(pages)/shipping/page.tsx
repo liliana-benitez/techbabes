@@ -262,9 +262,16 @@ const faqs = [
 export default function ShippingPage() {
   return (
     <div className="flex flex-col gap-12 px-20 py-12">
-      <h1 className="font-display font-bold text-3xl md:text-4xl">
-        Shipping & Returns
-      </h1>
+      {/* Header */}
+      <div>
+        <h1 className="font-display font-bold text-3xl md:text-4xl mb-3">
+          Shipping & Returns
+        </h1>
+        <p className="text-muted-foreground text-sm">
+          Last updated{" "}
+          <strong className="text-foreground">February 25, 2026</strong>
+        </p>
+      </div>
 
       {/* How it works */}
       <section>

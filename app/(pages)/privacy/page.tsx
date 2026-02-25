@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="flex flex-col gap-12 px-20 py-12 max-w-4xl">
+    <div className="flex flex-col gap-12 px-20 py-12">
       {/* Header */}
       <div>
         <h1 className="font-display font-bold text-3xl md:text-4xl mb-3">
@@ -1122,10 +1122,10 @@ export default function PrivacyPolicyPage() {
         <div className="w-full space-y-6 py-16 px-8 rounded-2xl bg-linear-to-r from-primary/10 to-secondary/10 border border-primary/20 text-center">
           <div>
             <h2 className="font-display font-bold text-3xl mb-4">
-              Have a question about your data?
+              Still have questions?
             </h2>
             <p className="text-lg text-muted-foreground">
-              We&apos;re happy to help — reach out any time.
+              We&apos;re happy to help, reach out any time!
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -1134,15 +1134,11 @@ export default function PrivacyPolicyPage() {
                 Contact Us
               </button>
             </Link>
-            <a
-              href="https://app.termly.io/dsar/d1c2869d-30db-413b-ad60-0df3d3aa8e95"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="/shop">
               <button className="btn-blue px-8 py-2.5 rounded-full font-semibold text-sm">
-                Submit a Data Request
+                Back to Shop
               </button>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
