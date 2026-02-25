@@ -48,7 +48,11 @@ export default function ProductPage() {
   useEffect(() => {
     if (product && product.variants && product.variants.length > 0) {
       const sizes = Array.from(
-        new Set(product.variants.map((v) => v.size).filter(Boolean))
+        new Set(
+          product.variants
+            .map((v) => v.size)
+            .filter((v) => v && v.toUpperCase() !== "NULL")
+        )
       )
       const colors = Array.from(
         new Set(product.variants.map((v) => v.color).filter(Boolean))
@@ -89,7 +93,13 @@ export default function ProductPage() {
   const hasVariants = product.variants && product.variants.length > 0
 
   const sizes = hasVariants
-    ? Array.from(new Set(product.variants.map((v) => v.size).filter(Boolean)))
+    ? Array.from(
+        new Set(
+          product.variants
+            .map((v) => v.size)
+            .filter((v) => v && v.toUpperCase() !== "NULL")
+        )
+      )
     : []
   const colors = hasVariants
     ? Array.from(new Set(product.variants.map((v) => v.color).filter(Boolean)))

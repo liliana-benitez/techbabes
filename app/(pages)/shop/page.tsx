@@ -37,6 +37,7 @@ export default function Page() {
 
   return (
     <div className="flex flex-col gap-4 px-20 py-12">
+      {/* Search */}
       <div className="flex flex-col justify-between mb-12 gap-4">
         <div>
           <h1 className="font-display font-bold text-4xl mb-4">
@@ -61,6 +62,7 @@ export default function Page() {
         </div>
       </div>
 
+      {/* Filters */}
       <div className="flex flex-wrap gap-2 mb-8">
         {categories.map((cat) => (
           <Badge

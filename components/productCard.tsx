@@ -23,37 +23,37 @@ export default function ProductCard({ product }: ProductCardProps) {
           />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300" />
         </div>
-      </Link>
-      <CardContent className="p-4 grow flex flex-col">
-        <Link href={`/shop/${product.id}`}>
-          <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors cursor-pointer">
-            {product.name}
-          </h3>
-        </Link>
-        <p className="text-muted-foreground text-sm line-clamp-2 mb-3 grow">
-          {product.description}
-        </p>
-        <div className="font-mono font-bold text-lg">
-          $
-          {product && typeof product.price === "string"
-            ? parseFloat(product.price).toFixed(2)
-            : product.price.toFixed(2)}
-        </div>
-      </CardContent>
-      {/* <CardFooter className="p-4 pt-0"> */}
-      {/* <Link href={`/shop/${product.id}`}>
+        <CardContent className="p-4 grow flex flex-col">
+          <Link href={`/shop/${product.id}`}>
+            <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors cursor-pointer">
+              {product.name}
+            </h3>
+          </Link>
+          <p className="text-muted-foreground text-sm line-clamp-2 mb-3 grow">
+            {product.description}
+          </p>
+          <div className="font-mono font-bold text-lg">
+            $
+            {product && typeof product.price === "string"
+              ? parseFloat(product.price).toFixed(2)
+              : product.price.toFixed(2)}
+          </div>
+        </CardContent>
+        {/* <CardFooter className="p-4 pt-0"> */}
+        {/* <Link href={`/shop/${product.id}`}>
           <Button
-            // onClick={() => {
+          // onClick={() => {
             // addToCart(product)
-
+            
             // }}
             className="w-full btn-primary hover:bg-primary/90 text-primary-foreground font-medium"
-          >
+            >
             <ShoppingCart className="mr-2 h-4 w-4" />
             Add to Cart
-          </Button>
-        </Link> */}
-      {/* </CardFooter> */}
+            </Button>
+            </Link> */}
+        {/* </CardFooter> */}
+      </Link>
     </Card>
   )
 }
