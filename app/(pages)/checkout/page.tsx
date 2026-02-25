@@ -37,6 +37,13 @@ interface FormErrors {
   [key: string]: string
 }
 
+interface ShippingRate {
+  id: string
+  name: string
+  rate: string
+  rateInCents: number
+}
+
 function StripePaymentForm({
   onPaymentSuccess
 }: {
@@ -142,6 +149,7 @@ function CheckoutContent() {
   const [isLoading, setIsLoading] = useState(false)
   const [paymentStarted, setPaymentStarted] = useState(false)
   const [clientSecret, setClientSecret] = useState<string | null>(null)
+  const [shippingRate, setShippingRate] = useState<ShippingRate | null>(null)
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -166,14 +174,54 @@ function CheckoutContent() {
 
     try {
       checkoutSchema.parse(formData)
-      console.log(formData)
 
-      // Create payment intent
+      console.log(
+        "Cart items being sent:",
+        JSON.stringify(
+          items.map((item) => ({
+            printfulVariantId: item.printfulVariantId,
+            printfulCatalogVariantId: item.printfulCatalogVariantId,
+            quantity: item.quantity
+          })),
+          null,
+          2
+        )
+      )
+
+      // Step 1: Fetch cheapest shipping rate from Printful
+      const shippingRes = await fetch("/api/shipping-rates", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cartItems: items.map((item) => ({
+            printfulVariantId: item.printfulVariantId,
+            printfulCatalogVariantId: item.printfulCatalogVariantId,
+            quantity: item.quantity
+          })),
+          shippingAddress1: formData.address,
+          shippingCity: formData.city,
+          shippingState: formData.state,
+          shippingZip: formData.zip,
+          shippingCountry: formData.country
+        })
+      })
+
+      if (!shippingRes.ok) {
+        const err = await shippingRes.json()
+        throw new Error(err.error || "Could not calculate shipping")
+      }
+
+      const rate: ShippingRate = await shippingRes.json()
+      setShippingRate(rate)
+
+      // Step 2: Create payment intent with product subtotal + shipping
+      const subtotalInCents = Math.round(total * 100)
+
       const paymentIntentRes = await fetch("/api/payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount: Math.round(total * 100),
+          amount: subtotalInCents,
           cartItems: items.map((item) => ({
             id: item.id.toString(),
             quantity: item.quantity,
@@ -187,7 +235,10 @@ function CheckoutContent() {
           shippingCity: formData.city,
           shippingState: formData.state,
           shippingZip: formData.zip,
-          shippingCountry: formData.country
+          shippingCountry: formData.country,
+          shippingCost: rate.rateInCents,
+          shippingRateId: rate.id,
+          shippingRateName: rate.name
         })
       })
 
@@ -286,6 +337,43 @@ function CheckoutContent() {
         <h1 className="font-display font-bold text-3xl mb-8">
           Complete Payment
         </h1>
+
+        {/* Order summary with shipping visible before payment */}
+        <div className="bg-gray-50 p-4 rounded space-y-2 mb-6">
+          {items.map((item) => (
+            <div
+              key={`${item.id}-${item.printfulVariantId}`}
+              className="flex justify-between text-sm"
+            >
+              <span>
+                {item.name} x {item.quantity}
+              </span>
+              <span>${(item.price * item.quantity).toFixed(2)}</span>
+            </div>
+          ))}
+          <Separator />
+          <div className="flex justify-between text-sm">
+            <span>Subtotal</span>
+            <span>${total.toFixed(2)}</span>
+          </div>
+          {shippingRate && (
+            <div className="flex justify-between text-sm">
+              <span>Shipping ({shippingRate.name})</span>
+              <span>${parseFloat(shippingRate.rate).toFixed(2)}</span>
+            </div>
+          )}
+          <Separator />
+          <div className="flex justify-between font-bold">
+            <span>Total</span>
+            <span>
+              $
+              {(
+                total + (shippingRate ? parseFloat(shippingRate.rate) : 0)
+              ).toFixed(2)}
+            </span>
+          </div>
+        </div>
+
         <Elements
           stripe={stripePromise}
           options={{
@@ -353,9 +441,13 @@ function CheckoutContent() {
                 </div>
               ))}
               <Separator />
-              <div className="flex justify-between font-bold">
-                <span>Total</span>
+              <div className="flex justify-between text-sm text-gray-500">
+                <span>Subtotal</span>
                 <span>${total.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-sm text-gray-500">
+                <span>Shipping</span>
+                <span>Calculated at next step</span>
               </div>
             </div>
           </div>
@@ -369,7 +461,7 @@ function CheckoutContent() {
             className="btn-primary w-full h-12 text-lg mt-8"
             disabled={isLoading || items.length === 0}
           >
-            {isLoading ? "Validating..." : "Continue to Payment"}
+            {isLoading ? "Calculating shipping..." : "Continue to Payment"}
           </Button>
         </form>
       </div>

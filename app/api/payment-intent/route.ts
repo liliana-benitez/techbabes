@@ -17,7 +17,10 @@ export async function POST(req: NextRequest) {
       shippingCity,
       shippingState,
       shippingZip,
-      shippingCountry
+      shippingCountry,
+      shippingCost, // number in cents, e.g. 499
+      shippingRateId, // Printful rate ID, e.g. "STANDARD"
+      shippingRateName // Human-readable name, e.g. "Flat Rate (3-4 business days)"
     } = body
 
     if (
@@ -27,7 +30,8 @@ export async function POST(req: NextRequest) {
       !shippingCity ||
       !shippingState ||
       !shippingZip ||
-      !shippingCountry
+      !shippingCountry ||
+      shippingCost === undefined
     ) {
       return NextResponse.json(
         { error: "Missing required checkout fields" },
@@ -35,8 +39,11 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    // Total = product subtotal + shipping (both already in cents)
+    const totalAmount = amount + shippingCost
+
     const paymentIntent = await stripe.paymentIntents.create({
-      amount,
+      amount: totalAmount,
       currency: "usd",
 
       automatic_payment_methods: {
@@ -61,7 +68,10 @@ export async function POST(req: NextRequest) {
         customerEmail,
         customerName: customerName ?? "",
         customerPhone: customerPhone ?? "",
-        cartItems: JSON.stringify(cartItems ?? [])
+        cartItems: JSON.stringify(cartItems ?? []),
+        shippingCost: shippingCost.toString(),
+        shippingRateId: shippingRateId ?? "",
+        shippingRateName: shippingRateName ?? ""
       },
 
       description: `Order for ${customerEmail}`

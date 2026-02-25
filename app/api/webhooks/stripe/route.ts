@@ -58,6 +58,15 @@ export async function POST(req: NextRequest) {
 
       console.log("📦 Printful order created:", printfulOrder)
 
+      // Shipping cost in dollars for the confirmation email
+      const shippingCostInCents = parseInt(
+        fullPaymentIntent.metadata.shippingCost ?? "0"
+      )
+      const shippingCostDollars = shippingCostInCents / 100
+      const subtotalDollars =
+        (fullPaymentIntent.amount - shippingCostInCents) / 100
+      const totalDollars = fullPaymentIntent.amount / 100
+
       await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -71,13 +80,13 @@ export async function POST(req: NextRequest) {
             day: "numeric"
           }),
           items: cartItems.map((item) => ({
-            name: item.id, // replace with real product name if available
+            name: item.id,
             quantity: item.quantity,
             price: item.price / 100
           })),
-          subtotal: fullPaymentIntent.amount / 100,
-          shipping: 0,
-          total: fullPaymentIntent.amount / 100,
+          subtotal: subtotalDollars,
+          shipping: shippingCostDollars,
+          total: totalDollars,
           shippingAddress: {
             street: fullPaymentIntent.shipping?.address?.line1 ?? "",
             city: fullPaymentIntent.shipping?.address?.city ?? "",
@@ -117,12 +126,20 @@ async function createPrintfulOrder(
     throw new Error("No shipping address found")
   }
 
-  const printfulItems = cartItems.map((item) => {
-    return {
-      sync_variant_id: parseInt(item.printfulVariantId),
-      quantity: item.quantity
-    }
-  })
+  const printfulItems = cartItems.map((item) => ({
+    sync_variant_id: parseInt(item.printfulVariantId),
+    quantity: item.quantity
+  }))
+
+  // Pull shipping cost and rate from PaymentIntent metadata
+  const shippingCostInCents = parseInt(
+    paymentIntent.metadata.shippingCost ?? "0"
+  )
+  const shippingCostDollars = (shippingCostInCents / 100).toFixed(2)
+  const subtotalDollars = (
+    (paymentIntent.amount - shippingCostInCents) /
+    100
+  ).toFixed(2)
 
   const orderData = {
     recipient: {
@@ -142,11 +159,10 @@ async function createPrintfulOrder(
     items: printfulItems,
     retail_costs: {
       currency: paymentIntent.currency.toUpperCase(),
-      subtotal: (paymentIntent.amount / 100).toFixed(2),
-      shipping: "0.00",
+      subtotal: subtotalDollars,
+      shipping: shippingCostDollars,
       tax: "0.00"
     },
-
     confirm: false // Change to true in prod
   }
 

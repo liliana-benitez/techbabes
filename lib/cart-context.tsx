@@ -5,6 +5,7 @@ import { toast } from "sonner"
 interface CartItem extends Product {
   quantity: number
   printfulVariantId: string
+  printfulCatalogVariantId: number | null
   variantLabel?: string | undefined
 }
 
@@ -13,6 +14,7 @@ interface CartContextType {
   addToCart: (
     product: Product,
     variantId: string,
+    catalogVariantId: number | null,
     variantLabel: string | undefined
   ) => void
   removeFromCart: (productId: number, variantId: string) => void
@@ -55,6 +57,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const addToCart = (
     product: Product,
     variantId: string,
+    catalogVariantId: number | null,
     variantLabel?: string
   ) => {
     setItems((current) => {
@@ -76,6 +79,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           ...product,
           quantity: 1,
           printfulVariantId: variantId,
+          printfulCatalogVariantId: catalogVariantId,
           variantLabel
         }
       ]

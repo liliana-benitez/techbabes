@@ -11,10 +11,21 @@ import { ProductWithVariants } from "@/lib/types"
 import Link from "next/link"
 import NotFound from "../../../not-found"
 
+// Extend ProductVariant to include the enriched field from our API
+type VariantWithCatalogId = ProductWithVariants["variants"][number] & {
+  printfulCatalogVariantId: number | null
+}
+
+type ProductWithEnrichedVariants = Omit<ProductWithVariants, "variants"> & {
+  variants: VariantWithCatalogId[]
+}
+
 export default function ProductPage() {
   const params = useParams()
   const { addToCart } = useCart()
-  const [product, setProduct] = useState<ProductWithVariants | null>(null)
+  const [product, setProduct] = useState<ProductWithEnrichedVariants | null>(
+    null
+  )
   const [isLoading, setIsLoading] = useState(true)
   const [selectedImage, setSelectedImage] = useState(0)
   const [selectedVariant, setSelectedVariant] = useState<number | null>(null)
@@ -108,14 +119,27 @@ export default function ProductPage() {
   const handleAddToCart = () => {
     if (hasVariants && selectedVariant) {
       const variant = product.variants.find((v) => v.id === selectedVariant)
-
       if (!variant) return
-
       const label = [variant.color, variant.size].filter(Boolean).join(" / ")
-
-      addToCart(product, variant.printfulVariantId.toString(), label)
+      console.log(
+        "Variant being added to cart:",
+        JSON.stringify(
+          {
+            printfulVariantId: variant.printfulVariantId,
+            printfulCatalogVariantId: variant.printfulCatalogVariantId
+          },
+          null,
+          2
+        )
+      )
+      addToCart(
+        product,
+        variant.printfulVariantId.toString(),
+        variant.printfulCatalogVariantId, // enriched by /api/products/[id]
+        label
+      )
     } else {
-      addToCart(product, "", undefined)
+      addToCart(product, "", null, undefined)
     }
   }
 
