@@ -22,7 +22,7 @@ export async function POST(req: Request) {
               <!-- Header -->
               <tr>
                 <td align="center" style="padding: 32px 40px 24px;">
-                  <img src="https://tech-babes.vercel.app//logo.png" alt="Tech Babes" width="100" style="display: block;" />
+                  <img src="https://techbabes.dev//logo.png" alt="Tech Babes" width="100" style="display: block;" />
                 </td>
               </tr>
 

@@ -23,7 +23,6 @@ interface OrderConfirmationEmailProps {
   }
 }
 
-// Reusable two-column row — Gmail mobile safe via explicit width% on each td
 const TwoColRow = ({
   label,
   value,
