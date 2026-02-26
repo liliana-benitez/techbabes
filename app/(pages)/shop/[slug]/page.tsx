@@ -11,7 +11,16 @@ import { ProductWithVariants } from "@/lib/types"
 import Link from "next/link"
 import NotFound from "../../../not-found"
 
-// Extend ProductVariant to include the enriched field from our API
+function parseDescription(description: string) {
+  const [text, ...rest] = description.split("\n\n")
+  const bullets = rest
+    .join("\n")
+    .split("\n")
+    .map((b) => b.replace(/^•\s*/, "").trim())
+    .filter(Boolean)
+  return { text, bullets }
+}
+
 type VariantWithCatalogId = ProductWithVariants["variants"][number] & {
   printfulCatalogVariantId: number | null
 }
@@ -37,12 +46,13 @@ export default function ProductPage() {
       try {
         const response = await fetch(`/api/products/${params.slug}`)
         if (!response.ok) {
-          setProduct(null)
+          setProduct(nulxl)
           setIsLoading(false)
           return
         }
         const data = await response.json()
         setProduct(data)
+        console.log(JSON.stringify(data.description))
         setIsLoading(false)
       } catch (error) {
         console.log(error)
@@ -199,16 +209,28 @@ export default function ProductPage() {
 
           {/* Product Info */}
           <div className="space-y-6">
-            <div>
+            <div className="flex flex-col gap-6">
               <Badge variant="outline" className="mb-4">
                 {product.category}
               </Badge>
               <h1 className="font-display font-bold text-4xl mb-4">
                 {product.name}
               </h1>
-              <p className="text-muted-foreground text-lg mb-6">
-                {product.description}
+              <p className="text-lg">
+                {parseDescription(product.description).text}
               </p>
+              {parseDescription(product.description).bullets.length > 0 && (
+                <ul className="space-y-1">
+                  {parseDescription(product.description).bullets.map(
+                    (bullet, i) => (
+                      <li key={i} className="flex items-start gap-2 text-base">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/60 shrink-0" />
+                        {bullet}
+                      </li>
+                    )
+                  )}
+                </ul>
+              )}
               <div className="font-mono font-bold text-3xl">
                 $
                 {typeof currentPrice === "string"
