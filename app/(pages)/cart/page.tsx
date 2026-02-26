@@ -17,7 +17,7 @@ export default function Cart() {
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
+      <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-center">
         <div className="mb-8">
           <LucideShoppingCart height={50} width={50} className="text-primary" />
         </div>
@@ -37,7 +37,7 @@ export default function Cart() {
   }
 
   return (
-    <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
+    <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 ">
       <h1 className="font-display font-bold text-4xl mb-8">Shopping Cart</h1>
 
       <div className="grid lg:grid-cols-3 gap-12">
@@ -125,15 +125,15 @@ export default function Cart() {
 
         <div className="lg:col-span-1">
           <div className="bg-muted/30 p-6 rounded-xl sticky top-24">
-            <h3 className="font-bold text-xl mb-6">Order Summary</h3>
+            <h3 className="font-bold text-xl mb-6 ">Order Summary</h3>
             <div className="space-y-4 mb-6">
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Subtotal</span>
+                <span className="text-muted-foreground ">Subtotal</span>
                 <span>${total.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-2">
                 <span className="text-muted-foreground">Shipping</span>
-                <span>Free</span>
+                <span className="font-semibold">Calculated at checkout</span>
               </div>
               <div className="border-t border-border pt-4 flex justify-between font-bold text-lg">
                 <span>Total</span>
