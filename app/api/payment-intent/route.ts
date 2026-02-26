@@ -18,9 +18,9 @@ export async function POST(req: NextRequest) {
       shippingState,
       shippingZip,
       shippingCountry,
-      shippingCost, // number in cents, e.g. 499
-      shippingRateId, // Printful rate ID, e.g. "STANDARD"
-      shippingRateName // Human-readable name, e.g. "Flat Rate (3-4 business days)"
+      shippingCost,
+      shippingRateId,
+      shippingRateName
     } = body
 
     if (
@@ -39,7 +39,6 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Total = product subtotal + shipping (both already in cents)
     const totalAmount = amount + shippingCost
 
     const paymentIntent = await stripe.paymentIntents.create({

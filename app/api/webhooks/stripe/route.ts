@@ -58,7 +58,6 @@ export async function POST(req: NextRequest) {
 
       console.log("📦 Printful order created:", printfulOrder)
 
-      // Shipping cost in dollars for the confirmation email
       const shippingCostInCents = parseInt(
         fullPaymentIntent.metadata.shippingCost ?? "0"
       )
@@ -163,7 +162,7 @@ async function createPrintfulOrder(
       shipping: shippingCostDollars,
       tax: "0.00"
     },
-    confirm: false // Change to true in prod
+    confirm: true // Change to true in prod, false in dev
   }
 
   console.log("Sending order to Printful:", JSON.stringify(orderData, null, 2))
