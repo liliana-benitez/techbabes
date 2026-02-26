@@ -46,7 +46,7 @@ export default function ProductPage() {
       try {
         const response = await fetch(`/api/products/${params.slug}`)
         if (!response.ok) {
-          setProduct(nulxl)
+          setProduct(null)
           setIsLoading(false)
           return
         }
