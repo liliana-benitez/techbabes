@@ -17,7 +17,7 @@ export default function Cart() {
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
+      <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
         <div className="mb-8">
           <LucideShoppingCart height={50} width={50} className="text-primary" />
         </div>
@@ -37,7 +37,7 @@ export default function Cart() {
   }
 
   return (
-    <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
+    <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
       <h1 className="font-display font-bold text-4xl mb-8">Shopping Cart</h1>
 
       <div className="grid lg:grid-cols-3 gap-12">

@@ -92,7 +92,7 @@ function StripePaymentForm({
   }
 
   return (
-    <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
+    <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
       <form onSubmit={handlePaymentSubmit} className="space-y-6">
         <div className="space-y-4">
           <h3 className="font-bold text-lg">Payment Details</h3>
@@ -270,7 +270,7 @@ function CheckoutContent() {
     placeholder: string,
     type: string = "text"
   ) => (
-    <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
+    <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
       <div className="space-y-2">
         <label htmlFor={name} className="block text-sm font-medium">
           {label}
@@ -324,7 +324,7 @@ function CheckoutContent() {
 
   if (paymentStarted && clientSecret) {
     return (
-      <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
+      <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
         <h1 className="font-display font-bold text-3xl mb-8">
           Complete Payment
         </h1>
@@ -386,7 +386,7 @@ function CheckoutContent() {
   }
 
   return (
-    <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
+    <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
       <h1 className="font-display font-bold text-3xl mb-8">Checkout</h1>
       <div className="max-w-2xl mx-auto">
         <form onSubmit={handleFormSubmit} className="space-y-6">
