@@ -92,28 +92,26 @@ function StripePaymentForm({
   }
 
   return (
-    <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
-      <form onSubmit={handlePaymentSubmit} className="space-y-6">
-        <div className="space-y-4">
-          <h3 className="font-bold text-lg">Payment Details</h3>
-          <PaymentElement />
+    <form onSubmit={handlePaymentSubmit} className="space-y-6">
+      <div className="space-y-4">
+        <h3 className="font-bold text-lg">Payment Details</h3>
+        <PaymentElement />
+      </div>
+
+      {paymentError && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+          {paymentError}
         </div>
+      )}
 
-        {paymentError && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-            {paymentError}
-          </div>
-        )}
-
-        <Button
-          type="submit"
-          className="btn-primary w-full h-12 text-lg"
-          disabled={!stripe || isSubmitting}
-        >
-          {isSubmitting ? "Processing..." : "Complete Payment"}
-        </Button>
-      </form>
-    </div>
+      <Button
+        type="submit"
+        className="btn-primary w-full h-12 text-lg"
+        disabled={!stripe || isSubmitting}
+      >
+        {isSubmitting ? "Processing..." : "Complete Payment"}
+      </Button>
+    </form>
   )
 }
 
@@ -176,6 +174,19 @@ function CheckoutContent() {
 
     try {
       checkoutSchema.parse(formData)
+
+      // console.log(
+      //   "Cart items being sent:",
+      //   JSON.stringify(
+      //     items.map((item) => ({
+      //       printfulVariantId: item.printfulVariantId,
+      //       printfulCatalogVariantId: item.printfulCatalogVariantId,
+      //       quantity: item.quantity
+      //     })),
+      //     null,
+      //     2
+      //   )
+      // )
 
       const shippingRes = await fetch("/api/shipping-rates", {
         method: "POST",
@@ -270,23 +281,21 @@ function CheckoutContent() {
     placeholder: string,
     type: string = "text"
   ) => (
-    <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
-      <div className="space-y-2">
-        <label htmlFor={name} className="block text-sm font-medium">
-          {label}
-        </label>
-        <Input
-          id={name}
-          name={name}
-          type={type}
-          placeholder={placeholder}
-          value={formData[name]}
-          onChange={handleInputChange}
-          disabled={paymentStarted}
-          className={errors[name] ? "border-red-500" : ""}
-        />
-        {errors[name] && <p className="text-sm text-red-500">{errors[name]}</p>}
-      </div>
+    <div className="space-y-2">
+      <label htmlFor={name} className="block text-sm font-medium">
+        {label}
+      </label>
+      <Input
+        id={name}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        value={formData[name]}
+        onChange={handleInputChange}
+        disabled={paymentStarted}
+        className={errors[name] ? "border-red-500" : ""}
+      />
+      {errors[name] && <p className="text-sm text-red-500">{errors[name]}</p>}
     </div>
   )
 
@@ -295,36 +304,34 @@ function CheckoutContent() {
     label: string,
     options: Array<{ code: string; name: string }>
   ) => (
-    <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
-      <div className="space-y-2">
-        <label htmlFor={name} className="block text-sm font-medium">
-          {label}
-        </label>
-        <select
-          id={name}
-          name={name}
-          value={formData[name]}
-          onChange={handleInputChange}
-          disabled={paymentStarted}
-          className={`w-full px-3 py-2 border rounded ${
-            errors[name] ? "border-red-500" : "border-gray-300"
-          }`}
-        >
-          <option value="">Select {label}</option>
-          {options.map((opt) => (
-            <option key={opt.code} value={opt.code}>
-              {opt.name}
-            </option>
-          ))}
-        </select>
-        {errors[name] && <p className="text-sm text-red-500">{errors[name]}</p>}
-      </div>
+    <div className="space-y-2">
+      <label htmlFor={name} className="block text-sm font-medium">
+        {label}
+      </label>
+      <select
+        id={name}
+        name={name}
+        value={formData[name]}
+        onChange={handleInputChange}
+        disabled={paymentStarted}
+        className={`w-full px-3 py-2 border rounded ${
+          errors[name] ? "border-red-500" : "border-gray-300"
+        }`}
+      >
+        <option value="">Select {label}</option>
+        {options.map((opt) => (
+          <option key={opt.code} value={opt.code}>
+            {opt.name}
+          </option>
+        ))}
+      </select>
+      {errors[name] && <p className="text-sm text-red-500">{errors[name]}</p>}
     </div>
   )
 
   if (paymentStarted && clientSecret) {
     return (
-      <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
+      <div className="px-4 py-12 max-w-2xl mx-auto">
         <h1 className="font-display font-bold text-3xl mb-8">
           Complete Payment
         </h1>
@@ -386,7 +393,7 @@ function CheckoutContent() {
   }
 
   return (
-    <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
+    <div className="px-4 py-12 max-w-3xl mx-auto">
       <h1 className="font-display font-bold text-3xl mb-8">Checkout</h1>
       <div className="max-w-2xl mx-auto">
         <form onSubmit={handleFormSubmit} className="space-y-6">
