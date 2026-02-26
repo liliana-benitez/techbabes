@@ -6,8 +6,8 @@ import { PenLine } from "lucide-react"
 
 export default function Page() {
   return (
-    <div className="flex items-center justify-center min-h-[70vh] px-20 py-12">
-      <div className="max-w-xl text-center space-y-6">
+    <div className="flex flex-col gap-12 px-4 md:px-20 py-12 justify-center items-center">
+      <div className="max-w-xl text-center space-y-6 flex flex-col items-center">
         <div className="mx-auto h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
           <PenLine className="h-7 w-7" />
         </div>
@@ -20,9 +20,6 @@ export default function Page() {
           We’re working on thoughtful content about women in tech, confidence,
           creativity, and building a career you actually love.
           <br />
-          <span className="font-medium text-foreground">
-            No hustle culture. No gatekeeping.
-          </span>
         </p>
 
         <div className="h-px w-24 mx-auto bg-border" />

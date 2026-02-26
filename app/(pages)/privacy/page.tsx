@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="flex flex-col gap-12 px-20 py-12">
+    <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
       {/* Header */}
       <div>
         <h1 className="font-display font-bold text-3xl md:text-4xl mb-3">

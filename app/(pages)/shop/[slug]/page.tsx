@@ -101,7 +101,7 @@ export default function ProductPage() {
 
   if (isLoading) {
     return (
-      <div className="container px-4 py-12">
+      <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
         <div className="max-w-5xl mx-auto h-96 bg-muted/30 rounded-xl animate-pulse" />
       </div>
     )
@@ -162,7 +162,7 @@ export default function ProductPage() {
   const canAddToCart = !hasVariants || selectedVariant !== null
 
   return (
-    <div className="container px-4 py-12">
+    <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
       <div className="max-w-6xl mx-auto">
         <Link
           href="/shop"

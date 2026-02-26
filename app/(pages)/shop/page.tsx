@@ -36,7 +36,7 @@ export default function Page() {
   })
 
   return (
-    <div className="flex flex-col gap-4 px-20 py-12">
+    <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
       {/* Search */}
       <div className="flex flex-col justify-between mb-12 gap-4">
         <div>

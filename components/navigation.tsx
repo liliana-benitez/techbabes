@@ -41,7 +41,7 @@ export default function Navigation() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
-      <div className="container mx-auto h-20 flex items-center justify-between">
+      <div className="container mx-auto h-20 flex items-center justify-between sm:px-6">
         {/* Mobile Menu */}
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
@@ -51,7 +51,7 @@ export default function Navigation() {
             </Button>
           </SheetTrigger>
           <SheetContent side="left">
-            <nav className="flex flex-col gap-2 mt-8">
+            <nav className="flex flex-col gap-2 mt-8 px-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}

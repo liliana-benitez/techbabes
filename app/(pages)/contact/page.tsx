@@ -73,11 +73,11 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="flex flex-col gap-12 px-20 py-12">
+    <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
       <h1 className="font-display font-bold text-3xl md:text-4xl">
         Contact Us
       </h1>
-      <div className="grid md:grid-cols-2 gap-12 mx-auto w-full">
+      <div className="grid md:grid-cols-2 gap-12 w-full justify-center">
         {/* Left info section */}
         <div className="space-y-6">
           <div className="flex items-start gap-4">

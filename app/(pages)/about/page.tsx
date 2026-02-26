@@ -35,7 +35,7 @@ export default function Page() {
   ]
 
   return (
-    <div className="flex flex-col gap-12 px-20 py-12">
+    <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
       {/* My Story */}
       <section className="px-4 pt-12">
         <div className="grid md:grid-cols-2 gap-12">
