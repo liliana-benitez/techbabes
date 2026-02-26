@@ -16,6 +16,7 @@ model Product {
   printfulSyncId Int              @unique
   images         String[]
   createdAt      DateTime         @default(now())
+  slug           String?          @unique
   variants       ProductVariant[]
 }
 

@@ -1,31 +1,30 @@
-import { getProductById } from "@/lib/db/product-repository"
+import { getProductBySlug } from "@/lib/db/product-repository"
 import { NextRequest, NextResponse } from "next/server"
 
 const printfulApiKey = process.env.PRINTFUL_API_KEY!
 
 interface RouteParams {
   params: Promise<{
-    id: string
+    slug: string
   }>
 }
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
-  const { id } = await params
+  const { slug } = await params
 
-  if (!id) {
+  if (!slug) {
     return NextResponse.json(
-      { error: "Product ID is required" },
+      { error: "Product slug is required" },
       { status: 400 }
     )
   }
 
-  const product = await getProductById(parseInt(id))
+  const product = await getProductBySlug(slug)
 
   if (!product) {
     return NextResponse.json({ error: "Product not found" }, { status: 404 })
   }
 
-  // Enrich each variant with the Printful catalog variant_id needed for shipping rates
   const enrichedVariants = await Promise.all(
     product.variants.map(async (variant) => {
       try {

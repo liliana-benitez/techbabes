@@ -35,7 +35,7 @@ export default function ProductPage() {
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const response = await fetch(`/api/products/${params.id}`)
+        const response = await fetch(`/api/products/${params.slug}`)
         if (!response.ok) {
           setProduct(null)
           setIsLoading(false)
@@ -51,10 +51,10 @@ export default function ProductPage() {
       }
     }
 
-    if (params.id) {
+    if (params.slug) {
       fetchProduct()
     }
-  }, [params.id])
+  }, [params.slug])
 
   useEffect(() => {
     if (product && product.variants && product.variants.length > 0) {

@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/not-found.tsx"
-  ],
+, "scripts/add-slugs.js"  ],
   "exclude": ["node_modules"]
 }

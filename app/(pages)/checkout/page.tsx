@@ -175,20 +175,19 @@ function CheckoutContent() {
     try {
       checkoutSchema.parse(formData)
 
-      console.log(
-        "Cart items being sent:",
-        JSON.stringify(
-          items.map((item) => ({
-            printfulVariantId: item.printfulVariantId,
-            printfulCatalogVariantId: item.printfulCatalogVariantId,
-            quantity: item.quantity
-          })),
-          null,
-          2
-        )
-      )
+      // console.log(
+      //   "Cart items being sent:",
+      //   JSON.stringify(
+      //     items.map((item) => ({
+      //       printfulVariantId: item.printfulVariantId,
+      //       printfulCatalogVariantId: item.printfulCatalogVariantId,
+      //       quantity: item.quantity
+      //     })),
+      //     null,
+      //     2
+      //   )
+      // )
 
-      // Step 1: Fetch cheapest shipping rate from Printful
       const shippingRes = await fetch("/api/shipping-rates", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -214,7 +213,6 @@ function CheckoutContent() {
       const rate: ShippingRate = await shippingRes.json()
       setShippingRate(rate)
 
-      // Step 2: Create payment intent with product subtotal + shipping
       const subtotalInCents = Math.round(total * 100)
 
       const paymentIntentRes = await fetch("/api/payment-intent", {
@@ -358,7 +356,7 @@ function CheckoutContent() {
           </div>
           {shippingRate && (
             <div className="flex justify-between text-sm">
-              <span>Shipping ({shippingRate.name})</span>
+              <span>Shipping {shippingRate.name}</span>
               <span>${parseFloat(shippingRate.rate).toFixed(2)}</span>
             </div>
           )}

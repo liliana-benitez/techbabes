@@ -4,7 +4,7 @@ const printfulApiKey = process.env.PRINTFUL_API_KEY!
 
 interface CartItem {
   printfulVariantId: string
-  printfulCatalogVariantId: number
+  printfulCatalogVariantId: number | null
   quantity: number
 }
 
@@ -43,6 +43,15 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    const validItems = cartItems.filter((item) => item.printfulCatalogVariantId)
+
+    if (!validItems.length) {
+      return NextResponse.json(
+        { error: "No valid Printful variants in cart" },
+        { status: 400 }
+      )
+    }
+
     const printfulRes = await fetch("https://api.printful.com/shipping/rates", {
       method: "POST",
       headers: {
@@ -57,7 +66,7 @@ export async function POST(req: NextRequest) {
           zip: shippingZip,
           country_code: shippingCountry
         },
-        items: cartItems.map((item) => ({
+        items: validItems.map((item) => ({
           variant_id: item.printfulCatalogVariantId,
           quantity: item.quantity
         }))
@@ -84,7 +93,6 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Auto-select the cheapest rate
     const cheapest = rates.reduce((min, r) =>
       parseFloat(r.rate) < parseFloat(min.rate) ? r : min
     )
@@ -92,7 +100,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       id: cheapest.id,
       name: cheapest.name,
-      rate: cheapest.rate, // e.g. "4.99"
+      rate: cheapest.rate,
       rateInCents: Math.round(parseFloat(cheapest.rate) * 100)
     })
   } catch (error) {
