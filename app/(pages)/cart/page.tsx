@@ -21,8 +21,10 @@ export default function Cart() {
         <div>
           <LucideShoppingCart height={50} width={50} className="text-primary" />
         </div>
-        <h1 className="font-display font-bold text-3xl">Your cart is empty</h1>
-        <p className="text-muted-foreground">
+        <h1 className="font-display font-bold text-3xl text-center">
+          Your cart is empty
+        </h1>
+        <p className="text-muted-foreground text-center">
           Looks like you haven&apos;t added any tech goodies yet.
         </p>
         <Link href="/shop">
