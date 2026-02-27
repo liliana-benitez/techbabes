@@ -17,14 +17,12 @@ export default function Cart() {
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-center">
-        <div className="mb-8">
+      <div className="flex flex-col gap-4 px-4 h-[70vh] items-center justify-center md:px-20 py-12">
+        <div>
           <LucideShoppingCart height={50} width={50} className="text-primary" />
         </div>
-        <h1 className="font-display font-bold text-3xl mb-4">
-          Your cart is empty
-        </h1>
-        <p className="text-muted-foreground mb-8">
+        <h1 className="font-display font-bold text-3xl">Your cart is empty</h1>
+        <p className="text-muted-foreground">
           Looks like you haven&apos;t added any tech goodies yet.
         </p>
         <Link href="/shop">
