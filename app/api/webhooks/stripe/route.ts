@@ -66,36 +66,63 @@ export async function POST(req: NextRequest) {
         (fullPaymentIntent.amount - shippingCostInCents) / 100
       const totalDollars = fullPaymentIntent.amount / 100
 
+      const orderNumber = `#TT-${printfulOrder.result?.id ?? Date.now()}`
+      const orderDate = new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      })
+      const formattedItems = cartItems.map((item: CartItem) => ({
+        name: item.id,
+        quantity: item.quantity,
+        price: item.price / 100
+      }))
+      const formattedAddress = {
+        street: fullPaymentIntent.shipping?.address?.line1 ?? "",
+        city: fullPaymentIntent.shipping?.address?.city ?? "",
+        state: fullPaymentIntent.shipping?.address?.state ?? "",
+        zip: fullPaymentIntent.shipping?.address?.postal_code ?? ""
+      }
+
+      // Send confirmation email to customer
       await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           customerName: fullPaymentIntent.metadata.customerName,
           customerEmail: fullPaymentIntent.metadata.customerEmail,
-          orderNumber: `#TT-${printfulOrder.result?.id ?? Date.now()}`,
-          orderDate: new Date().toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-          }),
-          items: cartItems.map((item: CartItem) => ({
-            name: item.id,
-            quantity: item.quantity,
-            price: item.price / 100
-          })),
+          orderNumber,
+          orderDate,
+          items: formattedItems,
           subtotal: subtotalDollars,
           shipping: shippingCostDollars,
           total: totalDollars,
-          shippingAddress: {
-            street: fullPaymentIntent.shipping?.address?.line1 ?? "",
-            city: fullPaymentIntent.shipping?.address?.city ?? "",
-            state: fullPaymentIntent.shipping?.address?.state ?? "",
-            zip: fullPaymentIntent.shipping?.address?.postal_code ?? ""
-          }
+          shippingAddress: formattedAddress
         })
       })
 
-      console.log("💌 confirmation email sent")
+      console.log("💌 Customer confirmation email sent")
+
+      // Send notification email to myself
+      await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          to: process.env.OWNER_EMAIL,
+          isOwnerNotification: true,
+          buyerName: fullPaymentIntent.metadata.customerName,
+          buyerEmail: fullPaymentIntent.metadata.customerEmail,
+          orderNumber,
+          orderDate,
+          items: formattedItems,
+          subtotal: subtotalDollars,
+          shipping: shippingCostDollars,
+          total: totalDollars,
+          shippingAddress: formattedAddress
+        })
+      })
+
+      console.log("🔔 Owner notification sent")
     }
 
     return NextResponse.json({ received: true })
