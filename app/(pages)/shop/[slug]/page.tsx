@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { ShoppingCart, ArrowLeft } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
 import { ProductWithVariants } from "@/lib/types"
@@ -208,29 +207,37 @@ export default function ProductPage() {
           </div>
 
           {/* Product Info */}
-          <div className="space-y-6">
-            <div className="flex flex-col gap-6">
-              <Badge variant="outline" className="mb-4">
-                {product.category}
-              </Badge>
-              <h1 className="font-display font-bold text-4xl mb-4">
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-8">
+              {/* title */}
+              <h1 className="font-display font-bold text-4xl">
                 {product.name}
               </h1>
-              <p className="text-lg">
-                {parseDescription(product.description).text}
-              </p>
-              {parseDescription(product.description).bullets.length > 0 && (
-                <ul className="space-y-1">
-                  {parseDescription(product.description).bullets.map(
-                    (bullet, i) => (
-                      <li key={i} className="flex items-start gap-2 text-base">
-                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/60 shrink-0" />
-                        {bullet}
-                      </li>
-                    )
-                  )}
-                </ul>
-              )}
+
+              {/* description  */}
+              <div className="flex flex-col gap-4">
+                <p className="text-lg">
+                  {parseDescription(product.description).text}
+                </p>
+
+                {parseDescription(product.description).bullets.length > 0 && (
+                  <ul className="space-y-1">
+                    {parseDescription(product.description).bullets.map(
+                      (bullet, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-base"
+                        >
+                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/60 shrink-0" />
+                          {bullet}
+                        </li>
+                      )
+                    )}
+                  </ul>
+                )}
+              </div>
+
+              {/* price */}
               <div className="font-mono font-bold text-3xl">
                 $
                 {typeof currentPrice === "string"

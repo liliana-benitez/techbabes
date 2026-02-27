@@ -73,13 +73,11 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="flex flex-col gap-12 px-4 items-center md:px-20 py-12 md:items-start">
-      <h1 className="font-display font-bold text-3xl md:text-4xl">
-        Contact Us
-      </h1>
-      <div className="grid md:grid-cols-2 gap-12 w-full justify-center">
+    <div className="flex flex-col gap-12 px-4 md:px-20 py-12 ">
+      <h1 className="font-display font-bold text-3xl md:text-4xl">Contact</h1>
+      <div className="flex flex-col items-center md:flex-row md:items-start gap-12 w-full justify-center">
         {/* Left info section */}
-        <div className="space-y-6">
+        <div className="space-y-6 w-full md:w-1/2">
           <div className="flex items-start gap-4">
             <div className="bg-primary/10 p-3 rounded-full text-primary">
               <Mail className="h-6 w-6" />
@@ -127,7 +125,7 @@ export default function ContactPage() {
         </div>
 
         {/* Right form section */}
-        <div className="bg-card border border-border rounded-xl p-8 shadow-sm max-w-xl">
+        <div className="bg-card border border-border rounded-xl p-8 shadow-sm w-full md:w-1/2">
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name */}
             <Label>Name</Label>

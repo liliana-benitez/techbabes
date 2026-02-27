@@ -35,16 +35,16 @@ export default function Page() {
   ]
 
   return (
-    <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
+    <div className="flex flex-col gap-4 px-4 md:px-20 pb-12">
       {/* My Story */}
       <section className="px-4 pt-12">
         <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-6">
             <h1 className="font-display font-bold text-3xl md:text-4xl">
-              Why We Do What We Do
+              Hello!
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Hey, I’m Lili - a software engineer and the founder of{" "}
+              I’m Lili - a software engineer and the founder of{" "}
               <span className="font-semibold">Tech Babes</span>. Working in
               tech, I’ve watched more women step into the industry, which is
               encouraging, but the stats gently bring us back to reality:{" "}

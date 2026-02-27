@@ -37,18 +37,18 @@ export default function Home() {
         </div>
 
         <div className="container relative z-20 px-4 text-center">
-          <h1 className="font-display font-bold text-5xl md:text-7xl lg:text-8xl tracking-tight mb-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
-            Empowering Women in Tech,
-            <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-[#e19fae] to-[#ffccd5] text-glow">
-              One Product at a Time
-            </span>
+          <h1 className="font-display font-bold text-5xl md:text-7xl lg:text-8xl tracking-tight mb-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
+            Empowering women in tech, {/* <br className="hidden md:block" /> */}
+            {/* <span className="text-transparent bg-clip-text bg-linear-to-r from-[#e19fae] to-[#ffccd5] text-glow"> */}
+            starting with you
+            {/* </span> */}
           </h1>
 
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-            Premium merch for women in tech. Minimalist aesthetics meets maximum
-            comfort for your coding sessions.
-          </p>
+          {/* <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-5 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200"> */}
+          {/* Premium merch for women in tech. Minimalist aesthetics meets maximum
+            comfort for your coding sessions. */}
+          {/* Premium merch for women in tech. */}
+          {/* </p> */}
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
             <Link href="/shop">
@@ -73,7 +73,7 @@ export default function Home() {
       </section>
 
       {/* Featured Products */}
-      <section className="flex flex-col w-full px-20">
+      <section className="flex flex-col w-full px-10 md:px-20">
         <div className="flex items-center justify-between mb-8">
           <h2 className="font-display font-bold text-3xl">New in</h2>
           <Link href="/shop">
@@ -92,13 +92,13 @@ export default function Home() {
       </section>
 
       {/* Values */}
-      <section className="w-full px-20">
+      <section className="w-full px-10 md:px-20">
         <h2 className="font-display font-bold text-3xl mb-8">Our values</h2>
         <Values />
       </section>
 
       {/* Blog Preview */}
-      <section className="px-20 text-center">
+      <section className="text-center px-10 md:px-20">
         <div className="w-full mx-auto space-y-8 py-16 px-8 rounded-2xl border border-border/50 bg-muted/20">
           <div className="mx-auto h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
             <PenLine className="h-6 w-6" />

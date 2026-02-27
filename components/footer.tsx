@@ -15,8 +15,9 @@ export default function Footer() {
             </Link>
           </div>
 
-          <div className="flex flex-col items-center md:items-start">
-            <h4 className="font-bold mb-4">Shop</h4>
+          {/* Discover */}
+          <div className="flex flex-col gap-2 items-center md:items-start">
+            <h4 className="font-bold">Browse</h4>
             <ul className="space-y-2 text-sm text-muted-foreground text-center md:text-left">
               <li>
                 <Link
@@ -26,11 +27,20 @@ export default function Footer() {
                   All Products
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="hover:text-primary transition-colors"
+                >
+                  Blog
+                </Link>
+              </li>
             </ul>
           </div>
 
-          <div className="flex flex-col items-center md:items-start">
-            <h4 className="font-bold mb-4">Customer Service</h4>
+          {/* Customer Service */}
+          <div className="flex flex-col gap-2 items-center md:items-start">
+            <h4 className="font-bold">Customer Service</h4>
             <ul className="space-y-2 text-sm text-muted-foreground text-center md:text-left">
               <li>
                 <Link
@@ -59,9 +69,10 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="flex flex-col items-center md:items-start">
-            <h4 className="font-bold mb-4">Connect</h4>
-            <div className="flex gap-3 mb-6">
+          {/* Connect */}
+          <div className="flex flex-col gap-2 items-center md:items-start">
+            <h4 className="font-bold">Connect</h4>
+            <div className="flex gap-3">
               <a
                 href="https://www.instagram.com/thetechbabes?igsh=YjdtcGF0bjlxbWk2&utm_source=qr"
                 target="_blank"
@@ -87,16 +98,6 @@ export default function Footer() {
                 <Mail className="h-5 w-5" />
               </a>
             </div>
-            <ul className="space-y-2 text-sm text-muted-foreground text-center md:text-left">
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:text-primary transition-colors"
-                >
-                  Contact Us
-                </Link>
-              </li>
-            </ul>
           </div>
         </div>
 
