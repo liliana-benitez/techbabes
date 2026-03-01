@@ -25,38 +25,38 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid signature" }, { status: 400 })
     }
 
-    console.log("Received webhook event type:", event.type)
+    // console.log("Received webhook event type:", event.type)
 
     if (event.type === "payment_intent.succeeded") {
       const paymentIntent = event.data.object as Stripe.PaymentIntent
 
-      console.log("Processing payment intent:", paymentIntent.id)
-      console.log("Payment Intent metadata:", paymentIntent.metadata)
-      console.log("Payment Intent shipping:", paymentIntent.shipping)
+      // console.log("Processing payment intent:", paymentIntent.id)
+      // console.log("Payment Intent metadata:", paymentIntent.metadata)
+      // console.log("Payment Intent shipping:", paymentIntent.shipping)
 
       const fullPaymentIntent = await stripe.paymentIntents.retrieve(
         paymentIntent.id
       )
-      console.log(
-        "🤑 Full Payment Intent metadata:",
-        fullPaymentIntent.metadata
-      )
+      // console.log(
+      //   "🤑 Full Payment Intent metadata:",
+      //   fullPaymentIntent.metadata
+      // )
 
       const cartItems = JSON.parse(fullPaymentIntent.metadata.cartItems || "[]")
 
       if (cartItems.length === 0) {
-        console.log("No cart items found in payment intent")
+        // console.log("No cart items found in payment intent")
         return NextResponse.json({ received: true })
       }
 
-      console.log("🛒 Cart items found:", cartItems)
+      // console.log("🛒 Cart items found:", cartItems)
 
       const printfulOrder = await createPrintfulOrder(
         fullPaymentIntent,
         cartItems
       )
 
-      console.log("📦 Printful order created:", printfulOrder)
+      // console.log("📦 Printful order created:", printfulOrder)
 
       const shippingCostInCents = parseInt(
         fullPaymentIntent.metadata.shippingCost ?? "0"
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
         })
       })
 
-      console.log("💌 Customer confirmation email sent")
+      // console.log("💌 Customer confirmation email sent")
 
       // Send notification email to myself
       await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send`, {
@@ -122,7 +122,7 @@ export async function POST(req: NextRequest) {
         })
       })
 
-      console.log("🔔 Owner notification sent")
+      // console.log("🔔 Owner notification sent")
     }
 
     return NextResponse.json({ received: true })
@@ -192,7 +192,7 @@ async function createPrintfulOrder(
     confirm: true // Change to true in prod, false in dev
   }
 
-  console.log("Sending order to Printful:", JSON.stringify(orderData, null, 2))
+  // console.log("Sending order to Printful:", JSON.stringify(orderData, null, 2))
 
   const response = await fetch("https://api.printful.com/orders", {
     method: "POST",

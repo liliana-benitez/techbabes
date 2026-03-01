@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
       shippingCountry: string
     } = body
 
-    console.log("Cart items received:", JSON.stringify(cartItems, null, 2))
+    // console.log("Cart items received:", JSON.stringify(cartItems, null, 2))
 
     if (
       !cartItems?.length ||

@@ -23,8 +23,6 @@ async function main() {
       data: { slug: toSlug(product.name) }
     })
   }
-
-  console.log("Slugs added!")
 }
 
 main()

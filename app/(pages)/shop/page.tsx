@@ -1,5 +1,6 @@
 "use client"
 
+import { Suspense } from "react"
 import ProductCard from "@/components/productCard"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
@@ -9,7 +10,7 @@ import { useEffect, useState } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useRouter, useSearchParams } from "next/navigation"
 
-export default function Page() {
+function ShopContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -63,7 +64,6 @@ export default function Page() {
 
   return (
     <div className="flex flex-col gap-4 px-4 md:px-20 py-12">
-      {/* Search */}
       <div className="flex flex-col justify-between mb-4 gap-4">
         <div>
           <h1 className="font-display font-bold text-4xl mb-4">
@@ -75,7 +75,7 @@ export default function Page() {
           </p>
         </div>
 
-        <div className="w-full md:w-64 ">
+        <div className="w-full md:w-64">
           <div className="relative w-full">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
@@ -88,7 +88,6 @@ export default function Page() {
         </div>
       </div>
 
-      {/* Filters */}
       <div className="flex flex-wrap gap-2 mb-4">
         {categories.map((cat) => (
           <Badge
@@ -111,7 +110,7 @@ export default function Page() {
           ))}
         </div>
       ) : filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
@@ -123,5 +122,13 @@ export default function Page() {
         </div>
       )}
     </div>
+  )
+}
+
+export default function Page() {
+  return (
+    <Suspense>
+      <ShopContent />
+    </Suspense>
   )
 }

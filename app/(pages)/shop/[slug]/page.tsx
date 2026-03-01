@@ -55,7 +55,6 @@ export default function ProductPage() {
         }
         const data = await response.json()
         setProduct(data)
-        console.log(JSON.stringify(data.description))
         setIsLoading(false)
       } catch (error) {
         console.log(error)
@@ -215,17 +214,17 @@ export default function ProductPage() {
       const variant = product.variants.find((v) => v.id === selectedVariant)
       if (!variant) return
       const label = [variant.color, variant.size].filter(Boolean).join(" / ")
-      console.log(
-        "Variant being added to cart:",
-        JSON.stringify(
-          {
-            printfulVariantId: variant.printfulVariantId,
-            printfulCatalogVariantId: variant.printfulCatalogVariantId
-          },
-          null,
-          2
-        )
-      )
+      // console.log(
+      //   "Variant being added to cart:",
+      //   JSON.stringify(
+      //     {
+      //       printfulVariantId: variant.printfulVariantId,
+      //       printfulCatalogVariantId: variant.printfulCatalogVariantId
+      //     },
+      //     null,
+      //     2
+      //   )
+      // )
       addToCart(
         product,
         variant.printfulVariantId.toString(),
