@@ -66,6 +66,7 @@ export default function ProductPage() {
     }
   }, [params.slug])
 
+  // Init + reset when product changes
   useEffect(() => {
     if (product && product.variants && product.variants.length > 0) {
       const sizes = Array.from(
@@ -77,17 +78,22 @@ export default function ProductPage() {
       )
       const colors = Array.from(
         new Set(product.variants.map((v) => v.color).filter(Boolean))
-      )
+      ).sort((a, b) => {
+        const aIndex = product.images.findIndex((url) =>
+          url.toLowerCase().includes(a!.toLowerCase())
+        )
+        const bIndex = product.images.findIndex((url) =>
+          url.toLowerCase().includes(b!.toLowerCase())
+        )
+        return aIndex - bIndex
+      })
 
-      if (sizes.length > 0 && !selectedSize) {
-        setSelectedSize(sizes[0])
-      }
-      if (colors.length > 0 && !selectedColor) {
-        setSelectedColor(colors[0])
-      }
+      if (sizes.length > 0) setSelectedSize(sizes[0])
+      if (colors.length > 0) setSelectedColor(colors[0])
     }
-  }, [product, selectedSize, selectedColor])
+  }, [product])
 
+  // Sync variant + image when size or color changes
   useEffect(() => {
     if (product && product.variants && product.variants.length > 0) {
       const variant = product.variants.find((v) => {
@@ -97,18 +103,14 @@ export default function ProductPage() {
       })
       setSelectedVariant(variant?.id || null)
     }
-  }, [selectedSize, selectedColor, product])
 
-  useEffect(() => {
     if (selectedColor && product?.images) {
       const colorIndex = product.images.findIndex((url) =>
         url.toLowerCase().includes(selectedColor.toLowerCase())
       )
-      if (colorIndex !== -1) {
-        setSelectedImage(colorIndex)
-      }
+      if (colorIndex !== -1) setSelectedImage(colorIndex)
     }
-  }, [selectedColor, product])
+  }, [selectedSize, selectedColor, product])
 
   if (isLoading) {
     return (
@@ -191,8 +193,19 @@ export default function ProductPage() {
         )
       )
     : []
+
   const colors = hasVariants
-    ? Array.from(new Set(product.variants.map((v) => v.color).filter(Boolean)))
+    ? Array.from(
+        new Set(product.variants.map((v) => v.color).filter(Boolean))
+      ).sort((a, b) => {
+        const aIndex = product.images.findIndex((url) =>
+          url.toLowerCase().includes(a!.toLowerCase())
+        )
+        const bIndex = product.images.findIndex((url) =>
+          url.toLowerCase().includes(b!.toLowerCase())
+        )
+        return aIndex - bIndex
+      })
     : []
 
   const handleAddToCart = () => {
@@ -214,7 +227,7 @@ export default function ProductPage() {
       addToCart(
         product,
         variant.printfulVariantId.toString(),
-        variant.printfulCatalogVariantId, // enriched by /api/products/[id]
+        variant.printfulCatalogVariantId,
         label
       )
     } else {
@@ -284,7 +297,7 @@ export default function ProductPage() {
                 {product.name}
               </h1>
 
-              {/* description  */}
+              {/* description */}
               <div className="flex flex-col gap-4">
                 <p className="text-lg">
                   {parseDescription(product.description).text}
