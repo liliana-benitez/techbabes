@@ -99,6 +99,17 @@ export default function ProductPage() {
     }
   }, [selectedSize, selectedColor, product])
 
+  useEffect(() => {
+    if (selectedColor && product?.images) {
+      const colorIndex = product.images.findIndex((url) =>
+        url.toLowerCase().includes(selectedColor.toLowerCase())
+      )
+      if (colorIndex !== -1) {
+        setSelectedImage(colorIndex)
+      }
+    }
+  }, [selectedColor, product])
+
   if (isLoading) {
     return (
       <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
