@@ -342,7 +342,7 @@ export default function ProductPage() {
                         <Button
                           key={size}
                           variant={
-                            selectedSize === size ? "default" : "outline"
+                            selectedSize === size ? "defaultThin" : "outline"
                           }
                           onClick={() => setSelectedSize(size)}
                           className="min-w-15"
@@ -363,9 +363,6 @@ export default function ProductPage() {
                       {colors.map((color) => (
                         <Button
                           key={color}
-                          // variant={
-                          //   selectedColor === color ? "lightPink" : "outline"
-                          // }
                           variant={
                             selectedColor === color ? "defaultThin" : "outline"
                           }
