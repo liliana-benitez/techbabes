@@ -7,13 +7,38 @@ import { ProductWithVariants } from "@/lib/types"
 import { Search } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useRouter, useSearchParams } from "next/navigation"
 
 export default function Page() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [category, setCategory] = useState<string>("All")
-  const [search, setSearch] = useState<string>("")
   const [products, setProducts] = useState<ProductWithVariants[]>([])
   const categories = ["All", "Apparel", "Hats", "Accessories", "Mugs"]
+
+  const category = searchParams.get("category") || "All"
+  const search = searchParams.get("search") || ""
+
+  const setCategory = (cat: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (cat === "All") {
+      params.delete("category")
+    } else {
+      params.set("category", cat)
+    }
+    router.replace(`?${params.toString()}`, { scroll: false })
+  }
+
+  const setSearch = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    if (!value) {
+      params.delete("search")
+    } else {
+      params.set("search", value)
+    }
+    router.replace(`?${params.toString()}`, { scroll: false })
+  }
 
   useEffect(() => {
     async function getProducts() {
@@ -80,14 +105,6 @@ export default function Page() {
       </div>
 
       {isLoading ? (
-        // <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        //   {[1, 2, 3, 4, 5, 6].map((i) => (
-        //     <div
-        //       key={i}
-        //       className="h-96 bg-muted/30 rounded-xl animate-pulse"
-        //     />
-        //   ))}
-        // </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <Skeleton key={i} className="h-96 bg-muted/30 rounded-xl" />

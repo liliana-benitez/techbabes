@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useParams } from "next/navigation"
+import { useParams, useSearchParams } from "next/navigation"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ShoppingCart, ArrowLeft } from "lucide-react"
@@ -41,6 +41,9 @@ export default function ProductPage() {
   const [selectedSize, setSelectedSize] = useState<string | null>(null)
   const [selectedColor, setSelectedColor] = useState<string | null>(null)
 
+  const searchParams = useSearchParams()
+  const from = searchParams.get("from") || ""
+
   useEffect(() => {
     async function fetchProduct() {
       try {
@@ -66,7 +69,6 @@ export default function ProductPage() {
     }
   }, [params.slug])
 
-  // Init + reset when product changes
   useEffect(() => {
     if (product && product.variants && product.variants.length > 0) {
       const sizes = Array.from(
@@ -247,7 +249,7 @@ export default function ProductPage() {
     <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
       <div className="max-w-6xl mx-auto">
         <Link
-          href="/shop"
+          href={`/shop${from}`}
           className="inline-flex items-center text-muted-foreground hover:text-primary mb-8 transition-colors"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
