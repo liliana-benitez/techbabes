@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { ProductWithVariants } from "@/lib/types"
 import { Search } from "lucide-react"
 import { useEffect, useState } from "react"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -79,12 +80,17 @@ export default function Page() {
       </div>
 
       {isLoading ? (
+        // <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        //   {[1, 2, 3, 4, 5, 6].map((i) => (
+        //     <div
+        //       key={i}
+        //       className="h-96 bg-muted/30 rounded-xl animate-pulse"
+        //     />
+        //   ))}
+        // </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div
-              key={i}
-              className="h-96 bg-muted/30 rounded-xl animate-pulse"
-            />
+            <Skeleton key={i} className="h-96 bg-muted/30 rounded-xl" />
           ))}
         </div>
       ) : filteredProducts.length > 0 ? (

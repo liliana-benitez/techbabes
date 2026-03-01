@@ -9,6 +9,7 @@ import { useCart } from "@/lib/cart-context"
 import { ProductWithVariants } from "@/lib/types"
 import Link from "next/link"
 import NotFound from "../../../not-found"
+import { Skeleton } from "@/components/ui/skeleton"
 
 function parseDescription(description: string) {
   const [text, ...rest] = description.split("\n\n")
@@ -101,7 +102,65 @@ export default function ProductPage() {
   if (isLoading) {
     return (
       <div className="flex flex-col gap-12 px-4 md:px-20 py-12">
-        <div className="max-w-5xl mx-auto h-96 bg-muted/30 rounded-xl animate-pulse" />
+        <div className="max-w-6xl mx-auto w-full">
+          {/* Back link */}
+          <Skeleton className="h-5 w-24 mb-8 bg-muted/30" />
+
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Image gallery skeleton */}
+            <div className="space-y-4">
+              <Skeleton className="aspect-square w-full rounded-xl bg-muted/30" />
+              <div className="grid grid-cols-4 gap-4">
+                {[1, 2, 3, 4].map((i) => (
+                  <Skeleton
+                    key={i}
+                    className="aspect-square w-full rounded-lg bg-muted/30"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Product info skeleton */}
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-8">
+                {/* Title */}
+                <Skeleton className="h-10 w-3/4 bg-muted/30" />
+
+                {/* Description lines */}
+                <div className="flex flex-col gap-2">
+                  <Skeleton className="h-5 w-full bg-muted/30" />
+                  <Skeleton className="h-5 w-5/6 bg-muted/30" />
+                  <Skeleton className="h-5 w-4/6 bg-muted/30" />
+                  <div className="mt-2 flex flex-col gap-2">
+                    <Skeleton className="h-4 w-[75%] bg-muted/30" />
+                    <Skeleton className="h-4 w-[80%] bg-muted/30" />
+                    <Skeleton className="h-4 w-[85%] bg-muted/30" />
+                  </div>
+                </div>
+
+                {/* Price */}
+                <Skeleton className="h-9 w-28 bg-muted/30" />
+              </div>
+
+              {/* Size selector */}
+              <div className="space-y-6 pt-6 border-t border-border">
+                <div>
+                  <Skeleton className="h-4 w-10 mb-3 bg-muted/30" />
+                  <div className="flex gap-2">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <Skeleton key={i} className="h-9 w-14 bg-muted/30" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Add to cart button */}
+              <div className="pt-6">
+                <Skeleton className="h-14 w-full bg-muted/30" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
