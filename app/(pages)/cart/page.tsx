@@ -17,7 +17,7 @@ export default function Cart() {
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-col gap-4 px-4 h-[70vh] items-center justify-center md:px-20 py-12">
+      <div className="flex flex-col gap-4 px-4 h-[79vh] items-center justify-center md:px-20 py-12">
         <div>
           <LucideShoppingCart height={50} width={50} className="text-primary" />
         </div>
@@ -28,7 +28,7 @@ export default function Cart() {
           Looks like you haven&apos;t added any tech goodies yet.
         </p>
         <Link href="/shop">
-          <Button className="btn-primary" size="lg">
+          <Button className="btn-pink" size="lg">
             Start Shopping
           </Button>
         </Link>

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { z } from "zod"
-import { AlertCircleIcon, Mail } from "lucide-react"
+import { AlertCircleIcon, Heart, Mail } from "lucide-react"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertTitle } from "@/components/ui/alert"
 import Image from "next/image"
@@ -19,6 +19,27 @@ const formSchema = z.object({
 })
 
 type FormValues = z.infer<typeof formSchema>
+
+function MessageSent() {
+  return (
+    <div className="flex flex-col items-center justify-center gap-6 px-4 md:px-20 py-12 h-[79vh]">
+      <div className="h-24 w-24 rounded-full bg-primary/20 text-primary flex items-center justify-center animate-in zoom-in duration-500">
+        <Heart className="h-12 w-12" />
+      </div>
+      <h1 className="font-display font-bold text-4xl">Message Sent!</h1>
+      <p className="text-center text-muted-foreground text-lg max-w-md">
+        Thanks for reaching out. We&apos;ll get back to you as soon as possible.
+      </p>
+      <Button
+        size="lg"
+        className="btn-primary rounded-full px-8 w-fit"
+        onClick={() => window.location.reload()}
+      >
+        Send Another Message
+      </Button>
+    </div>
+  )
+}
 
 export default function ContactPage() {
   const [values, setValues] = useState<FormValues>({
@@ -70,6 +91,10 @@ export default function ContactPage() {
     } finally {
       setSubmitting(false)
     }
+  }
+
+  if (submitted) {
+    return <MessageSent />
   }
 
   return (
@@ -167,14 +192,6 @@ export default function ContactPage() {
               <Alert className="border-none" variant="destructive">
                 <AlertCircleIcon />
                 <AlertTitle>{errors.message}</AlertTitle>
-              </Alert>
-            )}
-
-            {submitted && (
-              <Alert className="border-none" variant="default">
-                <AlertTitle>
-                  Message sent! We&apos;ll be in touch soon.
-                </AlertTitle>
               </Alert>
             )}
 

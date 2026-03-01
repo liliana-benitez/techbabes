@@ -363,8 +363,11 @@ export default function ProductPage() {
                       {colors.map((color) => (
                         <Button
                           key={color}
+                          // variant={
+                          //   selectedColor === color ? "lightPink" : "outline"
+                          // }
                           variant={
-                            selectedColor === color ? "lightPink" : "outline"
+                            selectedColor === color ? "defaultThin" : "outline"
                           }
                           onClick={() => setSelectedColor(color)}
                           className="capitalize"

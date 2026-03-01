@@ -41,7 +41,7 @@ export default function Navigation() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
-      <div className="container px-4 h-20 flex items-center justify-between md:mx-auto">
+      <div className="px-10 md:px-20 h-20 flex items-center justify-between md:mx-auto">
         {/* Mobile Menu */}
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>

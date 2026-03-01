@@ -53,6 +53,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
             <Link href="/shop">
               <Button
+                variant="outline"
                 size="lg"
                 className="rounded-full px-8 text-lg h-12 bg-foreground text-background hover:bg-foreground/90"
               >

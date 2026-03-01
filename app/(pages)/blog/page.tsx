@@ -6,7 +6,7 @@ import { PenLine } from "lucide-react"
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-12 px-4 md:px-20 py-12 justify-center items-center">
+    <div className="flex flex-col gap-12 px-4 md:px-20 py-12 justify-center items-center h-[79vh]">
       <div className="max-w-xl text-center space-y-6 flex flex-col items-center">
         <div className="mx-auto h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
           <PenLine className="h-7 w-7" />
