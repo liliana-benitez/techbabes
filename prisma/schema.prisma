@@ -8,16 +8,17 @@ datasource db {
 }
 
 model Product {
-  id             Int              @id @default(autoincrement())
-  name           String
-  description    String
-  category       ProductCategory
-  price          Float
-  printfulSyncId Int              @unique
-  images         String[]
-  createdAt      DateTime         @default(now())
-  slug           String?          @unique
-  variants       ProductVariant[]
+  id              Int              @id @default(autoincrement())
+  name            String
+  description     String
+  category        ProductCategory
+  price           Float
+  printfulSyncId  Int              @unique
+  images          String[]
+  createdAt       DateTime         @default(now())
+  slug            String?          @unique
+  FeaturedProduct FeaturedProduct?
+  variants        ProductVariant[]
 }
 
 model ProductVariant {
@@ -29,6 +30,13 @@ model ProductVariant {
   price             Float
   createdAt         DateTime @default(now())
   product           Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model FeaturedProduct {
+  id        Int     @id @default(autoincrement())
+  productId Int     @unique
+  order     Int
+  Product   Product @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 enum ProductCategory {

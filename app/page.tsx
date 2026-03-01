@@ -14,13 +14,13 @@ export default function Home() {
   const [products, setProducts] = useState<ProductWithVariants[]>([])
 
   useEffect(() => {
-    async function getProducts() {
-      const response = await fetch(`/api/products`)
+    async function getFeatured() {
+      const response = await fetch("/api/featured")
       const data = await response.json()
-      setProducts(data.slice(0, 4))
+      setProducts(data.map((f: { Product: ProductWithVariants }) => f.Product))
     }
 
-    getProducts()
+    getFeatured()
   }, [])
 
   return (
