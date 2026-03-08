@@ -24,6 +24,12 @@ I wanted a more personalized site to really showcase what the brand and vision i
 - Easter egg discount 
 - Mini games
 
+
+### Tech Stack Diagram
+A high-level overview of the app's architecture, showing how the Next.js frontend 
+and API routes interact with third-party services like Stripe, Printful, and Resend.
+<img width="740" height="633" alt="Screenshot 2026-03-08 at 4 42 50 PM" src="https://github.com/user-attachments/assets/17f3343d-58e7-4922-b435-da15dc362934" />
+
 ### Order Flow
 This sequence diagram walks through the full checkout-to-fulfillment lifecycle.
 From the user submitting shipping info, to the order being created in Printful, 
