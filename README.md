@@ -1,58 +1,25 @@
-# Tech Babes 
-My personal brand and full-stack e-commerce platform celebrating women in tech with cute, empowering merchandise. Designed and developed entirely by me. </br>
+# Tech Babes
 
-🎨 Original designs - All merchandise graphics designed by me </br>
-💻 Full-stack development - Built the entire platform from scratch </br>
-🏢 Real business - Processing actual customer orders, not a demo project </br>
+This is an ecommerce site I designed for my personal shop. 
+Prior to this, my products were only available through Etsy. 
+I wanted a more personalized site to really showcase what the brand and vision is all about. 
 
-The platform handles the complete purchase flow from browsing to automated order fulfillment via print-on-demand integration.
-Key workflow:
-- Customer browses products and adds items to cart
-- Secure checkout powered by Stripe
-- Webhook listens for successful payment
-- Automated order creation sent to Printful for fulfillment
-- Customer receives order confirmation (coming soon: email notifications)
+🔗 Live Site: [techbabes.dev](https://www.techbabes.dev/)
 
-## The Creative Process
-Beyond the code, I designed all the merchandise myself:
-- Created original graphics and illustrations in Canva
-- Developed brand identity (logo, color palette, voice)
-- Designed product mockups and photography layouts
-- Wrote all product descriptions and marketing
+<img width="1468" height="811" alt="Screenshot 2026-03-08 at 3 14 52 PM" src="https://github.com/user-attachments/assets/edf325a6-c5fe-4e60-a541-5924e871e86d" />
+<img width="1463" height="825" alt="Screenshot 2026-03-08 at 3 14 33 PM" src="https://github.com/user-attachments/assets/4102ea5f-137a-4823-84da-d118cd542fd3" />
 
-This isn't just a coding project. It's a full product I brought to life, from concept to customer.
+### Current Features (MVP)
+- Browse products synced from Printful via API
+- Add to cart and manage quantities
+- Checkout with Stripe
+- Order confirmation + contact form via Resend + React Email
+- Address validation using Country-State-City library
+- Form validation with Zod
 
-**Frontend:**
-- Next.js
-- TypeScript
-- Tailwind CSS
-- Shadcn/ui
-
-**Backend:**
-- Next.js API Routes
-- Prisma ORM
-- Supabase (PostgreSQL)
-- Zod
-
-**Integrations:**
-- Stripe - Payment processing and webhook handling
-- Printful API - Print-on-demand fulfillment
-
-Deployment:
-- Vercel - Hosting and CI/CD
-
-## Features
-**Current Features** </br>
-🛍️ Product Catalog - Browse tech-themed merchandise with detailed product pages </br>
-🛒 Shopping Cart - Add, remove, and update quantities </br>
-💳 Secure Checkout - Stripe-powered payment processing </br>
-🔄 Automated Fulfillment - Webhook integration triggers Printful order creation </br>
-📱 Responsive Design - Fully optimized for mobile and desktop </br>
-🔐 Type-Safe API - End-to-end type safety with TypeScript and Zod validation </br>
-
-**Coming Soon** </br>
-📧 Email Confirmations - Order confirmation emails via Resend </br>
-📝 Blog Platform - Content hub for women in tech </br>
-🌓 Dark/Light Mode - Theme toggle for better user experience </br>
-
-
+### Upcoming Features
+- An educational/lifestyle blog 
+- Dark/light mode toggle
+- Terminal style product detail page
+- Easter egg discount 
+- Mini games
