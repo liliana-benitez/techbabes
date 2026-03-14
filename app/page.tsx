@@ -28,7 +28,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-linear-to-r from-background/80 via-background/60 to-background/80 z-10" />
+          <div className="absolute inset-0 bg-linear-to-r from-background/70 via-background/50 to-background/70 z-10" />
           <Image
             src={hero}
             alt="Tech Workspace"
@@ -55,7 +55,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="lg"
-                className="rounded-full px-8 text-lg h-12 bg-foreground text-background hover:bg-foreground/90"
+                className="rounded-full px-8 text-lg h-12 bg-foreground text-background hover:bg-foreground/90 dark:bg-[#E2E8F0] dark:text-slate-900 dark:border-transparent dark:hover:bg-[#E2E8F0]/90"
               >
                 Shop Collection
               </Button>
@@ -64,7 +64,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 size="lg"
-                className="rounded-full px-8 text-lg h-12 backdrop-blur-sm"
+                className="rounded-full px-8 text-lg h-12 backdrop-blur-sm dark:border-white dark:text-white dark:hover:bg-white/10 dark:hover:text-white"
               >
                 Our Mission
               </Button>
