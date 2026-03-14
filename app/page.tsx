@@ -26,13 +26,15 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-16 pb-12">
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-background">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-linear-to-r from-background/70 via-background/50 to-background/70 z-10" />
+          <div className="absolute inset-0 bg-linear-to-b from-background/0 via-background/20 via-60% to-background z-10 dark:from-background/0 dark:via-background/40 dark:via-70% dark:to-background" />
+          <div className="absolute inset-0 bg-linear-to-r from-background via-background/20 to-background z-10 dark:from-background dark:via-background/10 dark:to-background" />
           <Image
             src={hero}
             alt="Tech Workspace"
-            className="w-full h-full object-cover object-[center_15%]"
+            className="w-full h-full object-cover object-[center_15%] transition-opacity duration-1000 dark:opacity-40"
+            priority
           />
         </div>
 
