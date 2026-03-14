@@ -74,24 +74,26 @@ export default function Navigation() {
         </Sheet>
 
         {/* Logo */}
-        <Link href="/">
-          <div className="flex items-center gap-2 cursor-pointer group">
-            <Image
-              src={logo}
-              height={90}
-              width={90}
-              alt="Tech Babes Logo"
-              className="dark:hidden block"
-            />
-            <Image
-              src={darkLogo}
-              height={90}
-              width={90}
-              alt="Tech Babes Logo"
-              className="hidden dark:block"
-            />
-          </div>
-        </Link>
+        <div className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0">
+          <Link href="/">
+            <div className="flex items-center gap-2 cursor-pointer group">
+              <Image
+                src={logo}
+                height={90}
+                width={90}
+                alt="Tech Babes Logo"
+                className="dark:hidden block"
+              />
+              <Image
+                src={darkLogo}
+                height={90}
+                width={90}
+                alt="Tech Babes Logo"
+                className="hidden dark:block"
+              />
+            </div>
+          </Link>
+        </div>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
@@ -124,7 +126,7 @@ export default function Navigation() {
             >
               <LucideShoppingCart className="transition-transform group-hover:scale-125 duration-200" />
               {count > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-primary text-primary-foreground dark:bg-primary/10 dark:text-primary dark:border-primary/20 hover:bg-primary dark:hover:bg-primary/20 rounded-full text-xs transition-transform group-hover:scale-125 duration-200">
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-primary/10 text-primary dark:border-primary/20 hover:bg-primary/20 rounded-full text-xs transition-transform group-hover:scale-125 duration-200">
                   {count}
                 </Badge>
               )}
