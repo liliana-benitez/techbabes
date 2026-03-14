@@ -61,7 +61,7 @@ export default function Navigation() {
                 >
                   <span
                     className={`block text-lg font-medium hover:text-primary hover:bg-primary/5 transition-colors cursor-pointer px-4 py-3 rounded-lg ${
-                      isActive(link.href) ? "text-[#e19fae] bg-primary/5" : ""
+                      isActive(link.href) ? "text-primary bg-primary/5" : ""
                     }`}
                   >
                     {link.label}
@@ -84,13 +84,13 @@ export default function Navigation() {
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href}>
               <span
-                className={`text-sm font-medium hover:text-[#e19fae] transition-colors cursor-pointer relative group ${
-                  isActive(link.href) ? "text-[#e19fae]" : ""
+                className={`text-sm font-medium hover:text-primary transition-colors cursor-pointer relative group ${
+                  isActive(link.href) ? "text-primary" : ""
                 }`}
               >
                 {link.label}
                 <span
-                  className={`absolute -bottom-1 left-0 w-full h-0.5 bg-[#e19fae] transform scale-x-0 transition-transform origin-left group-hover:scale-x-100 ${
+                  className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary transform scale-x-0 transition-transform origin-left group-hover:scale-x-100 ${
                     isActive(link.href) ? "scale-x-100" : ""
                   }`}
                 />
@@ -103,10 +103,14 @@ export default function Navigation() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Link href="/cart">
-            <Button variant="ghost" size="icon" className="relative">
-              <LucideShoppingCart />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative group hover:bg-transparent dark:hover:bg-transparent dark:border-transparent dark:hover:border-transparent transition-all"
+            >
+              <LucideShoppingCart className="transition-transform group-hover:scale-125 duration-200" />
               {count > 0 && (
-                <Badge className="btn-primary absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-primary text-primary-foreground hover:bg-primary rounded-full text-xs">
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-primary text-primary-foreground dark:bg-primary/10 dark:text-primary dark:border-primary/20 hover:bg-primary dark:hover:bg-primary/20 rounded-full text-xs transition-transform group-hover:scale-125 duration-200">
                   {count}
                 </Badge>
               )}
