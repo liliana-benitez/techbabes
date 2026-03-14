@@ -10,6 +10,7 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import { useCart } from "@/lib/cart-context"
 import { Badge } from "./ui/badge"
 import { useState } from "react"
+import { ThemeToggle } from "./theme-toggle"
 
 interface NavItem {
   id: number
@@ -100,6 +101,7 @@ export default function Navigation() {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <Link href="/cart">
             <Button variant="ghost" size="icon" className="relative">
               <LucideShoppingCart />
