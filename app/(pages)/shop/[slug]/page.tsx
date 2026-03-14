@@ -21,6 +21,24 @@ function parseDescription(description: string) {
   return { text, bullets }
 }
 
+function CodeText({ text }: { text: string }) {
+  const parts = text.split(/(<[^>]+>)/g)
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (part.startsWith("<") && part.endsWith(">")) {
+          return (
+            <span key={i} className="text-primary font-semibold">
+              {part}
+            </span>
+          )
+        }
+        return <span key={i}>{part}</span>
+      })}
+    </>
+  )
+}
+
 type VariantWithCatalogId = ProductWithVariants["variants"][number] & {
   printfulCatalogVariantId: number | null
 }
@@ -292,41 +310,81 @@ export default function ProductPage() {
 
           {/* Product Info */}
           <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-8">
-              {/* title */}
-              <h1 className="font-display font-bold text-4xl">
-                {product.name}
-              </h1>
+            <div className="flex flex-col gap-6 md:aspect-square">
+              {/* VS Code Style Editor */}
+              <div className="rounded-xl border border-border/50 shadow-sm flex flex-col grow min-h-[400px] md:min-h-0 overflow-hidden bg-background max-h-[600px]">
+                {/* Tabs Bar */}
+                <div className="flex items-end px-3 pt-2 bg-muted/40 shrink-0 border-b border-border/50">
+                  <div className="flex items-center gap-2 pr-4 pb-2.5 shrink-0">
+                    <div className="w-3 h-3 rounded-full bg-[#FF5F56] border border-black/10 dark:border-transparent" />
+                    <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-black/10 dark:border-transparent" />
+                    <div className="w-3 h-3 rounded-full bg-[#27C93F] border border-black/10 dark:border-transparent" />
+                  </div>
+                  <div className="flex items-center gap-2 px-4 h-9 bg-background text-xs font-mono rounded-t-lg text-foreground border-x border-t border-border/50 shadow-[0_-2px_10px_rgba(0,0,0,0.02)] dark:shadow-[0_-2px_10px_rgba(0,0,0,0.1)] -mb-px">
+                    <span className="text-primary font-bold text-sm">
+                      {"❖"}
+                    </span>
+                    product.md
+                  </div>
+                </div>
 
-              {/* description */}
-              <div className="flex flex-col gap-4">
-                <p className="text-lg">
-                  {parseDescription(product.description).text}
-                </p>
+                {/* Editor Content */}
+                <div className="p-6 md:p-8 font-mono text-sm leading-8 overflow-y-auto grow flex flex-col gap-8 text-slate-700 dark:text-[#A1A1AA]">
+                  {/* Markdown Title & Price */}
+                  <div className="flex flex-col gap-4 mb-2">
+                    <h1 className="font-display font-bold text-xl md:text-2xl lg:text-3xl text-foreground">
+                      <span className="text-muted-foreground font-normal mr-4">
+                        #
+                      </span>
+                      {product.name}
+                    </h1>
+                    <div className="font-mono font-bold text-xl">
+                      <span className="text-muted-foreground font-normal mr-4">
+                        ##
+                      </span>
+                      $
+                      {typeof currentPrice === "string"
+                        ? parseFloat(currentPrice).toFixed(2)
+                        : currentPrice.toFixed(2)}
+                    </div>
+                  </div>
 
-                {parseDescription(product.description).bullets.length > 0 && (
-                  <ul className="space-y-1">
-                    {parseDescription(product.description).bullets.map(
-                      (bullet, i) => (
-                        <li
-                          key={i}
-                          className="flex items-start gap-2 text-base"
-                        >
-                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/60 shrink-0" />
-                          {bullet}
-                        </li>
-                      )
-                    )}
-                  </ul>
-                )}
-              </div>
+                  <p className="whitespace-pre-wrap leading-relaxed">
+                    <CodeText
+                      text={parseDescription(product.description).text}
+                    />
+                  </p>
 
-              {/* price */}
-              <div className="font-mono font-bold text-3xl">
-                $
-                {typeof currentPrice === "string"
-                  ? parseFloat(currentPrice).toFixed(2)
-                  : currentPrice.toFixed(2)}
+                  {parseDescription(product.description).bullets.length > 0 && (
+                    <ul className="space-y-4">
+                      {parseDescription(product.description).bullets.map(
+                        (bullet, i) => {
+                          const isCheck = bullet.startsWith("✓")
+                          const isDash = bullet.startsWith("-")
+                          const content =
+                            isCheck || isDash ? bullet.slice(1).trim() : bullet
+
+                          return (
+                            <li key={i} className="flex items-start gap-4">
+                              {isCheck ? (
+                                <span className="shrink-0 text-emerald-500 font-bold">
+                                  ✓
+                                </span>
+                              ) : (
+                                <span className="shrink-0 text-muted-foreground font-bold">
+                                  -
+                                </span>
+                              )}
+                              <span>
+                                <CodeText text={content} />
+                              </span>
+                            </li>
+                          )
+                        }
+                      )}
+                    </ul>
+                  )}
+                </div>
               </div>
             </div>
 
