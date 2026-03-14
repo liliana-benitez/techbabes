@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useSearchParams } from "next/navigation"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
 import { ShoppingCart, ArrowLeft } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
 import { ProductWithVariants } from "@/lib/types"
@@ -113,7 +112,6 @@ export default function ProductPage() {
     }
   }, [product])
 
-  // Sync variant + image when size or color changes
   useEffect(() => {
     if (product && product.variants && product.variants.length > 0) {
       const variant = product.variants.find((v) => {
@@ -312,9 +310,8 @@ export default function ProductPage() {
           {/* Product Info */}
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-6 lg:aspect-square">
-              {/* VS Code Style Editor */}
-              <div className="rounded-xl border border-border/50 shadow-sm flex flex-col grow lg:max-h-[600px] overflow-hidden bg-background">
-                {/* Tabs Bar */}
+              {/* VS Code Editor */}
+              <div className="rounded-xl border border-border/50 shadow-sm flex flex-col grow lg:max-h-150 overflow-hidden bg-background">
                 <div className="flex items-end px-3 pt-2 bg-muted/40 shrink-0 border-b border-border/50">
                   <div className="flex items-center gap-2 pr-4 pb-2.5 shrink-0">
                     <div className="w-3 h-3 rounded-full bg-[#FF5F56] border border-black/10 dark:border-transparent" />
@@ -333,10 +330,9 @@ export default function ProductPage() {
                 <div
                   className={`
                     p-6 md:p-8 font-mono text-sm leading-8 lg:overflow-y-auto grow flex flex-col gap-8 text-slate-700 dark:text-[#A1A1AA] relative
-                    ${!isExpanded ? "max-h-[320px] lg:max-h-none overflow-hidden lg:overflow-visible" : ""}
+                    ${!isExpanded ? "max-h-80 lg:max-h-none overflow-hidden lg:overflow-visible" : ""}
                   `}
                 >
-                  {/* Markdown Title & Price */}
                   <div className="flex flex-col gap-4 mb-2">
                     <h1 className="font-display font-bold text-xl md:text-2xl lg:text-3xl text-foreground">
                       <span className="text-muted-foreground font-normal mr-4">
@@ -396,13 +392,11 @@ export default function ProductPage() {
                     )}
                   </div>
 
-                  {/* Fade-out Overlay (Mobile Only) */}
                   {!isExpanded && (
-                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none lg:hidden" />
+                    <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-background via-background/80 to-transparent pointer-events-none lg:hidden" />
                   )}
                 </div>
 
-                {/* VS Code Status Bar (Mobile Only) */}
                 <div className="flex items-center justify-between px-3 h-7 bg-muted/30 border-t border-border/50 text-[10px] font-mono text-muted-foreground shrink-0 lg:hidden">
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1 hover:text-foreground cursor-default transition-colors">
@@ -416,9 +410,9 @@ export default function ProductPage() {
                       <span>0</span>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center gap-4">
-                    <button 
+                    <button
                       onClick={() => setIsExpanded(!isExpanded)}
                       className="flex items-center gap-1 text-foreground hover:text-primary transition-colors font-bold"
                     >
@@ -446,14 +440,14 @@ export default function ProductPage() {
                           key={size}
                           onClick={() => setSelectedSize(size)}
                           className={`
-                            min-w-[42px] h-9 px-3 font-mono text-xs font-bold rounded-md transition-all relative
+                            min-w-10.5 h-9 px-3 font-mono text-xs font-bold rounded-md transition-all relative
                             border-x border-t border-border/50
                             ${
                               selectedSize === size
-                                ? "bg-primary text-white border-b-primary shadow-[0_3px_0_0_#9d174d] translate-y-[-1px]"
+                                ? "bg-primary text-white border-b-primary shadow-[0_3px_0_0_#9d174d] -translate-y-px"
                                 : "bg-muted/30 text-foreground border-b-border shadow-[0_3px_0_0_hsl(var(--border))] hover:translate-y-[-0.5px] hover:shadow-[0_3.5px_0_0_hsl(var(--border))]"
                             }
-                            active:translate-y-[2px] active:shadow-none
+                            active:translate-y-0.5 active:shadow-none
                           `}
                         >
                           {size}
@@ -478,10 +472,10 @@ export default function ProductPage() {
                             border-x border-t border-border/50
                             ${
                               selectedColor === color
-                                ? "bg-primary text-white border-b-primary shadow-[0_3px_0_0_#9d174d] translate-y-[-1px]"
+                                ? "bg-primary text-white border-b-primary shadow-[0_3px_0_0_#9d174d] -translate-y-px"
                                 : "bg-muted/30 text-foreground border-b-border shadow-[0_3px_0_0_hsl(var(--border))] hover:translate-y-[-0.5px] hover:shadow-[0_3.5px_0_0_hsl(var(--border))]"
                             }
-                            active:translate-y-[2px] active:shadow-none
+                            active:translate-y-0.5 active:shadow-none
                           `}
                         >
                           {color}
@@ -502,10 +496,10 @@ export default function ProductPage() {
                   border-x border-t
                   ${
                     canAddToCart
-                      ? "bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 border-slate-950 dark:border-white shadow-[0_4px_0_0_#000] dark:shadow-[0_4px_0_0_#cbd5e1] hover:translate-y-[-1px] hover:shadow-[0_5px_0_0_#000] dark:hover:shadow-[0_5px_0_0_#cbd5e1]"
+                      ? "bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 border-slate-950 dark:border-white shadow-[0_4px_0_0_#000] dark:shadow-[0_4px_0_0_#cbd5e1] hover:-translate-y-px hover:shadow-[0_5px_0_0_#000] dark:hover:shadow-[0_5px_0_0_#cbd5e1]"
                       : "bg-muted text-muted-foreground border-border shadow-[0_4px_0_0_hsl(var(--border))] cursor-not-allowed opacity-50"
                   }
-                  active:translate-y-[3px] active:shadow-none
+                  active:translate-y-0.75 active:shadow-none
                 `}
               >
                 <ShoppingCart className="h-4 w-4" />
