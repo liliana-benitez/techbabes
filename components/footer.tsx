@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Instagram, Mail } from "lucide-react"
 import logo from "../public/logo.png"
+import darkLogo from "../public/dark-logo.png"
 import etsy from "../public/etsy.svg"
 
 export default function Footer() {
@@ -11,7 +12,20 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="flex flex-col items-center md:items-start">
             <Link href="/">
-              <Image src={logo} height={80} width={80} alt="Tech Babes Logo" />
+              <Image
+                src={logo}
+                height={90}
+                width={90}
+                alt="Tech Babes Logo"
+                className="dark:hidden block"
+              />
+              <Image
+                src={darkLogo}
+                height={90}
+                width={90}
+                alt="Tech Babes Logo"
+                className="hidden dark:block"
+              />
             </Link>
           </div>
 

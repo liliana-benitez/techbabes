@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 import { LucideShoppingCart, Menu } from "lucide-react"
 import Image from "next/image"
 import logo from "../public/logo.png"
+import darkLogo from "../public/dark-logo.png"
 import { Button } from "./ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import { useCart } from "@/lib/cart-context"
@@ -75,7 +76,20 @@ export default function Navigation() {
         {/* Logo */}
         <Link href="/">
           <div className="flex items-center gap-2 cursor-pointer group">
-            <Image src={logo} height={80} width={80} alt="Tech Babes Logo" />
+            <Image
+              src={logo}
+              height={90}
+              width={90}
+              alt="Tech Babes Logo"
+              className="dark:hidden block"
+            />
+            <Image
+              src={darkLogo}
+              height={90}
+              width={90}
+              alt="Tech Babes Logo"
+              className="hidden dark:block"
+            />
           </div>
         </Link>
 
